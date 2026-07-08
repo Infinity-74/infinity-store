@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinity Store | مطبوعات مخصصة وجودة احترافية</title>
-    <meta name="description" content="اطبع خيالك على منتجاتك المفضلة! مجات مخصصة، استيكرات لابتوب مقاومة للمياه، وطباعة سبليمشن على الملابس والهدايا بأعلى جودة في مصر.">
+    <meta name="description" content="اطبع فكرتك على منتجاتك المفضلة! مجات مخصصة، استيكرات لابتوب مقاومة للمياه، وطباعة سبليمشن على الملابس والهدايا بأعلى جودة.">
     <!-- Google Fonts: Cairo for Arabic & Outfit for English numbers/details -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +30,7 @@
                 <a href="#hero">الرئيسية</a>
                 <a href="#products">منتجاتنا</a>
                 <a href="#calculator">اطلب دلوقتي</a>
-                <a href="tracking.html">تتبع الطلب</a>
+                <a href="#tracking">تتبع الطلب</a>
                 <a href="#portfolio">معرض الأعمال</a>
             </nav>
             <button class="btn btn-primary btn-nav open-order-btn" onclick="openOrderModal()">اطلب الآن</button>
@@ -49,6 +49,7 @@
             <a href="#hero" onclick="toggleMobileMenu()">الرئيسية</a>
             <a href="#products" onclick="toggleMobileMenu()">منتجاتنا</a>
             <a href="#calculator" onclick="toggleMobileMenu()">اطلب دلوقتي</a>
+            <a href="#tracking" onclick="toggleMobileMenu()">تتبع الطلب</a>
             <a href="#portfolio" onclick="toggleMobileMenu()">معرض الأعمال</a>
             <button class="btn btn-primary open-order-btn" onclick="toggleMobileMenu(); openOrderModal()">اطلب الآن</button>
         </div>
@@ -226,6 +227,88 @@
             </div>
         </div>
     </section>
+    
+    <!-- Tracking Section -->
+<section id="tracking" class="tracking-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>تتبع طلبك</h2>
+            <p>ادخل رقم الطلب أو رقم التتبع لمعرفة حالة الشحنة.</p>
+        </div>
+
+        <div class="tracking-card">
+
+            <div class="tracking-search">
+
+                <input
+                    type="text"
+                    id="trackingInput"
+                    placeholder="مثال: INF10254">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="trackOrder()">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    تتبع الطلب
+
+                </button>
+
+            </div>
+
+            <div id="trackingResult" class="tracking-result" style="display:none;">
+
+                <div class="tracking-status">
+
+                    <h3>
+                        حالة الطلب :
+                        <span id="statusText">جاري الشحن</span>
+                    </h3>
+
+                </div>
+
+                <div class="tracking-progress">
+
+                    <div class="step active">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>تم استلام الطلب</span>
+                    </div>
+
+                    <div class="step active">
+                        <i class="fa-solid fa-box"></i>
+                        <span>جاري التجهيز</span>
+                    </div>
+
+                    <div class="step active">
+                        <i class="fa-solid fa-truck"></i>
+                        <span>تم الشحن</span>
+                    </div>
+
+                    <div class="step">
+                        <i class="fa-solid fa-house"></i>
+                        <span>تم التسليم</span>
+                    </div>
+
+                </div>
+
+                <div class="tracking-details">
+
+                    <div><strong>رقم الطلب:</strong> INF10254</div>
+
+                    <div><strong>شركة الشحن:</strong> Infinity Express</div>
+
+                    <div><strong>آخر تحديث:</strong> اليوم 3:45 مساءً</div>
+
+                    <div><strong>التسليم المتوقع:</strong> خلال يومين</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
 
     <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio-section">
@@ -238,22 +321,22 @@
                 <div class="portfolio-item reveal reveal-right">
                     <img src="./assets/custom_mugs.jpg" alt="تصميم مج مخصص">
                     <div class="portfolio-overlay">
-                        <h4>مج تذكاري للأصدقاء</h4>
-                        <span>تصميم كرتوني ديجيتال</span>
+                        <h4>مج تذكار للأصدقاء</h4>
+                        <span>تصميم واقعي ديجيتال</span>
                     </div>
                 </div>
                 <div class="portfolio-item reveal">
                     <img src="./assets/custom_stickers.jpg" alt="استيكرات لابتوب مطبوعة">
                     <div class="portfolio-overlay">
-                        <h4>مجموعة استيكرات للمطورين</h4>
-                        <span>مقاومة تماماً للمياه والرطوبة</span>
+                        <h4>اكتر من مجموعة استيكرات لاب توب</h4>
+                        <span>مقاومة للمياه والرطوبة</span>
                     </div>
                 </div>
                 <div class="portfolio-item reveal reveal-left">
                     <img src="./assets/custom_sublimation.jpg" alt="تيشرت مطبوع">
                     <div class="portfolio-overlay">
-                        <h4>تيشرت سبليمشن مخصص</h4>
-                        <span>طباعة ديجيتال زاهية التفاصيل</span>
+                        <h4>طباعة تي شرت سبليمشن </h4>
+                        <span>طباعة مليانة تفاصيل  </span>
                     </div>
                 </div>
             </div>
@@ -284,7 +367,7 @@
             </div>
             <div class="footer-contact">
                 <h4>تواصل معنا</h4>
-                <p><i class="fa-solid fa-phone"></i> +20 123 456 7890</p>
+                <p><i class="fa-solid fa-phone"></i> +20 155 628 4315</p>
                 <p><i class="fa-solid fa-envelope"></i> info@infinitystore.com</p>
                 <div class="social-icons">
                     <a href="#"><i class="fa-brands fa-facebook"></i></a>
@@ -294,7 +377,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Infinity Store. جميع الحقوق محفوظة. تم التطوير بكل حب لصناعة الإبداع.</p>
+            <p>&copy; 2025 Infinity Store. جميع الحقوق محفوظة. تم التطوير بكل حب .</p>
         </div>
     </footer>
 
