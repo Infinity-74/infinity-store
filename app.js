@@ -203,9 +203,14 @@ function submitOrder(event) {
     if (fileInput && fileInput.files.length > 0) {
         hasFileText = `ملف مرفق: ${fileInput.files[0].name}`;
     }
+    // Generate Order Number
+const orderNumber = "INF" + Date.now().toString().slice(-6);
 
     // Format WhatsApp Message Text (in Arabic)
     let messageText = `*طلب طباعة مخصص جديد 🎨*\n\n`;
+
+messageText += `*رقم الطلب:* ${orderNumber}\n`;
+messageText += `-----------------------------\n`;
     messageText += `*الاسم:* ${name}\n`;
     messageText += `*رقم الموبايل:* ${phone}\n`;
     messageText += `*المحافظة:* ${city}\n`;
@@ -231,7 +236,14 @@ function submitOrder(event) {
     document.getElementById("orderForm").reset();
     document.getElementById("fileNamePreview").innerText = "لم يتم اختيار ملف";
     
-    alert("تم تجهيز تفاصيل طلبك! سيتم تحويلك الآن لتطبيق واتساب لتأكيد الطلب وإرسال صور التصميم.");
+    alert(
+`✅ تم إنشاء طلبك بنجاح
+
+رقم الطلب:
+${orderNumber}
+
+احتفظ برقم الطلب لأنه هتستخدمه في متابعة حالة الطلب من الموقع.`
+);
 }
 
 // --- Scroll Reveal Animation Observer ---
