@@ -1,5 +1,6 @@
 // Brand WhatsApp Number (You can replace this with your actual Egyptian WhatsApp number)
 const BRAND_WHATSAPP_NUMBER = "201556284315"; // Format: Country code (2) followed by number (e.g. 201012345678)
+const API_URL = "https://script.google.com/macros/s/AKfycbzYbUyBhOdVuSfGxBeCdlOMy-8VagTOgwj5Q_kT_gVPE5j5LYTU5G2kvA1Gl8xh7akaWQ/exec";
 
 // Pricing Rules
 const PRICING = {
