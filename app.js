@@ -283,49 +283,7 @@ ${orderId}
 
     }
 }
-    // Generate Order Number
-const orderNumber = "INF" + Date.now().toString().slice(-6);
-
-    // Format WhatsApp Message Text (in Arabic)
-    let messageText = `*طلب طباعة مخصص جديد 🎨*\n\n`;
-
-messageText += `*رقم الطلب:* ${orderNumber}\n`;
-messageText += `-----------------------------\n`;
-    messageText += `*الاسم:* ${name}\n`;
-    messageText += `*رقم الموبايل:* ${phone}\n`;
-    messageText += `*المحافظة:* ${city}\n`;
-    messageText += `-----------------------------\n`;
-    messageText += `*المنتج المطلوب:* ${product}\n`;
-    messageText += `*الكمية:* ${qty}\n`;
-    messageText += `*التفاصيل والملاحظات:* ${details ? details : 'لا توجد ملاحظات إضافية'}\n`;
-    messageText += `*حالة الملف:* ${hasFileText}\n\n`;
-    messageText += `تم إرسال هذا الطلب عبر موقع Infinity Store.`;
-
-    // Encode message text for URL
-    const encodedText = encodeURIComponent(messageText);
     
-    // Create WhatsApp URL
-    // Format: https://wa.me/number?text=message
-    const waUrl = `https://wa.me/${BRAND_WHATSAPP_NUMBER}?text=${encodedText}`;
-    
-    // Open in a new tab
-    window.open(waUrl, "_blank");
-    
-    // Close modal and reset form
-    closeOrderModal();
-    document.getElementById("orderForm").reset();
-    document.getElementById("fileNamePreview").innerText = "لم يتم اختيار ملف";
-    
-    alert(
-`✅ تم إنشاء طلبك بنجاح
-
-رقم الطلب:
-${orderNumber}
-
-احتفظ برقم الطلب لأنه هتستخدمه في متابعة حالة الطلب من الموقع.`
-);
-}
-
 // --- Scroll Reveal Animation Observer ---
 document.addEventListener("DOMContentLoaded", () => {
     const revealElements = document.querySelectorAll(".reveal");
