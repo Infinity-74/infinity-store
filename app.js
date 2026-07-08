@@ -222,6 +222,7 @@ async function submitOrder(event) {
 
         await fetch(API_URL, {
     method: "POST",
+    mode: "no-cors",
     body: JSON.stringify(orderData)
 });
 
