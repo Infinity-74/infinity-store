@@ -221,13 +221,9 @@ async function submitOrder(event) {
     try {
 
         await fetch(API_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(orderData)
-        });
+    method: "POST",
+    body: JSON.stringify(orderData)
+});
 
         // رسالة الواتساب
 
