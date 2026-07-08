@@ -190,21 +190,99 @@ function orderFromCalculator() {
 }
 
 // --- Order Submission (WhatsApp API Integration) ---
-function submitOrder(event) {
+async function submitOrder(event) {
     event.preventDefault();
-    
+
     const name = document.getElementById("custName").value.trim();
     const phone = document.getElementById("custPhone").value.trim();
     const product = document.getElementById("custProduct").value;
     const qty = document.getElementById("custQty").value;
     const city = document.getElementById("custCity").value;
     const details = document.getElementById("custDetails").value.trim();
-    const fileInput = document.getElementById("custFile");
-    
-    let hasFileText = "لا يوجد ملف (سيتم إرسال التصميم لاحقاً بالشات)";
-    if (fileInput && fileInput.files.length > 0) {
-        hasFileText = `ملف مرفق: ${fileInput.files[0].name}`;
+
+    // رقم طلب عشوائي
+    const orderId =
+        "INF-" +
+        Date.now().toString().slice(-6) +
+        Math.floor(Math.random() * 90 + 10);
+
+    // البيانات التي سترسل إلى Google Sheets
+    const orderData = {
+        orderId,
+        name,
+        phone,
+        product,
+        qty,
+        city,
+        details,
+        status: "قيد المراجعة"
+    };
+
+    try {
+
+        await fetch(API_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(orderData)
+        });
+
+        // رسالة الواتساب
+
+        const message =
+`السلام عليكم 🌹
+
+تم إنشاء طلب جديد من موقع Infinity Store.
+
+🆔 رقم الطلب: ${orderId}
+
+👤 الاسم: ${name}
+
+📱 الهاتف: ${phone}
+
+📦 المنتج: ${product}
+
+🔢 الكمية: ${qty}
+
+📍 المحافظة: ${city}
+
+📝 التفاصيل:
+${details || "لا يوجد"}
+
+يرجى تأكيد الطلب.`;
+
+        window.open(
+            `https://wa.me/${BRAND_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+            "_blank"
+        );
+
+        alert(
+`✅ تم إنشاء طلبك بنجاح
+
+رقم طلبك هو:
+
+${orderId}
+
+احتفظ به لتتبع الطلب لاحقاً.`
+        );
+
+        document.getElementById("orderForm").reset();
+
+        document.getElementById("fileNamePreview").innerText =
+            "لم يتم اختيار ملف";
+
+        closeOrderModal();
+
+    } catch (err) {
+
+        alert("حدث خطأ أثناء إرسال الطلب.");
+
+        console.error(err);
+
     }
+}
     // Generate Order Number
 const orderNumber = "INF" + Date.now().toString().slice(-6);
 
