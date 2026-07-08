@@ -256,3 +256,141 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+/* ===========================
+   Shipment Tracking
+=========================== */
+
+const ordersDatabase = {
+    "INF10254": {
+        status: "جاري الشحن"
+    },
+
+    "INF10001": {
+        status: "تم التسليم"
+    },
+
+    "INF10002": {
+        status: "جاري التجهيز"
+    }
+};
+
+function trackOrder() {
+
+    const input = document
+        .getElementById("trackingInput")
+        .value
+        .trim()
+        .toUpperCase();
+
+    const result = document.getElementById("trackingResult");
+
+    if (!ordersDatabase[input]) {
+
+        result.style.display = "block";
+
+        result.innerHTML = `
+            <div style="text-align:center;padding:30px;">
+                <h2 style="color:#ff4d4f;">
+                    ❌ لم يتم العثور على الطلب
+                </h2>
+
+                <p>
+                    تأكد من رقم الطلب ثم حاول مرة أخرى.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    const order = ordersDatabase[input];
+
+    let first = "";
+    let second = "";
+    let third = "";
+    let fourth = "";
+
+    if(order.status==="جاري التجهيز"){
+
+        first="active";
+        second="active";
+
+    }
+
+    if(order.status==="جاري الشحن"){
+
+        first="active";
+        second="active";
+        third="active";
+
+    }
+
+    if(order.status==="تم التسليم"){
+
+        first="active";
+        second="active";
+        third="active";
+        fourth="active";
+
+    }
+
+    result.style.display="block";
+
+    result.innerHTML=`
+
+<div class="tracking-status">
+
+<h3>
+
+حالة الطلب :
+
+<span id="statusText">
+
+${order.status}
+
+</span>
+
+</h3>
+
+</div>
+
+<div class="tracking-progress">
+
+<div class="step ${first}">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span>تم استلام الطلب</span>
+
+</div>
+
+<div class="step ${second}">
+
+<i class="fa-solid fa-box"></i>
+
+<span>جاري التجهيز</span>
+
+</div>
+
+<div class="step ${third}">
+
+<i class="fa-solid fa-truck"></i>
+
+<span>تم الشحن</span>
+
+</div>
+
+<div class="step ${fourth}">
+
+<i class="fa-solid fa-house"></i>
+
+<span>تم التسليم</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
