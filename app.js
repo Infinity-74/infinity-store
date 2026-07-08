@@ -1,0 +1,258 @@
+// Brand WhatsApp Number (You can replace this with your actual Egyptian WhatsApp number)
+const BRAND_WHATSAPP_NUMBER = "201012345678"; // Format: Country code (2) followed by number (e.g. 201012345678)
+
+// Pricing Rules
+const PRICING = {
+    "mug-regular": 120,
+    "mug-magic": 170,
+    "stickers-pack": 45,
+    "sticker-single": 15,
+    "tshirt": 280,
+    "hoodie": 450
+};
+
+// --- Mobile Navigation Drawer ---
+function toggleMobileMenu() {
+    const drawer = document.getElementById("mobileDrawer");
+    drawer.classList.toggle("active");
+}
+
+// --- Dynamic Hero Visual Switcher ---
+function changeHeroImage(imgSrc, title, desc, thumbnailElement) {
+    const mainImg = document.getElementById("heroImage");
+    const overlayTitle = document.querySelector(".image-overlay-info h4");
+    const overlayDesc = document.querySelector(".image-overlay-info p");
+    const thumbnails = document.querySelectorAll(".hero-thumbnails .thumb");
+
+    // Remove active class from all thumbs, add to current
+    thumbnails.forEach(thumb => thumb.classList.remove("active"));
+    thumbnailElement.classList.add("active");
+
+    // Fade transition effect
+    mainImg.style.opacity = "0.2";
+    setTimeout(() => {
+        mainImg.src = imgSrc;
+        overlayTitle.innerText = title;
+        overlayDesc.innerText = desc;
+        mainImg.style.opacity = "1";
+    }, 250);
+}
+
+// --- Order Modal Logic ---
+function openOrderModal() {
+    const modal = document.getElementById("orderModal");
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+}
+
+function closeOrderModal() {
+    const modal = document.getElementById("orderModal");
+    modal.classList.remove("active");
+    document.body.style.overflow = ""; // Re-enable scrolling
+}
+
+// Close modal when clicking outside the card
+window.onclick = function(event) {
+    const modal = document.getElementById("orderModal");
+    if (event.target === modal) {
+        closeOrderModal();
+    }
+}
+
+// --- Quantity Incrementor / Decrementor ---
+function adjustQty(amount) {
+    const qtyInput = document.getElementById("calcQty");
+    let currentVal = parseInt(qtyInput.value) || 1;
+    let newVal = currentVal + amount;
+    if (newVal >= 1) {
+        qtyInput.value = newVal;
+        calculatePrice();
+    }
+}
+
+// --- Dynamic Price Calculator Logic ---
+function calculatePrice() {
+    const productKey = document.getElementById("calcProduct").value;
+    const qty = parseInt(document.getElementById("calcQty").value) || 1;
+    const printSides = document.getElementById("calcPrintSides").value;
+    const discountAlert = document.getElementById("discountAlert");
+
+    // Base price
+    let basePrice = PRICING[productKey] || 0;
+    
+    // Add-on for double-sided printing (applicable to mugs, shirts, etc.)
+    let extraCosts = 0;
+    if (printSides === "double") {
+        extraCosts = 30; // 30 EGP extra per item for double sides
+    }
+
+    let itemTotal = basePrice + extraCosts;
+    let grandTotal = itemTotal * qty;
+
+    // Bulk discount: 10% off for 10 or more items
+    if (qty >= 10) {
+        grandTotal = grandTotal * 0.9;
+        discountAlert.style.display = "flex";
+    } else {
+        discountAlert.style.display = "none";
+    }
+
+    // Display total
+    document.getElementById("totalPriceVal").innerText = Math.round(grandTotal);
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    calculatePrice();
+    
+    // File upload preview listener
+    const fileInput = document.getElementById("custFile");
+    const namePreview = document.getElementById("fileNamePreview");
+    
+    if (fileInput) {
+        fileInput.addEventListener("change", function() {
+            if (this.files && this.files.length > 0) {
+                namePreview.innerText = "📁 " + this.files[0].name;
+            } else {
+                namePreview.innerText = "لم يتم اختيار ملف";
+            }
+        });
+    }
+
+    // Dynamic Ripple Click Effect for all buttons
+    const buttons = document.querySelectorAll(".btn");
+    buttons.forEach(button => {
+        button.addEventListener("click", function(e) {
+            const ripple = document.createElement("span");
+            ripple.classList.add("ripple");
+            
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = `${size}px`;
+            
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            button.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+});
+
+// --- Quick Order from Product Cards ---
+function quickOrder(productName) {
+    // Select the product in the modal dropdown
+    const selectElem = document.getElementById("custProduct");
+    for (let i = 0; i < selectElem.options.length; i++) {
+        if (selectElem.options[i].value.includes(productName) || productName.includes(selectElem.options[i].value)) {
+            selectElem.selectedIndex = i;
+            break;
+        }
+    }
+    document.getElementById("custQty").value = 1;
+    openOrderModal();
+}
+
+// --- Order Transition from Calculator ---
+function orderFromCalculator() {
+    const productKey = document.getElementById("calcProduct").value;
+    const qty = document.getElementById("calcQty").value;
+    const printSides = document.getElementById("calcPrintSides").value;
+    const totalPrice = document.getElementById("totalPriceVal").innerText;
+    
+    // Map calculator option to modal product dropdown
+    const productMapping = {
+        "mug-regular": "مج سيراميك عادي",
+        "mug-magic": "مج سحري",
+        "stickers-pack": "شيت استيكرات A4",
+        "sticker-single": "استيكر فردي داي-كت",
+        "tshirt": "تيشرت قطن مطبوع",
+        "hoodie": "هودي شتوي مطبوع"
+    };
+
+    const modalProductValue = productMapping[productKey] || "";
+    
+    // Pre-fill fields
+    document.getElementById("custProduct").value = modalProductValue;
+    document.getElementById("custQty").value = qty;
+    
+    // Pre-fill notes with calculator options
+    const sidesText = printSides === "double" ? "على الوجهين" : "على وجه واحد";
+    document.getElementById("custDetails").value = `طلب محدد من حاسبة الأسعار: طباعة ${sidesText} بسعر تقديري إجمالي ${totalPrice} EGP.`;
+    
+    openOrderModal();
+}
+
+// --- Order Submission (WhatsApp API Integration) ---
+function submitOrder(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById("custName").value.trim();
+    const phone = document.getElementById("custPhone").value.trim();
+    const product = document.getElementById("custProduct").value;
+    const qty = document.getElementById("custQty").value;
+    const city = document.getElementById("custCity").value;
+    const details = document.getElementById("custDetails").value.trim();
+    const fileInput = document.getElementById("custFile");
+    
+    let hasFileText = "لا يوجد ملف (سيتم إرسال التصميم لاحقاً بالشات)";
+    if (fileInput && fileInput.files.length > 0) {
+        hasFileText = `ملف مرفق: ${fileInput.files[0].name}`;
+    }
+
+    // Format WhatsApp Message Text (in Arabic)
+    let messageText = `*طلب طباعة مخصص جديد 🎨*\n\n`;
+    messageText += `*الاسم:* ${name}\n`;
+    messageText += `*رقم الموبايل:* ${phone}\n`;
+    messageText += `*المحافظة:* ${city}\n`;
+    messageText += `-----------------------------\n`;
+    messageText += `*المنتج المطلوب:* ${product}\n`;
+    messageText += `*الكمية:* ${qty}\n`;
+    messageText += `*التفاصيل والملاحظات:* ${details ? details : 'لا توجد ملاحظات إضافية'}\n`;
+    messageText += `*حالة الملف:* ${hasFileText}\n\n`;
+    messageText += `تم إرسال هذا الطلب عبر موقع Infinity Store.`;
+
+    // Encode message text for URL
+    const encodedText = encodeURIComponent(messageText);
+    
+    // Create WhatsApp URL
+    // Format: https://wa.me/number?text=message
+    const waUrl = `https://wa.me/${BRAND_WHATSAPP_NUMBER}?text=${encodedText}`;
+    
+    // Open in a new tab
+    window.open(waUrl, "_blank");
+    
+    // Close modal and reset form
+    closeOrderModal();
+    document.getElementById("orderForm").reset();
+    document.getElementById("fileNamePreview").innerText = "لم يتم اختيار ملف";
+    
+    alert("تم تجهيز تفاصيل طلبك! سيتم تحويلك الآن لتطبيق واتساب لتأكيد الطلب وإرسال صور التصميم.");
+}
+
+// --- Scroll Reveal Animation Observer ---
+document.addEventListener("DOMContentLoaded", () => {
+    const revealElements = document.querySelectorAll(".reveal");
+    
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+                // Stop observing after it has been revealed once for smoother performance
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+        rootMargin: "0px 0px -50px 0px" // Trigger slightly before it comes into view
+    });
+    
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+});
+
