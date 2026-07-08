@@ -274,7 +274,8 @@ ${orderId}
 
     } catch (err) {
 
-        alert("حدث خطأ أثناء إرسال الطلب.");
+            alert(err.message);
+
 
         console.error(err);
 
