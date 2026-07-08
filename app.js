@@ -1,5 +1,5 @@
 // Brand WhatsApp Number (You can replace this with your actual Egyptian WhatsApp number)
-const BRAND_WHATSAPP_NUMBER = "201012345678"; // Format: Country code (2) followed by number (e.g. 201012345678)
+const BRAND_WHATSAPP_NUMBER = "201556284315"; // Format: Country code (2) followed by number (e.g. 201012345678)
 
 // Pricing Rules
 const PRICING = {
