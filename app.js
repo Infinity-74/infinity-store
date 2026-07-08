@@ -308,96 +308,72 @@ document.addEventListener("DOMContentLoaded", () => {
    Shipment Tracking
 =========================== */
 
-const ordersDatabase = {
-    "INF10254": {
-        status: "جاري الشحن"
-    },
 
-    "INF10001": {
-        status: "تم التسليم"
-    },
 
-    "INF10002": {
-        status: "جاري التجهيز"
-    }
-};
-
-function trackOrder() {
+async function trackOrder() {
 
     const input = document
         .getElementById("trackingInput")
         .value
-        .trim()
-        .toUpperCase();
+        .trim();
 
     const result = document.getElementById("trackingResult");
 
-    if (!ordersDatabase[input]) {
+    if (!input) {
+        alert("من فضلك أدخل رقم الطلب");
+        return;
+    }
+
+    try {
+
+        const response = await fetch(`${API_URL}?orderId=${encodeURIComponent(input)}`);
+        const order = await response.json();
+
+        if (!order.found) {
+
+            result.style.display = "block";
+
+            result.innerHTML = `
+                <div style="text-align:center;padding:30px;">
+                    <h2 style="color:#ff4d4f;">❌ لم يتم العثور على الطلب</h2>
+                    <p>تأكد من رقم الطلب ثم حاول مرة أخرى.</p>
+                </div>
+            `;
+
+            return;
+        }
+
+        let first = "";
+        let second = "";
+        let third = "";
+        let fourth = "";
+
+        first = "active";
+
+        if (order.status === "جاري التجهيز") {
+            second = "active";
+        }
+
+        if (order.status === "جاري الشحن") {
+            second = "active";
+            third = "active";
+        }
+
+        if (order.status === "تم التسليم") {
+            second = "active";
+            third = "active";
+            fourth = "active";
+        }
 
         result.style.display = "block";
 
         result.innerHTML = `
-            <div style="text-align:center;padding:30px;">
-                <h2 style="color:#ff4d4f;">
-                    ❌ لم يتم العثور على الطلب
-                </h2>
-
-                <p>
-                    تأكد من رقم الطلب ثم حاول مرة أخرى.
-                </p>
-            </div>
-        `;
-
-        return;
-    }
-
-    const order = ordersDatabase[input];
-
-    let first = "";
-    let second = "";
-    let third = "";
-    let fourth = "";
-
-    if(order.status==="جاري التجهيز"){
-
-        first="active";
-        second="active";
-
-    }
-
-    if(order.status==="جاري الشحن"){
-
-        first="active";
-        second="active";
-        third="active";
-
-    }
-
-    if(order.status==="تم التسليم"){
-
-        first="active";
-        second="active";
-        third="active";
-        fourth="active";
-
-    }
-
-    result.style.display="block";
-
-    result.innerHTML=`
 
 <div class="tracking-status">
 
 <h3>
-
 حالة الطلب :
-
-<span id="statusText">
-
-${order.status}
-
-</span>
-
+<span id="statusText">${order.status}</span>
 </h3>
 
 </div>
@@ -405,40 +381,44 @@ ${order.status}
 <div class="tracking-progress">
 
 <div class="step ${first}">
-
 <i class="fa-solid fa-cart-shopping"></i>
-
 <span>تم استلام الطلب</span>
-
 </div>
 
 <div class="step ${second}">
-
 <i class="fa-solid fa-box"></i>
-
 <span>جاري التجهيز</span>
-
 </div>
 
 <div class="step ${third}">
-
 <i class="fa-solid fa-truck"></i>
-
 <span>تم الشحن</span>
-
 </div>
 
 <div class="step ${fourth}">
-
 <i class="fa-solid fa-house"></i>
-
 <span>تم التسليم</span>
+</div>
 
 </div>
 
+<div class="tracking-details">
+<div><strong>رقم الطلب:</strong> ${order.orderId}</div>
+<div><strong>الاسم:</strong> ${order.name}</div>
+<div><strong>المنتج:</strong> ${order.product}</div>
+<div><strong>الكمية:</strong> ${order.qty}</div>
+<div><strong>المحافظة:</strong> ${order.city}</div>
 </div>
 
 `;
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("حدث خطأ أثناء البحث.");
+
+    }
 
 }
 
