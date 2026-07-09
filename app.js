@@ -354,7 +354,7 @@ async function trackOrder() {
             second = "active";
         }
 
-        if (order.status === "جاري الشحن") {
+        if (order.status === "تم الشحن") {
             second = "active";
             third = "active";
         }
@@ -405,6 +405,7 @@ async function trackOrder() {
 <div class="tracking-details">
 <div><strong>رقم الطلب:</strong> ${order.orderId}</div>
 <div><strong>الاسم:</strong> ${order.name}</div>
+<div><strong>رقم الهاتف:</strong> ${order.phone}</div>
 <div><strong>المنتج:</strong> ${order.product}</div>
 <div><strong>الكمية:</strong> ${order.qty}</div>
 <div><strong>المحافظة:</strong> ${order.city}</div>
