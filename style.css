@@ -1210,12 +1210,7 @@ a {
     flex:1;
     min-width:140px;
     text-align:center;
-    opacity:.35;
     transition:.3s;
-}
-
-.step.active{
-    opacity:1;
 }
 
 .step i{
@@ -1228,13 +1223,23 @@ a {
     margin:auto;
     font-size:24px;
     color:#fff;
-    background:linear-gradient(135deg,var(--primary-color),var(--accent-color));
+    background:#f1c40f;   /* أصفر للمراحل اللي لسه */
     margin-bottom:12px;
+    transition:.3s;
 }
 
 .step span{
     display:block;
     font-weight:bold;
+    color:#777;
+}
+
+.step.active i{
+    background:#28a745;   /* أخضر للمراحل المكتملة */
+}
+
+.step.active span{
+    color:#28a745;
 }
 
 .tracking-details{
