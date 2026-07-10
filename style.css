@@ -1402,3 +1402,78 @@ a {
     }
 
 }
+/* ===========================
+   Payment Notes
+=========================== */
+
+.payment-notes{
+
+    margin-top:45px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(59,130,246,.18);
+
+    border-radius:18px;
+
+    padding:28px;
+
+}
+
+.payment-notes h3{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:20px;
+
+    color:#fff;
+
+    font-size:24px;
+
+}
+
+.payment-notes h3 i{
+
+    color:#3b82f6;
+
+}
+
+.payment-notes ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.payment-notes li{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    margin-bottom:16px;
+
+    color:#d7dbe4;
+
+    line-height:1.8;
+
+    font-size:16px;
+
+}
+
+.payment-notes li i{
+
+    color:#22c55e;
+
+    margin-top:4px;
+
+}
