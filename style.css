@@ -1536,3 +1536,10 @@ a {
     color:#9ca3af;
     font-size:14px;
 }
+.ts-control input {
+    display: none !important;
+}
+
+.ts-dropdown .dropdown-input {
+    display: none !important;
+}
