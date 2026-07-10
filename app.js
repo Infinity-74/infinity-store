@@ -423,3 +423,20 @@ async function trackOrder() {
 
 }
 
+new TomSelect("#calcProduct",{
+    create:false,
+    sortField:{field:"text",direction:"asc"}
+});
+
+new TomSelect("#calcPrintSides",{
+    create:false
+});
+
+new TomSelect("#custProduct",{
+    create:false
+});
+
+new TomSelect("#custCity",{
+    create:false
+});
+
