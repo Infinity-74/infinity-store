@@ -426,21 +426,25 @@ async function trackOrder() {
 new TomSelect("#calcProduct",{
     create:false,
     sortField:{field:"text",direction:"asc"},
-    searchField:false
+    plugins: [],
+    controlInput: null
 });
 
 new TomSelect("#calcPrintSides",{
     create:false,
-    searchField:false
+    plugins: [],
+    controlInput: null
 });
 
 new TomSelect("#custProduct",{
     create:false,
-    searchField:false
+    plugins: [],
+    controlInput: null
 });
 
 new TomSelect("#custCity",{
     create:false,
-    searchField:false
+    plugins: [],
+    controlInput: null
 });
 
