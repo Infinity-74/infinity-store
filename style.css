@@ -1591,3 +1591,20 @@ a {
     background:#2563eb !important;
     color:#fff !important;
 }
+/* إصلاح لون خلفية قائمة Tom Select */
+.ts-dropdown,
+.ts-dropdown-content {
+    background: #1a2233 !important;
+}
+
+.ts-dropdown .option {
+    background: #1a2233 !important;
+    color: #fff !important;
+}
+
+.ts-dropdown .option:hover,
+.ts-dropdown .active,
+.ts-dropdown .selected {
+    background: #2563eb !important;
+    color: #fff !important;
+}
