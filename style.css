@@ -650,6 +650,17 @@ a {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
+/* إصلاح لون قائمة الـ select لما تفتح (كانت بتطلع بيضا) */
+.form-group select {
+    color-scheme: dark;
+}
+
+.form-group select option {
+    background-color: #151c2b;
+    color: #ffffff;
+    padding: 10px;
+}
+
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
