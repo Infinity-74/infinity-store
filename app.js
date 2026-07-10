@@ -425,18 +425,22 @@ async function trackOrder() {
 
 new TomSelect("#calcProduct",{
     create:false,
-    sortField:{field:"text",direction:"asc"}
+    sortField:{field:"text",direction:"asc"},
+    searchField:false
 });
 
 new TomSelect("#calcPrintSides",{
-    create:false
+    create:false,
+    searchField:false
 });
 
 new TomSelect("#custProduct",{
-    create:false
+    create:false,
+    searchField:false
 });
 
 new TomSelect("#custCity",{
-    create:false
+    create:false,
+    searchField:false
 });
 
