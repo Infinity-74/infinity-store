@@ -1313,3 +1313,31 @@ a {
     color:#b8b8b8;
     line-height:1.8;
 }
+.ts-control{
+    background:#1d2333 !important;
+    border:1px solid #3b82f6 !important;
+    color:#fff !important;
+    border-radius:12px;
+    min-height:52px;
+}
+
+.ts-control input{
+    color:#fff !important;
+}
+
+.ts-dropdown{
+    background:#1d2333 !important;
+    border:1px solid #3b82f6 !important;
+    border-radius:12px;
+}
+
+.ts-dropdown .option{
+    color:#fff;
+    padding:12px;
+}
+
+.ts-dropdown .option:hover,
+.ts-dropdown .active{
+    background:#2563eb !important;
+    color:#fff !important;
+}
