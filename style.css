@@ -1272,3 +1272,44 @@ a {
 
 }
 
+
+.payments-section{
+    padding:80px 0;
+}
+
+.payments-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
+
+.payment-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:30px 20px;
+    text-align:center;
+    transition:.3s;
+}
+
+.payment-card:hover{
+    transform:translateY(-8px);
+    border-color:var(--primary-color);
+}
+
+.payment-card i{
+    font-size:42px;
+    color:var(--primary-color);
+    margin-bottom:18px;
+}
+
+.payment-card h3{
+    margin-bottom:12px;
+    font-size:22px;
+}
+
+.payment-card p{
+    color:#b8b8b8;
+    line-height:1.8;
+}
