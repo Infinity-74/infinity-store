@@ -1546,3 +1546,48 @@ a {
 .ts-dropdown .dropdown-input {
     display: none !important;
 }
+/* =========================
+   Tom Select Dark Theme
+========================= */
+
+.ts-wrapper.single .ts-control{
+    background:#151c2b !important;
+    border:1px solid #2b64ff !important;
+    color:#fff !important;
+    border-radius:14px;
+    min-height:56px;
+}
+
+.ts-wrapper.single .ts-control input{
+    color:#fff !important;
+}
+
+.ts-dropdown{
+    background:#1a2233 !important;
+    border:1px solid #2b64ff !important;
+    border-radius:0 0 14px 14px;
+    overflow:hidden;
+}
+
+.ts-dropdown .option{
+    background:#1a2233 !important;
+    color:#ffffff !important;
+    font-size:17px !important;
+    padding:14px 16px !important;
+    transition:.25s;
+}
+
+.ts-dropdown .option:hover{
+    background:#284f9e !important;
+    color:#fff !important;
+}
+
+.ts-dropdown .active{
+    background:#2563eb !important;
+    color:#fff !important;
+}
+
+.ts-dropdown .selected{
+    background:#2563eb !important;
+    color:#fff !important;
+}
