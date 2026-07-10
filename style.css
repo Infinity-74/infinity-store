@@ -1608,3 +1608,11 @@ a {
     background: #2563eb !important;
     color: #fff !important;
 }
+.ts-dropdown-content{
+    background:#1a2233 !important;
+}
+
+.ts-dropdown .option{
+    background:#1a2233 !important;
+    color:#fff !important;
+}
