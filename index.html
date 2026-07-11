@@ -1,683 +1,581 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html dir="rtl" lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinity Store | مطبوعات مخصصة وجودة احترافية</title>
-    <meta name="description" content="اطبع فكرتك على منتجاتك المفضلة! مجات مخصصة، استيكرات لابتوب مقاومة للمياه، وطباعة سبليمشن على الملابس والهدايا بأعلى جودة.">
-    <!-- Google Fonts: Cairo for Arabic & Outfit for English numbers/details -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for beautiful icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Main Style Sheet -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Infinity Store | مطبوعات مخصصة وجودة احترافية</title>
+<meta content="اطبع فكرتك على منتجاتك المفضلة! مجات مخصصة، استيكرات لابتوب مقاومة للمياه، وطباعة سبليمشن على الملابس والهدايا بأعلى جودة." name="description"/>
+<!-- Google Fonts: Cairo for Arabic & Outfit for English numbers/details -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&amp;family=Outfit:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FontAwesome for beautiful icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<!-- Main Style Sheet -->
+<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-
-    <!-- Navigation Bar -->
-    <header class="navbar">
-        <div class="container navbar-container">
-            <a href="#" class="logo">
-                <span class="logo-custom-is">
-                    <span class="char-i">I</span>
-                    <span class="char-s">S</span>
-                </span>
-                <span class="logo-text">Infinity <span class="accent-text">Store</span></span>
-            </a>
-            <nav class="nav-links">
-                <a href="#hero">الرئيسية</a>
-                <a href="#products">منتجاتنا</a>
-                <a href="#calculator">الأسعار</a>
-                <a href="#payments">طرق الدفع</a>
-                <a href="#tracking">تتبع الطلب</a>
-                <a href="#portfolio">معرض الأعمال</a>
-            </nav>
-            <button class="btn btn-primary btn-nav open-order-btn" onclick="openOrderModal()">اطلب الآن</button>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- Mobile Navigation Drawer -->
-    <div class="mobile-drawer" id="mobileDrawer">
-        <button class="close-drawer-btn" onclick="toggleMobileMenu()">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="drawer-links">
-            <a href="#hero" onclick="toggleMobileMenu()">الرئيسية</a>
-            <a href="#products" onclick="toggleMobileMenu()">منتجاتنا</a>
-            <a href="#calculator" onclick="toggleMobileMenu()">الأسعار</a>
-            <a href="#payments" onclick="toggleMobileMenu()">طرق الدفع</a>
-            <a href="#tracking" onclick="toggleMobileMenu()">تتبع الطلب</a>
-            <a href="#portfolio" onclick="toggleMobileMenu()">معرض الأعمال</a>
-            <button class="btn btn-primary open-order-btn" onclick="toggleMobileMenu(); openOrderModal()">اطلب الآن</button>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero-section">
-        <div class="hero-bg-glow"></div>
-        <div class="container hero-container">
-            <div class="hero-content">
-                <span class="badge"><i class="fa-solid fa-wand-magic-sparkles"></i> طباعة مخصصة عالية الجودة</span>
-                <h1>اطبع فكرتك على منتجاتك المفضلة</h1>
-                <p>بنحول أفكارك وتصميماتك لمنتجات واقعية ملموسة بجودة طباعة خرافية وألوان ثابتة. صمم مجك الخاص، زين لابتوبك بالاستيكرات، أو اطبع ملابسك الفريدة!</p>
-                <div class="hero-actions">
-                    <button class="btn btn-primary btn-lg" onclick="openOrderModal()"><i class="fa-solid fa-cart-shopping"></i> اطلب تصميمك دلوقتي</button>
-                    <a href="#calculator" class="btn btn-secondary btn-lg"><i class="fa-solid fa-cart-shopping"></i> اطلب دلوقتي</a>
-                </div>
-            </div>
-            <div class="hero-image-wrapper">
-                <div class="hero-image-card">
-                    <img src="./assets/custom_mugs.jpg" alt="مجات مطبوعة مخصصة" class="hero-img active" id="heroImage">
-                    <div class="image-overlay-info">
-                        <h4>مجات مخصصة حسب الطلب</h4>
-                        <p>طباعة حرارية ثابتة ومقاومة للغسيل</p>
-                    </div>
-                </div>
-                <!-- Thumbnail navigations to change hero main visual dynamically -->
-                <div class="hero-thumbnails">
-                    <div class="thumb active" onclick="changeHeroImage('./assets/custom_mugs.jpg', 'مجات مخصصة حسب الطلب', 'طباعة حرارية ثابتة ومقاومة للغسيل', this)">
-                        <img src="./assets/custom_mugs.jpg" alt="Mugs">
-                    </div>
-                    <div class="thumb" onclick="changeHeroImage('./assets/custom_stickers.jpg', 'استيكرات مقاومة للمياه والرطوبة', 'جودة فينيل ممتازة وتفريغ ليزر دقيق', this)">
-                        <img src="./assets/custom_stickers.jpg" alt="Stickers">
-                    </div>
-                    <div class="thumb" onclick="changeHeroImage('./assets/custom_sublimation.jpg', 'طباعة سبليمشن ملابس وهدايا', 'خامات قطنية ممتازة وألوان زاهية لا تبهت', this)">
-                        <img src="./assets/custom_sublimation.jpg" alt="Sublimation">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Infinity Store -->
+<!-- Navigation Bar -->
+<header class="navbar">
+<div class="container navbar-container">
+<a class="logo" href="#">
+<span class="logo-custom-is">
+<span class="char-i">I</span>
+<span class="char-s">S</span>
+</span>
+<span class="logo-text">Infinity <span class="accent-text">Store</span></span>
+</a>
+<nav class="nav-links">
+<a href="#hero">الرئيسية</a>
+<a href="#products">منتجاتنا</a>
+<a href="#calculator">الأسعار</a>
+<a href="#payments">طرق الدفع</a>
+<a href="#tracking">تتبع الطلب</a>
+<a href="#portfolio">معرض الأعمال</a>
+</nav>
+<button class="btn btn-primary btn-nav open-order-btn" onclick="openOrderModal()">اطلب الآن</button>
+<button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+<i class="fa-solid fa-bars"></i>
+</button>
+</div>
+</header>
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+<button class="close-drawer-btn" onclick="toggleMobileMenu()">
+<i class="fa-solid fa-xmark"></i>
+</button>
+<div class="drawer-links">
+<a href="#hero" onclick="toggleMobileMenu()">الرئيسية</a>
+<a href="#products" onclick="toggleMobileMenu()">منتجاتنا</a>
+<a href="#calculator" onclick="toggleMobileMenu()">الأسعار</a>
+<a href="#payments" onclick="toggleMobileMenu()">طرق الدفع</a>
+<a href="#tracking" onclick="toggleMobileMenu()">تتبع الطلب</a>
+<a href="#portfolio" onclick="toggleMobileMenu()">معرض الأعمال</a>
+<button class="btn btn-primary open-order-btn" onclick="toggleMobileMenu(); openOrderModal()">اطلب الآن</button>
+</div>
+</div>
+<!-- Hero Section -->
+<section class="hero-section" id="hero">
+<div class="hero-bg-glow"></div>
+<div class="container hero-container">
+<div class="hero-content">
+<span class="badge"><i class="fa-solid fa-wand-magic-sparkles"></i> طباعة مخصصة عالية الجودة</span>
+<h1>اطبع فكرتك على منتجاتك المفضلة</h1>
+<p>بنحول أفكارك وتصميماتك لمنتجات واقعية ملموسة بجودة طباعة خرافية وألوان ثابتة. صمم مجك الخاص، زين لابتوبك بالاستيكرات، أو اطبع ملابسك الفريدة!</p>
+<div class="hero-actions">
+<button class="btn btn-primary btn-lg" onclick="openOrderModal()"><i class="fa-solid fa-cart-shopping"></i> اطلب تصميمك دلوقتي</button>
+<a class="btn btn-secondary btn-lg" href="#calculator"><i class="fa-solid fa-cart-shopping"></i> اطلب دلوقتي</a>
+</div>
+</div>
+<div class="hero-image-wrapper">
+<div class="hero-image-card">
+<img alt="مجات مطبوعة مخصصة" class="hero-img active" id="heroImage" src="./assets/custom_mugs.jpg"/>
+<div class="image-overlay-info">
+<h4>مجات مخصصة حسب الطلب</h4>
+<p>طباعة حرارية ثابتة ومقاومة للغسيل</p>
+</div>
+</div>
+<!-- Thumbnail navigations to change hero main visual dynamically -->
+<div class="hero-thumbnails">
+<div class="thumb active" onclick="changeHeroImage('./assets/custom_mugs.jpg', 'مجات مخصصة حسب الطلب', 'طباعة حرارية ثابتة ومقاومة للغسيل', this)">
+<img alt="Mugs" src="./assets/custom_mugs.jpg"/>
+</div>
+<div class="thumb" onclick="changeHeroImage('./assets/custom_stickers.jpg', 'استيكرات مقاومة للمياه والرطوبة', 'جودة فينيل ممتازة وتفريغ ليزر دقيق', this)">
+<img alt="Stickers" src="./assets/custom_stickers.jpg"/>
+</div>
+<div class="thumb" onclick="changeHeroImage('./assets/custom_sublimation.jpg', 'طباعة سبليمشن ملابس وهدايا', 'خامات قطنية ممتازة وألوان زاهية لا تبهت', this)">
+<img alt="Sublimation" src="./assets/custom_sublimation.jpg"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Infinity Store -->
 <section class="features-section">
-
-    <div class="container">
-
-        <div class="section-header">
-            <h2>لماذا تختار Infinity Store؟</h2>
-            <p>
+<div class="container">
+<div class="section-header">
+<h2>لماذا تختار Infinity Store؟</h2>
+<p>
                 نهتم بكل تفاصيل طلبك بداية من التصميم وحتى وصول المنتج بأفضل جودة.
             </p>
-        </div>
-
-        <div class="features-grid">
-
-            <div class="feature-card reveal reveal-right">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-print"></i>
-                </div>
-
-                <h3>جودة طباعة احترافية</h3>
-
-                <p>
+</div>
+<div class="features-grid">
+<div class="feature-card reveal reveal-right">
+<div class="feature-icon">
+<i class="fa-solid fa-print"></i>
+</div>
+<h3>جودة طباعة احترافية</h3>
+<p>
                     نستخدم خامات وأحبار عالية الجودة للحصول على ألوان ثابتة وتفاصيل واضحة.
                 </p>
-            </div>
-
-
-            <div class="feature-card reveal">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                </div>
-
-                <h3>تصميم حسب طلبك</h3>
-
-                <p>
+</div>
+<div class="feature-card reveal">
+<div class="feature-icon">
+<i class="fa-solid fa-wand-magic-sparkles"></i>
+</div>
+<h3>تصميم حسب طلبك</h3>
+<p>
                     ابعت فكرتك أو تصميمك ونحولها لمنتج مميز يناسب ذوقك.
                 </p>
-            </div>
-
-
-            <div class="feature-card reveal">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-bolt"></i>
-                </div>
-
-                <h3>تنفيذ سريع</h3>
-
-                <p>
+</div>
+<div class="feature-card reveal">
+<div class="feature-icon">
+<i class="fa-solid fa-bolt"></i>
+</div>
+<h3>تنفيذ سريع</h3>
+<p>
                     نعمل على تجهيز الطلبات بأسرع وقت مع الحفاظ على جودة التنفيذ.
                 </p>
-            </div>
-
-
-            <div class="feature-card reveal reveal-left">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-truck-fast"></i>
-                </div>
-
-                <h3>شحن ومتابعة سهلة</h3>
-
-                <p>
+</div>
+<div class="feature-card reveal reveal-left">
+<div class="feature-icon">
+<i class="fa-solid fa-truck-fast"></i>
+</div>
+<h3>شحن ومتابعة سهلة</h3>
+<p>
                     نوصل طلبك لكل المحافظات مع إمكانية متابعة حالة الطلب حتى الاستلام.
                 </p>
-            </div>
-
-        </div>
-
-    </div>
-
+</div>
+</div>
+</div>
 </section>
-
-    <!-- Products Section -->
-    <section id="products" class="products-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>منتجاتنا المميزة</h2>
-                <p>اكتشف تشكيلتنا الواسعة وابدأ في تخصيص منتجك المفضل</p>
-            </div>
-            <div class="products-grid">
-                <!-- Product 1 -->
-                <div class="product-card reveal reveal-right">
-                    <div class="product-img-holder">
-                        <img src="./assets/custom_mugs.jpg" alt="مجات سحرية وعادية">
-                        <span class="product-badge">الأكثر مبيعاً</span>
-                    </div>
-                    <div class="product-info">
-                        <h3>مجات مطبوعة (عادي / سحري)</h3>
-                        <p>اطبع صورك المفضلة أو لوجو شركتك على مج سيراميك عالي الجودة أو مج سحري يظهر التصميم بالحرارة.</p>
-                        <div class="product-footer">
-                            <span class="price">تبدأ من <span class="amount">120 EGP</span></span>
-                            <button class="btn btn-outline-primary btn-sm" onclick="quickOrder('مج مخصص')">اطلب الآن</button>
+<!-- Products Section -->
+<section class="products-section" id="products">
+<div class="container">
+<div class="section-header">
+<h2>منتجاتنا المميزة</h2>
+<p>اكتشف تشكيلتنا الواسعة وابدأ في تخصيص منتجك المفضل</p>
+</div>
+<div class="products-grid">
+<!-- Product 1 -->
+<div class="product-card reveal reveal-right">
+<div class="product-img-holder">
+<img alt="مجات سحرية وعادية" src="./assets/custom_mugs.jpg"/>
+<span class="product-badge">الأكثر مبيعاً</span>
+</div>
+<div class="product-info">
+<h3>مجات مطبوعة (عادي / سحري)</h3>
+<p>اطبع صورك المفضلة أو لوجو شركتك على مج سيراميك عالي الجودة أو مج سحري يظهر التصميم بالحرارة.</p>
+<div class="product-footer">
+<span class="price">تبدأ من <span class="amount">120 EGP</span></span>
+<button class="btn btn-outline-primary btn-sm" onclick="quickOrder('مج مخصص')">اطلب الآن</button>
+</div>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="product-card reveal">
+<div class="product-img-holder">
+<img alt="استيكرات لابتوب" src="./assets/custom_stickers.jpg"/>
+<span class="product-badge">فينيل مستورد</span>
+</div>
+<div class="product-info">
+<h3>استيكرات لابتوب وموبايل مخصصة</h3>
+<p>استيكرات مقصوصة بالليزر داي-كت مقاومة للمياه، مثالية للابتوب، الموبايل، أو زجاجات المياه.</p>
+<div class="product-footer">
+<span class="price">تبدأ من <span class="amount">15 EGP</span></span>
+<button class="btn btn-outline-primary btn-sm" onclick="quickOrder('استيكرات مخصصة')">اطلب الآن</button>
+</div>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="product-card reveal reveal-left">
+<div class="product-img-holder">
+<img alt="تيشرتات سبليمشن" src="./assets/custom_sublimation.jpg"/>
+<span class="product-badge">سبليمشن كامل</span>
+</div>
+<div class="product-info">
+<h3>طباعة سبليمشن (تيشرتات وهودي)</h3>
+<p>تيشرتات ميلتون وهوديز مطبوعة بأحدث تقنيات السبليمشن لتتغلغل الألوان داخل النسيج مباشرة.</p>
+<div class="product-footer">
+<span class="price">تبدأ من <span class="amount">280 EGP</span></span>
+<button class="btn btn-outline-primary btn-sm" onclick="quickOrder('ملابس سبليمشن')">اطلب الآن</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Price Calculator Section -->
+<section class="calculator-section" id="calculator">
+<div class="container">
+<div class="calculator-card reveal">
+<div class="calculator-header">
+<h2><i class="fa-solid fa-calculator"></i> حاسبة الأسعار التقديرية</h2>
+<p>حدد خياراتك واعرف التكلفة المتوقعة لطلبك فوراً قبل ما تطلب!</p>
+</div>
+<div class="calculator-body">
+<div class="calc-inputs">
+<div class="form-group">
+<label for="calcProduct">نوع المنتج</label>
+<select id="calcProduct" onchange="calculatePrice()">
+<option value="mug-regular">مج سيراميك عادي - 120 EGP</option>
+<option value="mug-magic">مج سحري (يتغير بالحرارة) - 170 EGP</option>
+<option value="stickers-pack">شيت استيكرات A4 (كامل التقطيع) - 45 EGP</option>
+<option value="sticker-single">استيكر فردي مقصوص داي-كت - 15 EGP</option>
+<option value="tshirt">تيشرت قطن أبيض طباعة ديجيتال - 280 EGP</option>
+<option value="hoodie">هودي شتوي ثقيل طباعة ديجيتال - 450 EGP</option>
+</select>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="calcQty">الكمية</label>
+<div class="qty-selector">
+<button onclick="adjustQty(-1)" type="button">-</button>
+<input id="calcQty" min="1" oninput="calculatePrice()" type="number" value="1"/>
+<button onclick="adjustQty(1)" type="button">+</button>
+</div>
+</div>
+<div class="form-group">
+<label for="calcPrintSides">خيارات الطباعة</label>
+<select id="calcPrintSides" onchange="calculatePrice()">
+<option value="single">طباعة على وجه واحد (أساسي)</option>
+<option value="double">طباعة على الوجهين (+30 EGP)</option>
+</select>
+</div>
+</div>
+<div class="discount-alert" id="discountAlert" style="display: none;">
+<i class="fa-solid fa-tag"></i> لقد حصلت على خصم الكميات 10%!
                         </div>
-                    </div>
-                </div>
-                <!-- Product 2 -->
-                <div class="product-card reveal">
-                    <div class="product-img-holder">
-                        <img src="./assets/custom_stickers.jpg" alt="استيكرات لابتوب">
-                        <span class="product-badge">فينيل مستورد</span>
-                    </div>
-                    <div class="product-info">
-                        <h3>استيكرات لابتوب وموبايل مخصصة</h3>
-                        <p>استيكرات مقصوصة بالليزر داي-كت مقاومة للمياه، مثالية للابتوب، الموبايل، أو زجاجات المياه.</p>
-                        <div class="product-footer">
-                            <span class="price">تبدأ من <span class="amount">15 EGP</span></span>
-                            <button class="btn btn-outline-primary btn-sm" onclick="quickOrder('استيكرات مخصصة')">اطلب الآن</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product 3 -->
-                <div class="product-card reveal reveal-left">
-                    <div class="product-img-holder">
-                        <img src="./assets/custom_sublimation.jpg" alt="تيشرتات سبليمشن">
-                        <span class="product-badge">سبليمشن كامل</span>
-                    </div>
-                    <div class="product-info">
-                        <h3>طباعة سبليمشن (تيشرتات وهودي)</h3>
-                        <p>تيشرتات ميلتون وهوديز مطبوعة بأحدث تقنيات السبليمشن لتتغلغل الألوان داخل النسيج مباشرة.</p>
-                        <div class="product-footer">
-                            <span class="price">تبدأ من <span class="amount">280 EGP</span></span>
-                            <button class="btn btn-outline-primary btn-sm" onclick="quickOrder('ملابس سبليمشن')">اطلب الآن</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Price Calculator Section -->
-    <section id="calculator" class="calculator-section">
-        <div class="container">
-            <div class="calculator-card reveal">
-                <div class="calculator-header">
-                    <h2><i class="fa-solid fa-calculator"></i> حاسبة الأسعار التقديرية</h2>
-                    <p>حدد خياراتك واعرف التكلفة المتوقعة لطلبك فوراً قبل ما تطلب!</p>
-                </div>
-                <div class="calculator-body">
-                    <div class="calc-inputs">
-                        <div class="form-group">
-                            <label for="calcProduct">نوع المنتج</label>
-                            <select id="calcProduct" onchange="calculatePrice()">
-                                <option value="mug-regular">مج سيراميك عادي - 120 EGP</option>
-                                <option value="mug-magic">مج سحري (يتغير بالحرارة) - 170 EGP</option>
-                                <option value="stickers-pack">شيت استيكرات A4 (كامل التقطيع) - 45 EGP</option>
-                                <option value="sticker-single">استيكر فردي مقصوص داي-كت - 15 EGP</option>
-                                <option value="tshirt">تيشرت قطن أبيض طباعة ديجيتال - 280 EGP</option>
-                                <option value="hoodie">هودي شتوي ثقيل طباعة ديجيتال - 450 EGP</option>
-                            </select>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="calcQty">الكمية</label>
-                                <div class="qty-selector">
-                                    <button type="button" onclick="adjustQty(-1)">-</button>
-                                    <input type="number" id="calcQty" value="1" min="1" oninput="calculatePrice()">
-                                    <button type="button" onclick="adjustQty(1)">+</button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="calcPrintSides">خيارات الطباعة</label>
-                                <select id="calcPrintSides" onchange="calculatePrice()">
-                                    <option value="single">طباعة على وجه واحد (أساسي)</option>
-                                    <option value="double">طباعة على الوجهين (+30 EGP)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="discount-alert" id="discountAlert" style="display: none;">
-                            <i class="fa-solid fa-tag"></i> لقد حصلت على خصم الكميات 10%!
-                        </div>
-                    </div>
-                    <div class="calc-result-box">
-                        <h3>التكلفة الإجمالية التقديرية</h3>
-                        <div class="price-display">
-                            <span class="currency">EGP</span>
-                            <span class="price-val" id="totalPriceVal">120</span>
-                        </div>
-                        <p class="vat-info">* السعر لا يشمل مصاريف الشحن (تحدد حسب المحافظة)</p>
-                        <button class="btn btn-primary btn-block" onclick="orderFromCalculator()">
-                            <i class="fa-solid fa-cart-arrow-down"></i> أكمل الطلب بهذا السعر
+</div>
+<div class="calc-result-box">
+<h3>التكلفة الإجمالية التقديرية</h3>
+<div class="price-display">
+<span class="currency">EGP</span>
+<span class="price-val" id="totalPriceVal">120</span>
+</div>
+<p class="vat-info">* السعر لا يشمل مصاريف الشحن (تحدد حسب المحافظة)</p>
+<button class="btn btn-primary btn-block" onclick="orderFromCalculator()">
+<i class="fa-solid fa-cart-arrow-down"></i> أكمل الطلب بهذا السعر
                         </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Payment Methods -->
-<section id="payments" class="payments-section">
-    <div class="container">
-
-        <div class="section-header">
-            <h2>طرق الدفع</h2>
-            <p>بعد مراجعة الطلب والتواصل معك عبر واتساب، يمكنك اختيار وسيلة الدفع المناسبة بكل سهولة.</p>
-        </div>
-
-        <div class="payments-grid">
-
-            <div class="payment-card">
-                <i class="fa-solid fa-credit-card"></i>
-                <h3>InstaPay</h3>
-                <p>دفع سريع وآمن من خلال InstaPay بعد تأكيد الطلب.</p>
-            </div>
-
-            <div class="payment-card">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-                <h3>Vodafone Cash</h3>
-                <p>تحويل مباشر عبر Vodafone Cash بعد مراجعة الطلب.</p>
-            </div>
-
-            <div class="payment-card">
-                <i class="fa-solid fa-truck-fast"></i>
-                <h3>الشحن لجميع المحافظات</h3>
-                <p>نشحن لجميع محافظات مصر مع إمكانية تتبع الطلب حتى الاستلام.</p>
-            </div>
-
-            <div class="payment-card">
-                <i class="fa-brands fa-whatsapp"></i>
-                <h3>تأكيد الطلب عبر واتساب</h3>
-                <p>بعد إرسال الطلب سنتواصل معك لتأكيد البيانات وإرسال وسيلة الدفع المناسبة.</p>
-            </div>
-
-        </div>
-
-        <div class="payment-notes">
-
-            <h3>
-                <i class="fa-solid fa-circle-info"></i>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Payment Methods -->
+<section class="payments-section" id="payments">
+<div class="container">
+<div class="section-header">
+<h2>طرق الدفع</h2>
+<p>بعد مراجعة الطلب والتواصل معك عبر واتساب، يمكنك اختيار وسيلة الدفع المناسبة بكل سهولة.</p>
+</div>
+<div class="payments-grid">
+<div class="payment-card">
+<i class="fa-solid fa-credit-card"></i>
+<h3>InstaPay</h3>
+<p>دفع سريع وآمن من خلال InstaPay بعد تأكيد الطلب.</p>
+</div>
+<div class="payment-card">
+<i class="fa-solid fa-mobile-screen-button"></i>
+<h3>Vodafone Cash</h3>
+<p>تحويل مباشر عبر Vodafone Cash بعد مراجعة الطلب.</p>
+</div>
+<div class="payment-card">
+<i class="fa-solid fa-truck-fast"></i>
+<h3>الشحن لجميع المحافظات</h3>
+<p>نشحن لجميع محافظات مصر مع إمكانية تتبع الطلب حتى الاستلام.</p>
+</div>
+<div class="payment-card">
+<i class="fa-brands fa-whatsapp"></i>
+<h3>تأكيد الطلب عبر واتساب</h3>
+<p>بعد إرسال الطلب سنتواصل معك لتأكيد البيانات وإرسال وسيلة الدفع المناسبة.</p>
+</div>
+</div>
+<div class="payment-notes">
+<h3>
+<i class="fa-solid fa-circle-info"></i>
                 ملاحظات مهمة
             </h3>
-
-            <ul>
-
-                <li>
-                    <i class="fa-solid fa-circle-check"></i>
+<ul>
+<li>
+<i class="fa-solid fa-circle-check"></i>
                     لا يتم الدفع إلا بعد مراجعة الطلب والتواصل معك عبر واتساب.
                 </li>
-
-                <li>
-                    <i class="fa-solid fa-circle-check"></i>
+<li>
+<i class="fa-solid fa-circle-check"></i>
                     يتم إرسال بيانات الدفع المناسبة بعد تأكيد الطلب.
                 </li>
-
-                <li>
-                    <i class="fa-solid fa-circle-check"></i>
+<li>
+<i class="fa-solid fa-circle-check"></i>
                     يبدأ تنفيذ الطلب بعد تأكيد عملية الدفع.
                 </li>
-
-                <li>
-                    <i class="fa-solid fa-circle-check"></i>
+<li>
+<i class="fa-solid fa-circle-check"></i>
                     تكلفة الشحن تختلف حسب المحافظة وشركة الشحن.
                 </li>
-
-                <li>
-                    <i class="fa-solid fa-circle-check"></i>
+<li>
+<i class="fa-solid fa-circle-check"></i>
                     يمكنك متابعة حالة طلبك باستخدام رقم الطلب حتى يتم التسليم.
                 </li>
-
-            </ul>
-
-        </div>
-
-    </div>
+</ul>
+</div>
+</div>
 </section>
-    
-    <!-- Tracking Section -->
-<section id="tracking" class="tracking-section">
-    <div class="container">
-        <div class="section-header">
-            <h2>تتبع طلبك</h2>
-            <p>ادخل رقم الطلب أو رقم التتبع لمعرفة حالة الشحنة.</p>
-        </div>
-
-        <div class="tracking-card">
-
-            <div class="tracking-search">
-
-                <input
-                    type="text"
-                    id="trackingInput"
-                    placeholder="مثال: INF10254">
-
-                <button
-                    class="btn btn-primary"
-                    onclick="trackOrder()">
-
-                    <i class="fa-solid fa-magnifying-glass"></i>
+<!-- Tracking Section -->
+<section class="tracking-section" id="tracking">
+<div class="container">
+<div class="section-header">
+<h2>تتبع طلبك</h2>
+<p>ادخل رقم الطلب أو رقم التتبع لمعرفة حالة الشحنة.</p>
+</div>
+<div class="tracking-card">
+<div class="tracking-search">
+<input id="trackingInput" placeholder="مثال: INF10254" type="text"/>
+<button class="btn btn-primary" onclick="trackOrder()">
+<i class="fa-solid fa-magnifying-glass"></i>
                     تتبع الطلب
 
                 </button>
-
-            </div>
-
-            <div id="trackingResult" class="tracking-result" style="display:none;">
-
-                <div class="tracking-status">
-
-                    <h3>
+</div>
+<div class="tracking-result" id="trackingResult" style="display:none;">
+<div class="tracking-status">
+<h3>
                         حالة الطلب :
                         <span id="statusText">جاري الشحن</span>
-                    </h3>
-
-                </div>
-
-                <div class="tracking-progress">
-
-                    <div class="step active">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span>تم استلام الطلب</span>
-                    </div>
-
-                    <div class="step active">
-                        <i class="fa-solid fa-box"></i>
-                        <span>جاري التجهيز</span>
-                    </div>
-
-                    <div class="step active">
-                        <i class="fa-solid fa-truck"></i>
-                        <span>تم الشحن</span>
-                    </div>
-
-                    <div class="step">
-                        <i class="fa-solid fa-house"></i>
-                        <span>تم التسليم</span>
-                    </div>
-
-                </div>
-
-                <div class="tracking-details">
-
-                    <div><strong>رقم الطلب:</strong> INF10254</div>
-
-                    <div><strong>شركة الشحن:</strong> Infinity Express</div>
-
-                    <div><strong>آخر تحديث:</strong> اليوم 3:45 مساءً</div>
-
-                    <div><strong>التسليم المتوقع:</strong> خلال يومين</div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+</h3>
+</div>
+<div class="tracking-progress">
+<div class="step active">
+<i class="fa-solid fa-cart-shopping"></i>
+<span>تم استلام الطلب</span>
+</div>
+<div class="step active">
+<i class="fa-solid fa-box"></i>
+<span>جاري التجهيز</span>
+</div>
+<div class="step active">
+<i class="fa-solid fa-truck"></i>
+<span>تم الشحن</span>
+</div>
+<div class="step">
+<i class="fa-solid fa-house"></i>
+<span>تم التسليم</span>
+</div>
+</div>
+<div class="tracking-details">
+<div><strong>رقم الطلب:</strong> INF10254</div>
+<div><strong>شركة الشحن:</strong> Infinity Express</div>
+<div><strong>آخر تحديث:</strong> اليوم 3:45 مساءً</div>
+<div><strong>التسليم المتوقع:</strong> خلال يومين</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-
 <!-- Testimonials Section -->
-<section id="testimonials" class="testimonials-section">
-
-    <div class="container">
-
-        <div class="section-header">
-            <h2>آراء عملائنا</h2>
-            <p>نفخر بثقة عملائنا ونسعى دائمًا لتقديم أفضل جودة وخدمة.</p>
-        </div>
-
-        <div class="testimonials-grid">
-
-            <div class="testimonial-card reveal">
-                <div class="stars">
+<section class="testimonials-section" id="testimonials">
+<div class="container">
+<div class="section-header">
+<h2>آراء عملائنا</h2>
+<p>نفخر بثقة عملائنا ونسعى دائمًا لتقديم أفضل جودة وخدمة.</p>
+</div>
+<div class="testimonials-grid">
+<div class="testimonial-card reveal">
+<div class="stars">
                     ⭐⭐⭐⭐⭐
                 </div>
-
-                <p>
+<p>
                     "الطباعة كانت ممتازة والخامة أحسن من المتوقع، والتعامل محترم جدًا."
                 </p>
-
-                <div class="client">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <div>
-                        <h4>محمد أحمد</h4>
-                        <span>عميل</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card reveal">
-                <div class="stars">
+<div class="client">
+<i class="fa-solid fa-circle-user"></i>
+<div>
+<h4>محمد أحمد</h4>
+<span>عميل</span>
+</div>
+</div>
+</div>
+<div class="testimonial-card reveal">
+<div class="stars">
                     ⭐⭐⭐⭐⭐
                 </div>
-
-                <p>
+<p>
                     "استلمت طلبي بسرعة جدًا والجودة ممتازة، وأكيد هطلب مرة تانية."
                 </p>
-
-                <div class="client">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <div>
-                        <h4>سارة خالد</h4>
-                        <span>عميلة</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card reveal">
-                <div class="stars">
+<div class="client">
+<i class="fa-solid fa-circle-user"></i>
+<div>
+<h4>سارة خالد</h4>
+<span>عميلة</span>
+</div>
+</div>
+</div>
+<div class="testimonial-card reveal">
+<div class="stars">
                     ⭐⭐⭐⭐⭐
                 </div>
-
-                <p>
+<p>
                     "التصميم طلع بالظبط زي ما كنت متخيل، وخدمة العملاء ممتازة."
                 </p>
-
-                <div class="client">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <div>
-                        <h4>أحمد علي</h4>
-                        <span>عميل</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
+<div class="client">
+<i class="fa-solid fa-circle-user"></i>
+<div>
+<h4>أحمد علي</h4>
+<span>عميل</span>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-
 <!-- Portfolio Section -->
-<section id="portfolio" class="portfolio-section">
-    <div class="container">
-            <div class="section-header">
-                <h2>ألبوم أعمالنا المعروضة</h2>
-                <p>شوف جودة الطباعة والألوان على الطبيعة لمنتجات عملاءنا الحقيقيين</p>
-            </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item reveal reveal-right">
-                    <img src="./assets/custom_mugs.jpg" alt="تصميم مج مخصص">
-                    <div class="portfolio-overlay">
-                        <h4>مج تذكار للأصدقاء</h4>
-                        <span>تصميم واقعي ديجيتال</span>
-                    </div>
-                </div>
-                <div class="portfolio-item reveal">
-                    <img src="./assets/custom_stickers.jpg" alt="استيكرات لابتوب مطبوعة">
-                    <div class="portfolio-overlay">
-                        <h4>اكتر من مجموعة استيكرات لاب توب</h4>
-                        <span>مقاومة للمياه والرطوبة</span>
-                    </div>
-                </div>
-                <div class="portfolio-item reveal reveal-left">
-                    <img src="./assets/custom_sublimation.jpg" alt="تيشرت مطبوع">
-                    <div class="portfolio-overlay">
-                        <h4>طباعة تي شرت سبليمشن </h4>
-                        <span>طباعة مليانة تفاصيل  </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <!-- Payment Methods -->
-    
-    <footer class="main-footer">
-        <div class="container footer-grid">
-            <div class="footer-info">
-                <a href="#" class="logo">
-                    <span class="logo-custom-is">
-                        <span class="char-i">I</span>
-                        <span class="char-s">S</span>
-                    </span>
-                    <span class="logo-text">Infinity <span class="accent-text">Store</span></span>
-                </a>
-                <p>بنساعدك تطبع كل اللي بتتمناه وتصمم هداياك وأدواتك بأعلى دقة وخامات ممتازة تدوم طويلاً.</p>
-            </div>
-            <div class="footer-links">
-                <h4>روابط سريعة</h4>
-                <ul>
-                    <li><a href="#hero">الرئيسية</a></li>
-                    <li><a href="#products">منتجاتنا</a></li>
-                    <li><a href="#calculator">الأسعار</a></li>
-                    <li><a href="#portfolio">معرض الأعمال</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h4>تواصل معنا</h4>
-                <p><i class="fa-solid fa-phone"></i> +20 155 628 4315</p>
-                <p><i class="fa-solid fa-envelope"></i> info@infinitystore.com</p>
-                <div class="social-icons">
-                    <a href="https://www.facebook.com/people/Infinity-Store/61573269805230/?mibextid=wwXIfr&rdid=QBPnZZZNTei2mQRO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F195Dedjpvt%2F%3Fmibextid%3DwwXIfr"
-   target="_blank"
-   rel="noopener noreferrer">
-    <i class="fa-brands fa-facebook"></i>
+<section class="portfolio-section" id="portfolio">
+<div class="container">
+<div class="section-header">
+<h2>ألبوم أعمالنا المعروضة</h2>
+<p>شوف جودة الطباعة والألوان على الطبيعة لمنتجات عملاءنا الحقيقيين</p>
+</div>
+<div class="portfolio-grid">
+<div class="portfolio-item reveal reveal-right">
+<img alt="تصميم مج مخصص" src="./assets/custom_mugs.jpg"/>
+<div class="portfolio-overlay">
+<h4>مج تذكار للأصدقاء</h4>
+<span>تصميم واقعي ديجيتال</span>
+</div>
+</div>
+<div class="portfolio-item reveal">
+<img alt="استيكرات لابتوب مطبوعة" src="./assets/custom_stickers.jpg"/>
+<div class="portfolio-overlay">
+<h4>اكتر من مجموعة استيكرات لاب توب</h4>
+<span>مقاومة للمياه والرطوبة</span>
+</div>
+</div>
+<div class="portfolio-item reveal reveal-left">
+<img alt="تيشرت مطبوع" src="./assets/custom_sublimation.jpg"/>
+<div class="portfolio-overlay">
+<h4>طباعة تي شرت سبليمشن </h4>
+<span>طباعة مليانة تفاصيل  </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<!-- Payment Methods -->
+<main></main><footer class="main-footer">
+<div class="container footer-grid">
+<div class="footer-info">
+<a class="logo" href="#">
+<span class="logo-custom-is">
+<span class="char-i">I</span>
+<span class="char-s">S</span>
+</span>
+<span class="logo-text">Infinity <span class="accent-text">Store</span></span>
 </a>
-                    <a href="https://www.instagram.com/infinity_is_store?igsh=amQ5bDNxMHlsd3Az"
-   target="_blank"
-   rel="noopener noreferrer">
-    <i class="fa-brands fa-instagram"></i>
+<p>بنساعدك تطبع كل اللي بتتمناه وتصمم هداياك وأدواتك بأعلى دقة وخامات ممتازة تدوم طويلاً.</p>
+</div>
+<div class="footer-links">
+<h4>روابط سريعة</h4>
+<ul>
+<li><a href="#hero">الرئيسية</a></li>
+<li><a href="#products">منتجاتنا</a></li>
+<li><a href="#calculator">الأسعار</a></li>
+<li><a href="#portfolio">معرض الأعمال</a></li>
+</ul>
+</div>
+<div class="footer-contact">
+<h4>تواصل معنا</h4>
+<p><i class="fa-solid fa-phone"></i> +20 155 628 4315</p>
+<p><i class="fa-solid fa-envelope"></i> info@infinitystore.com</p>
+<div class="social-icons">
+<a href="https://www.facebook.com/people/Infinity-Store/61573269805230/?mibextid=wwXIfr&amp;rdid=QBPnZZZNTei2mQRO&amp;share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F195Dedjpvt%2F%3Fmibextid%3DwwXIfr" rel="noopener noreferrer" target="_blank">
+<i class="fa-brands fa-facebook"></i>
 </a>
-                    <a href="https://wa.me/201556284315" target="_blank">
-    <i class="fa-brands fa-whatsapp"></i>
+<a href="https://www.instagram.com/infinity_is_store?igsh=amQ5bDNxMHlsd3Az" rel="noopener noreferrer" target="_blank">
+<i class="fa-brands fa-instagram"></i>
 </a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Infinity Store. جميع الحقوق محفوظة. تم التطوير بكل حب .</p>
-        </div>
-    </footer>
-
-    <!-- Interactive Order Modal Popup -->
-    <div class="modal-overlay" id="orderModal">
-        <div class="modal-card">
-            <button class="close-modal-btn" onclick="closeOrderModal()">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="modal-header">
-                <h2>طلب منتج مخصص جديد <i class="fa-solid fa-wand-magic-sparkles"></i></h2>
-                <p>دخل بياناتك وتفاصيل طلبك، وهنكلمك على الواتساب نأكد معاك ونستلم التصميم!</p>
-            </div>
-            <form id="orderForm" onsubmit="submitOrder(event)">
-                <div class="form-group">
-                    <label for="custName">اسمك بالكامل <span class="required">*</span></label>
-                    <input type="text" id="custName" placeholder="اكتب اسمك ثلاثي مثلاً..." required>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="custPhone">رقم الموبايل (واتساب) <span class="required">*</span></label>
-                        <input type="tel" id="custPhone" placeholder="01xxxxxxxxx" required pattern="01[0-2,5]{1}[0-9]{8}">
-                    </div>
-                    <div class="form-group">
-                        <label for="custProduct">المنتج المطلوب <span class="required">*</span></label>
-                        <select id="custProduct" required>
-                            <option value="">اختر المنتج...</option>
-                            <option value="مج سيراميك عادي">مج سيراميك عادي</option>
-                            <option value="مج سحري">مج سحري (يتغير بالحرارة)</option>
-                            <option value="شيت استيكرات A4">شيت استيكرات A4</option>
-                            <option value="استيكر فردي داي-كت">استيكر فردي داي-كت</option>
-                            <option value="تيشرت قطن مطبوع">تيشرت قطن مطبوع</option>
-                            <option value="هودي شتوي مطبوع">هودي شتوي مطبوع</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="custQty">الكمية المطلوبة <span class="required">*</span></label>
-                        <input type="number" id="custQty" value="1" min="1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="custCity">المحافظة (لتحديد الشحن) <span class="required">*</span></label>
-                        <select id="custCity" required>
-                            <option value="">اختر المحافظة...</option>
-                            <option value="القاهرة">القاهرة</option>
-                            <option value="الجيزة">الجيزة</option>
-                            <option value="الإسكندرية">الإسكندرية</option>
-                            <option value="القليوبية">القليوبية</option>
-                            <option value="الغربية">الغربية</option>
-                            <option value="المنوفية">المنوفية</option>
-                            <option value="الدقهلية">الدقهلية</option>
-                            <option value="الشرقية">الشرقية</option>
-                            <option value="البحيرة">البحيرة</option>
-                            <option value="دمياط">دمياط</option>
-                            <option value="بورسعيد">بورسعيد</option>
-                            <option value="الإسماعيلية">الإسماعيلية</option>
-                            <option value="السويس">السويس</option>
-                            <option value="محافظة أخرى">محافظة أخرى</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="custDetails">تفاصيل التصميم أو الكلام المراد كتابته</label>
-                    <textarea id="custDetails" rows="3" placeholder="اكتب هنا التفاصيل اللي محتاج تطبعها، الألوان اللي بتحبها، أو لو عندك فكرة معينة..."></textarea>
-                </div>
-                <div class="form-group file-upload-wrapper">
-                    <label class="file-label">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
-                        <span>ارفق لوجو أو تصميمك المبدئي (اختياري)</span>
-                        <input type="file" id="custFile" accept="image/*" class="file-input">
-                    </label>
-                    <div class="file-name-preview" id="fileNamePreview">لم يتم اختيار ملف</div>
-                </div>
-                
-                <button type="submit" class="btn btn-primary btn-block btn-lg">
-                    <i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر واتساب وتأكيد التنفيذ
+<a href="https://wa.me/201556284315" target="_blank">
+<i class="fa-brands fa-whatsapp"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2025 Infinity Store. جميع الحقوق محفوظة. تم التطوير بكل حب .</p>
+</div>
+</footer>
+<!-- Interactive Order Modal Popup -->
+<div class="modal-overlay" id="orderModal">
+<div class="modal-card">
+<button class="close-modal-btn" onclick="closeOrderModal()">
+<i class="fa-solid fa-xmark"></i>
+</button>
+<div class="modal-header">
+<h2>طلب منتج مخصص جديد <i class="fa-solid fa-wand-magic-sparkles"></i></h2>
+<p>دخل بياناتك وتفاصيل طلبك، وهنكلمك على الواتساب نأكد معاك ونستلم التصميم!</p>
+</div>
+<form id="orderForm" onsubmit="submitOrder(event)">
+<div class="form-group">
+<label for="custName">اسمك بالكامل <span class="required">*</span></label>
+<input id="custName" placeholder="اكتب اسمك ثلاثي مثلاً..." required="" type="text"/>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="custPhone">رقم الموبايل (واتساب) <span class="required">*</span></label>
+<input id="custPhone" pattern="01[0-2,5]{1}[0-9]{8}" placeholder="01xxxxxxxxx" required="" type="tel"/>
+</div>
+<div class="form-group">
+<label for="custProduct">المنتج المطلوب <span class="required">*</span></label>
+<select id="custProduct" required="">
+<option value="">اختر المنتج...</option>
+<option value="مج سيراميك عادي">مج سيراميك عادي</option>
+<option value="مج سحري">مج سحري (يتغير بالحرارة)</option>
+<option value="شيت استيكرات A4">شيت استيكرات A4</option>
+<option value="استيكر فردي داي-كت">استيكر فردي داي-كت</option>
+<option value="تيشرت قطن مطبوع">تيشرت قطن مطبوع</option>
+<option value="هودي شتوي مطبوع">هودي شتوي مطبوع</option>
+</select>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="custQty">الكمية المطلوبة <span class="required">*</span></label>
+<input id="custQty" min="1" required="" type="number" value="1"/>
+</div>
+<div class="form-group">
+<label for="custCity">المحافظة (لتحديد الشحن) <span class="required">*</span></label>
+<select id="custCity" required="">
+<option value="">اختر المحافظة...</option>
+<option value="القاهرة">القاهرة</option>
+<option value="الجيزة">الجيزة</option>
+<option value="الإسكندرية">الإسكندرية</option>
+<option value="القليوبية">القليوبية</option>
+<option value="الغربية">الغربية</option>
+<option value="المنوفية">المنوفية</option>
+<option value="الدقهلية">الدقهلية</option>
+<option value="الشرقية">الشرقية</option>
+<option value="البحيرة">البحيرة</option>
+<option value="دمياط">دمياط</option>
+<option value="بورسعيد">بورسعيد</option>
+<option value="الإسماعيلية">الإسماعيلية</option>
+<option value="السويس">السويس</option>
+<option value="محافظة أخرى">محافظة أخرى</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label for="custDetails">تفاصيل التصميم أو الكلام المراد كتابته</label>
+<textarea id="custDetails" placeholder="اكتب هنا التفاصيل اللي محتاج تطبعها، الألوان اللي بتحبها، أو لو عندك فكرة معينة..." rows="3"></textarea>
+</div>
+<div class="form-group file-upload-wrapper">
+<label class="file-label">
+<i class="fa-solid fa-cloud-arrow-up"></i>
+<span>ارفق لوجو أو تصميمك المبدئي (اختياري)</span>
+<input accept="image/*" class="file-input" id="custFile" type="file"/>
+</label>
+<div class="file-name-preview" id="fileNamePreview">لم يتم اختيار ملف</div>
+</div>
+<button class="btn btn-primary btn-block btn-lg" type="submit">
+<i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر واتساب وتأكيد التنفيذ
                 </button>
-            </form>
-        </div>
-    </div>
-    
+</form>
+</div>
+</div>
 <!-- Tom Select -->
 <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
-
-    <!-- Main JS Code -->
+<!-- Main JS Code -->
 <script src="app.js"></script>
 </body>
 </html>
+Add main element for SEO and accessibility
