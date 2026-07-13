@@ -1767,3 +1767,29 @@ font-size:30px;
 }
 
 }
+/* Product Gallery */
+
+.product-gallery{
+    display:flex;
+    gap:12px;
+    margin-top:18px;
+    flex-wrap:wrap;
+}
+
+.product-gallery img{
+    width:75px;
+    height:75px;
+    object-fit:cover;
+    border-radius:10px;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:.3s;
+}
+
+.product-gallery img:hover{
+    transform:scale(1.05);
+}
+
+.product-gallery img.active{
+    border-color:#0077ff;
+}
