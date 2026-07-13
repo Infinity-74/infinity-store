@@ -103,6 +103,7 @@ function calculatePrice() {
     document.getElementById("totalPriceVal").innerText = Math.round(grandTotal);
 }
 
+document.addEventListener("DOMContentLoaded", () => {
     calculatePrice();
     
     // File upload preview listener
@@ -476,4 +477,3 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("productImage").alt = product.title;
 
 });
-
