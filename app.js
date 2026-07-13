@@ -468,6 +468,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("productTitle").textContent = product.title;
 
+    document.getElementById("pageTitle").textContent = product.title;
+
+    document.getElementById("breadcrumbProduct").textContent = product.title;
+
     document.getElementById("productDescription").textContent = product.description;
 
     document.getElementById("productPrice").textContent = product.price;
