@@ -26,11 +26,9 @@ function changeHeroImage(imgSrc, title, desc, thumbnailElement) {
     const overlayDesc = document.querySelector(".image-overlay-info p");
     const thumbnails = document.querySelectorAll(".hero-thumbnails .thumb");
 
-    // Remove active class from all thumbs, add to current
     thumbnails.forEach(thumb => thumb.classList.remove("active"));
     thumbnailElement.classList.add("active");
 
-    // Fade transition effect
     mainImg.style.opacity = "0.2";
     setTimeout(() => {
         mainImg.src = imgSrc;
@@ -44,16 +42,15 @@ function changeHeroImage(imgSrc, title, desc, thumbnailElement) {
 function openOrderModal() {
     const modal = document.getElementById("orderModal");
     modal.classList.add("active");
-    document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+    document.body.style.overflow = "hidden";
 }
 
 function closeOrderModal() {
     const modal = document.getElementById("orderModal");
     modal.classList.remove("active");
-    document.body.style.overflow = ""; // Re-enable scrolling
+    document.body.style.overflow = "";
 }
 
-// Close modal when clicking outside the card
 window.onclick = function(event) {
     const modal = document.getElementById("orderModal");
     if (event.target === modal) {
@@ -79,7 +76,6 @@ function calculatePrice() {
     const calcPrintSidesEl = document.getElementById("calcPrintSides");
     const discountAlert = document.getElementById("discountAlert");
 
-    // Exit safely if the price calculator isn't on this page (e.g. product.html)
     if (!calcProductEl || !calcQtyEl || !calcPrintSidesEl || !discountAlert) {
         return;
     }
@@ -88,19 +84,16 @@ function calculatePrice() {
     const qty = parseInt(calcQtyEl.value) || 1;
     const printSides = calcPrintSidesEl.value;
 
-    // Base price
     let basePrice = PRICING[productKey] || 0;
-    
-    // Add-on for double-sided printing (applicable to mugs, shirts, etc.)
+
     let extraCosts = 0;
     if (printSides === "double") {
-        extraCosts = 30; // 30 EGP extra per item for double sides
+        extraCosts = 30;
     }
 
     let itemTotal = basePrice + extraCosts;
     let grandTotal = itemTotal * qty;
 
-    // Bulk discount: 10% off for 10 or more items
     if (qty >= 10) {
         grandTotal = grandTotal * 0.9;
         discountAlert.style.display = "flex";
@@ -108,17 +101,15 @@ function calculatePrice() {
         discountAlert.style.display = "none";
     }
 
-    // Display total
     document.getElementById("totalPriceVal").innerText = Math.round(grandTotal);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     calculatePrice();
-    
-    // File upload preview listener
+
     const fileInput = document.getElementById("custFile");
     const namePreview = document.getElementById("fileNamePreview");
-    
+
     if (fileInput) {
         fileInput.addEventListener("change", function() {
             if (this.files && this.files.length > 0) {
@@ -129,24 +120,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Dynamic Ripple Click Effect for all buttons
     const buttons = document.querySelectorAll(".btn");
     buttons.forEach(button => {
         button.addEventListener("click", function(e) {
             const ripple = document.createElement("span");
             ripple.classList.add("ripple");
-            
+
             const rect = button.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
             ripple.style.width = ripple.style.height = `${size}px`;
-            
+
             const x = e.clientX - rect.left - size / 2;
             const y = e.clientY - rect.top - size / 2;
             ripple.style.left = `${x}px`;
             ripple.style.top = `${y}px`;
-            
+
             button.appendChild(ripple);
-            
+
             setTimeout(() => {
                 ripple.remove();
             }, 600);
@@ -156,7 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // --- Quick Order from Product Cards ---
 function quickOrder(productName) {
-    // Select the product in the modal dropdown
     const selectElem = document.getElementById("custProduct");
     for (let i = 0; i < selectElem.options.length; i++) {
         if (selectElem.options[i].value.includes(productName) || productName.includes(selectElem.options[i].value)) {
@@ -174,8 +163,7 @@ function orderFromCalculator() {
     const qty = document.getElementById("calcQty").value;
     const printSides = document.getElementById("calcPrintSides").value;
     const totalPrice = document.getElementById("totalPriceVal").innerText;
-    
-    // Map calculator option to modal product dropdown
+
     const productMapping = {
         "mug-regular": "مج سيراميك عادي",
         "mug-magic": "مج سحري",
@@ -186,15 +174,13 @@ function orderFromCalculator() {
     };
 
     const modalProductValue = productMapping[productKey] || "";
-    
-    // Pre-fill fields
+
     document.getElementById("custProduct").value = modalProductValue;
     document.getElementById("custQty").value = qty;
-    
-    // Pre-fill notes with calculator options
+
     const sidesText = printSides === "double" ? "على الوجهين" : "على وجه واحد";
     document.getElementById("custDetails").value = `طلب محدد من حاسبة الأسعار: طباعة ${sidesText} بسعر تقديري إجمالي ${totalPrice} EGP.`;
-    
+
     openOrderModal();
 }
 
@@ -209,13 +195,11 @@ async function submitOrder(event) {
     const city = document.getElementById("custCity").value;
     const details = document.getElementById("custDetails").value.trim();
 
-    // رقم طلب عشوائي
     const orderId =
         "INF-" +
         Date.now().toString().slice(-6) +
         Math.floor(Math.random() * 90 + 10);
 
-    // البيانات التي سترسل إلى Google Sheets
     const orderData = {
         orderId,
         name,
@@ -234,8 +218,6 @@ async function submitOrder(event) {
     mode: "no-cors",
     body: JSON.stringify(orderData)
 });
-
-        // رسالة الواتساب
 
         const message =
 `السلام عليكم 🌹
@@ -290,24 +272,23 @@ ${orderId}
 
     }
 }
-    
+
 // --- Scroll Reveal Animation Observer ---
 document.addEventListener("DOMContentLoaded", () => {
     const revealElements = document.querySelectorAll(".reveal");
-    
+
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("active");
-                // Stop observing after it has been revealed once for smoother performance
                 observer.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.1, // Trigger when 10% of the element is visible
-        rootMargin: "0px 0px -50px 0px" // Trigger slightly before it comes into view
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
     });
-    
+
     revealElements.forEach(element => {
         revealObserver.observe(element);
     });
@@ -316,8 +297,6 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ===========================
    Shipment Tracking
 =========================== */
-
-
 
 async function trackOrder() {
 
@@ -441,39 +420,41 @@ function openProduct(product) {
 const PRODUCTS = {
 
     mug: {
-    title: "مج سيراميك مخصص",
+        title: "مج سيراميك مخصص",
 
-    images:[
-        "./assets/products/mug/1.jpg",
-        "./assets/products/mug/2.jpg",
-        "./assets/products/mug/3.jpg",
-        "./assets/products/mug/4.jpg"
-    ],
+        images: [
+            "./assets/products/mug/1.jpg",
+            "./assets/products/mug/2.jpg",
+            "./assets/products/mug/3.jpg",
+            "./assets/products/mug/4.jpg"
+        ],
 
-    price:"120 EGP",
+        price: "120 EGP",
 
-    description:"مج سيراميك عالي الجودة مع إمكانية الطباعة بصورة أو لوجو أو تصميم خاص."
-},
+        description: "مج سيراميك عالي الجودة مع إمكانية الطباعة بصورة أو لوجو أو تصميم خاص."
+    },
 
     stickers: {
 
-    title: "استيكرات مخصصة",
+        title: "استيكرات مخصصة",
 
-    images: [
-        "./assets/products/stickers/1.jpg",
-        "./assets/products/stickers/2.jpg",
-        "./assets/products/stickers/3.jpg"
-    ],
+        images: [
+            "./assets/products/stickers/1.jpg",
+            "./assets/products/stickers/2.jpg",
+            "./assets/products/stickers/3.jpg"
+        ],
 
-    price: "45 EGP",
+        price: "45 EGP",
 
-    description: "استيكرات مقاومة للمياه مناسبة للابتوب والموبايل والزجاجات."
+        description: "استيكرات مقاومة للمياه مناسبة للابتوب والموبايل والزجاجات."
 
-},
+    },
 
     tshirt: {
         title: "تيشرت مطبوع",
-        image: "./assets/custom_sublimation.jpg",
+        images: [
+            "./assets/custom_sublimation.jpg"
+        ],
         price: "280 EGP",
         description: "تيشرت قطني بطباعة احترافية بأعلى جودة."
     }
@@ -500,34 +481,36 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const mainImage = document.getElementById("productImage");
 
-mainImage.src = product.images[0];
+    mainImage.src = product.images[0];
 
-mainImage.alt = product.title;
+    mainImage.alt = product.title;
 
-const gallery = document.getElementById("productGallery");
+    const gallery = document.getElementById("productGallery");
 
-gallery.innerHTML = "";
+    gallery.innerHTML = "";
 
-product.images.forEach((img,index)=>{
+    product.images.forEach((img, index) => {
 
-    const thumb=document.createElement("img");
+        const thumb = document.createElement("img");
 
-    thumb.src=img;
+        thumb.src = img;
 
-    if(index===0){
-        thumb.classList.add("active");
-    }
+        if (index === 0) {
+            thumb.classList.add("active");
+        }
 
-    thumb.onclick=function(){
+        thumb.onclick = function() {
 
-        mainImage.src=img;
+            mainImage.src = img;
 
-        document.querySelectorAll("#productGallery img").forEach(i=>i.classList.remove("active"));
+            document.querySelectorAll("#productGallery img").forEach(i => i.classList.remove("active"));
 
-        thumb.classList.add("active");
+            thumb.classList.add("active");
 
-    };
+        };
 
-    gallery.appendChild(thumb);
+        gallery.appendChild(thumb);
+
+    });
 
 });
