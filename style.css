@@ -1633,7 +1633,7 @@ a {
 =========================== */
 
 .product-page{
-    padding:120px 0 80px;
+    padding:40px 0 70px;
 }
 
 .product-details{
@@ -1723,7 +1723,7 @@ text-align:center;
 =========================== */
 
 .page-header{
-    padding:120px 0 35px;
+    padding:90px 0 20px;
     background:#f8f9fb;
     border-bottom:1px solid #e9ecef;
 }
