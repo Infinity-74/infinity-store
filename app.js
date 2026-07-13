@@ -429,3 +429,28 @@ function openProduct(product) {
 
 }
 
+const PRODUCTS = {
+
+    mug: {
+        title: "مج سيراميك مخصص",
+        image: "./assets/custom_mugs.jpg",
+        price: "120 EGP",
+        description: "مج سيراميك عالي الجودة مع إمكانية الطباعة بصورة أو لوجو أو تصميم خاص."
+    },
+
+    stickers: {
+        title: "استيكرات مخصصة",
+        image: "./assets/custom_stickers.jpg",
+        price: "45 EGP",
+        description: "استيكرات مقاومة للمياه مناسبة للابتوب والموبايل والزجاجات."
+    },
+
+    tshirt: {
+        title: "تيشرت مطبوع",
+        image: "./assets/custom_sublimation.jpg",
+        price: "280 EGP",
+        description: "تيشرت قطني بطباعة احترافية بأعلى جودة."
+    }
+
+};
+
