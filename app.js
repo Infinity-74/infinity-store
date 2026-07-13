@@ -531,7 +531,3 @@ product.images.forEach((img,index)=>{
     gallery.appendChild(thumb);
 
 });
-
-    document.getElementById("productImage").alt = product.title;
-
-});
