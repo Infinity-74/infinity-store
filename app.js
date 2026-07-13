@@ -498,7 +498,39 @@ window.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("productPrice").textContent = product.price;
 
-    document.getElementById("productImage").src = product.image;
+    const mainImage = document.getElementById("productImage");
+
+mainImage.src = product.images[0];
+
+mainImage.alt = product.title;
+
+const gallery = document.getElementById("productGallery");
+
+gallery.innerHTML = "";
+
+product.images.forEach((img,index)=>{
+
+    const thumb=document.createElement("img");
+
+    thumb.src=img;
+
+    if(index===0){
+        thumb.classList.add("active");
+    }
+
+    thumb.onclick=function(){
+
+        mainImage.src=img;
+
+        document.querySelectorAll("#productGallery img").forEach(i=>i.classList.remove("active"));
+
+        thumb.classList.add("active");
+
+    };
+
+    gallery.appendChild(thumb);
+
+});
 
     document.getElementById("productImage").alt = product.title;
 
