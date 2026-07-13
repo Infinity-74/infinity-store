@@ -425,7 +425,7 @@ async function trackOrder() {
 
 function openProduct(product) {
 
-    alert("هنا هنفتح صفحة المنتج: " + product);
+    window.location.href = `product.html?id=${product}`;
 
 }
 
