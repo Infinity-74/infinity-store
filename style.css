@@ -1694,20 +1694,20 @@ text-align:center;
 
 }
 .product-features{
-    margin-top:25px;
+    margin-top:20px;
     display:flex;
     flex-direction:column;
-    gap:15px;
+    gap:12px;
 }
 
 .feature{
     display:flex;
     align-items:center;
     gap:12px;
-    padding:14px 18px;
-    background:#fff;
-    border-radius:12px;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    padding:0;
+    background:transparent;
+    box-shadow:none;
+    border:none;
 }
 
 .feature i{
