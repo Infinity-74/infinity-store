@@ -113,7 +113,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (fileInput) {
         fileInput.addEventListener("change", function() {
             if (this.files && this.files.length > 0) {
-                namePreview.innerText = "📁 " + this.files[0].name;
+                const file = this.files[0];
+                // عرض اسم الملف + الحجم
+                const fileSize = (file.size / 1024).toFixed(1);
+                namePreview.innerText = `📁 ${file.name} (${fileSize} KB)`;
             } else {
                 namePreview.innerText = "لم يتم اختيار ملف";
             }
@@ -220,38 +223,42 @@ function orderFromCalculator() {
 async function submitOrder(event) {
     event.preventDefault();
 
+    // جمع البيانات
     const name = document.getElementById("custName").value.trim();
     const phone = document.getElementById("custPhone").value.trim();
     const product = document.getElementById("custProduct").value;
     const qty = document.getElementById("custQty").value;
     const city = document.getElementById("custCity").value;
     const details = document.getElementById("custDetails").value.trim();
+    const fileInput = document.getElementById("custFile");
+    const file = fileInput.files && fileInput.files[0];
 
+    // التحقق من الحقول المطلوبة
+    if (!name) {
+        alert("❌ من فضلك أدخل اسمك بالكامل");
+        return;
+    }
+    if (!phone) {
+        alert("❌ من فضلك أدخل رقم الموبايل");
+        return;
+    }
+    if (!product) {
+        alert("❌ من فضلك اختر المنتج");
+        return;
+    }
+    if (!city) {
+        alert("❌ من فضلك اختر المحافظة");
+        return;
+    }
+
+    // رقم الطلب
     const orderId =
         "INF-" +
         Date.now().toString().slice(-6) +
         Math.floor(Math.random() * 90 + 10);
 
-    const orderData = {
-        orderId,
-        name,
-        phone,
-        product,
-        qty,
-        city,
-        details,
-        status: "قيد المراجعة"
-    };
-
-    try {
-
-        await fetch(API_URL, {
-    method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify(orderData)
-});
-
-        const message =
+    // بناء رسالة واتساب
+    let message =
 `السلام عليكم 🌹
 
 تم إنشاء طلب جديد من موقع Infinity Store.
@@ -269,40 +276,64 @@ async function submitOrder(event) {
 📍 المحافظة: ${city}
 
 📝 التفاصيل:
-${details || "لا يوجد"}
+${details || "لا يوجد"}`;
 
-يرجى تأكيد الطلب.`;
+    // إضافة معلومات الملف لو موجود
+    if (file) {
+        const fileSize = (file.size / 1024).toFixed(1);
+        message += `\n\n📎 الملف المرفق: ${file.name} (${fileSize} KB)`;
+        message += `\n⚠️ سيتم طلب إرسال الملف عبر واتساب بعد التأكيد.`;
+    }
 
-        window.open(
-            `https://wa.me/${BRAND_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
-            "_blank"
-        );
+    message += `\n\nيرجى تأكيد الطلب.`;
 
-        alert(
-`✅ تم إنشاء طلبك بنجاح
+    // إرسال الطلب إلى Google Sheets
+    const orderData = {
+        orderId,
+        name,
+        phone,
+        product,
+        qty,
+        city,
+        details,
+        fileName: file ? file.name : "لا يوجد",
+        status: "قيد المراجعة"
+    };
 
-رقم طلبك هو:
+    try {
+        // محاولة إرسال البيانات إلى Google Sheets
+        await fetch(API_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: JSON.stringify(orderData)
+        });
+    } catch (err) {
+        // حتى لو فشل الإرسال، هنكمل عشان العميل مش يتأثر
+        console.warn("⚠️ فشل إرسال البيانات إلى Google Sheets:", err);
+    }
 
+    // فتح واتساب
+    window.open(
+        `https://wa.me/${BRAND_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+        "_blank"
+    );
+
+    // رسالة نجاح مع رقم الطلب
+    alert(
+`✅ تم إنشاء طلبك بنجاح ✅
+
+🆔 رقم طلبك هو:
 ${orderId}
 
-احتفظ به لتتبع الطلب لاحقاً.`
-        );
+📌 احتفظ بهذا الرقم لتتبع طلبك لاحقاً.
 
-        document.getElementById("orderForm").reset();
+📱 سيتم التواصل معك عبر واتساب لتأكيد الطلب واستلام التصميم.`
+    );
 
-        document.getElementById("fileNamePreview").innerText =
-            "لم يتم اختيار ملف";
-
-        closeOrderModal();
-
-    } catch (err) {
-
-            alert(err.message);
-
-
-        console.error(err);
-
-    }
+    // مسح الفورم
+    document.getElementById("orderForm").reset();
+    document.getElementById("fileNamePreview").innerText = "لم يتم اختيار ملف";
+    closeOrderModal();
 }
 
 // --- Scroll Reveal Animation Observer ---
@@ -340,7 +371,7 @@ async function trackOrder() {
     const result = document.getElementById("trackingResult");
 
     if (!input) {
-        alert("من فضلك أدخل رقم الطلب");
+        alert("❌ من فضلك أدخل رقم الطلب");
         return;
     }
 
@@ -437,7 +468,7 @@ async function trackOrder() {
 
         console.error(error);
 
-        alert("حدث خطأ أثناء البحث.");
+        alert("❌ حدث خطأ أثناء البحث. تأكد من اتصال الإنترنت وحاول مرة أخرى.");
 
     }
 
@@ -503,17 +534,30 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const product = PRODUCTS[productId];
 
-    if (!product) return;
+    if (!product) {
+        // لو المنتج مش موجود، نعرض رسالة
+        document.getElementById("productTitle").textContent = "المنتج غير موجود";
+        document.getElementById("productDescription").textContent = "عذراً، هذا المنتج غير متوفر حالياً.";
+        document.getElementById("productPrice").textContent = "---";
+        return;
+    }
 
     document.getElementById("productTitle").textContent = product.title;
-
     document.getElementById("productDescription").textContent = product.description;
-
     document.getElementById("productPrice").textContent = product.price;
 
     const mainImage = document.getElementById("productImage");
-
     mainImage.alt = product.title;
+
+    // إذا كانت الصورة الأولى غير موجودة، استخدم صورة افتراضية
+    if (product.images && product.images.length > 0) {
+        mainImage.src = product.images[0];
+        mainImage.onerror = function() {
+            this.src = "./assets/placeholder.jpg";
+        };
+    } else {
+        mainImage.src = "./assets/placeholder.jpg";
+    }
 
     const gallery = document.getElementById("productGallery");
     const prevBtn = document.getElementById("productPrevBtn");
@@ -524,37 +568,45 @@ window.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
 
     function showImage(index) {
+        if (!product.images || product.images.length === 0) return;
         currentIndex = (index + product.images.length) % product.images.length;
         mainImage.src = product.images[currentIndex];
+        mainImage.onerror = function() {
+            this.src = "./assets/placeholder.jpg";
+        };
 
         document.querySelectorAll("#productGallery img").forEach((thumb, i) => {
             thumb.classList.toggle("active", i === currentIndex);
         });
     }
 
-    product.images.forEach((img, index) => {
+    if (product.images && product.images.length > 0) {
+        product.images.forEach((img, index) => {
 
-        const thumb = document.createElement("img");
+            const thumb = document.createElement("img");
 
-        thumb.src = img;
+            thumb.src = img;
+            thumb.alt = product.title;
+            thumb.onerror = function() {
+                this.src = "./assets/placeholder.jpg";
+            };
+            thumb.onclick = function() {
+                showImage(index);
+            };
 
-        thumb.onclick = function() {
-            showImage(index);
-        };
+            gallery.appendChild(thumb);
 
-        gallery.appendChild(thumb);
-
-    });
+        });
+    }
 
     showImage(0);
 
     // Hide the arrows if there's only one image
-    if (product.images.length <= 1) {
+    if (!product.images || product.images.length <= 1) {
         if (prevBtn) prevBtn.style.display = "none";
         if (nextBtn) nextBtn.style.display = "none";
     } else {
         if (prevBtn) prevBtn.onclick = () => showImage(currentIndex - 1);
         if (nextBtn) nextBtn.onclick = () => showImage(currentIndex + 1);
     }
-
 });
