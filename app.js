@@ -74,10 +74,19 @@ function adjustQty(amount) {
 
 // --- Dynamic Price Calculator Logic ---
 function calculatePrice() {
-    const productKey = document.getElementById("calcProduct").value;
-    const qty = parseInt(document.getElementById("calcQty").value) || 1;
-    const printSides = document.getElementById("calcPrintSides").value;
+    const calcProductEl = document.getElementById("calcProduct");
+    const calcQtyEl = document.getElementById("calcQty");
+    const calcPrintSidesEl = document.getElementById("calcPrintSides");
     const discountAlert = document.getElementById("discountAlert");
+
+    // Exit safely if the price calculator isn't on this page (e.g. product.html)
+    if (!calcProductEl || !calcQtyEl || !calcPrintSidesEl || !discountAlert) {
+        return;
+    }
+
+    const productKey = calcProductEl.value;
+    const qty = parseInt(calcQtyEl.value) || 1;
+    const printSides = calcPrintSidesEl.value;
 
     // Base price
     let basePrice = PRICING[productKey] || 0;
@@ -467,10 +476,6 @@ window.addEventListener("DOMContentLoaded", () => {
     if (!product) return;
 
     document.getElementById("productTitle").textContent = product.title;
-
-    document.getElementById("pageTitle").textContent = product.title;
-
-    document.getElementById("breadcrumbProduct").textContent = product.title;
 
     document.getElementById("productDescription").textContent = product.description;
 
