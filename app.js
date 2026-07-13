@@ -423,3 +423,9 @@ async function trackOrder() {
 
 }
 
+function openProduct(product) {
+
+    alert("هنا هنفتح صفحة المنتج: " + product);
+
+}
+
