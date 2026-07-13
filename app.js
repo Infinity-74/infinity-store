@@ -142,7 +142,39 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 600);
         });
     });
+
+    // Initialize product card image sliders on the homepage
+    document.querySelectorAll(".product-img-holder[data-product]").forEach(holder => {
+        const key = holder.dataset.product;
+        const images = PRODUCTS[key] && PRODUCTS[key].images;
+        if (!images || images.length === 0) return;
+
+        holder.dataset.index = 0;
+        const img = holder.querySelector(".product-slide-img");
+        if (img) img.src = images[0];
+
+        // Hide the nav arrows if there's only one image
+        if (images.length <= 1) {
+            holder.querySelectorAll(".img-nav-btn").forEach(btn => btn.style.display = "none");
+        }
+    });
 });
+
+// --- Product Card Image Slider (homepage) ---
+function cardChangeImage(btn) {
+    const holder = btn.closest(".product-img-holder");
+    const key = holder.dataset.product;
+    const images = PRODUCTS[key] && PRODUCTS[key].images;
+    if (!images || images.length <= 1) return;
+
+    let idx = parseInt(holder.dataset.index || "0");
+    const dir = parseInt(btn.dataset.dir);
+    idx = (idx + dir + images.length) % images.length;
+    holder.dataset.index = idx;
+
+    const img = holder.querySelector(".product-slide-img");
+    if (img) img.src = images[idx];
+}
 
 // --- Quick Order from Product Cards ---
 function quickOrder(productName) {
@@ -481,13 +513,24 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const mainImage = document.getElementById("productImage");
 
-    mainImage.src = product.images[0];
-
     mainImage.alt = product.title;
 
     const gallery = document.getElementById("productGallery");
+    const prevBtn = document.getElementById("productPrevBtn");
+    const nextBtn = document.getElementById("productNextBtn");
 
     gallery.innerHTML = "";
+
+    let currentIndex = 0;
+
+    function showImage(index) {
+        currentIndex = (index + product.images.length) % product.images.length;
+        mainImage.src = product.images[currentIndex];
+
+        document.querySelectorAll("#productGallery img").forEach((thumb, i) => {
+            thumb.classList.toggle("active", i === currentIndex);
+        });
+    }
 
     product.images.forEach((img, index) => {
 
@@ -495,22 +538,23 @@ window.addEventListener("DOMContentLoaded", () => {
 
         thumb.src = img;
 
-        if (index === 0) {
-            thumb.classList.add("active");
-        }
-
         thumb.onclick = function() {
-
-            mainImage.src = img;
-
-            document.querySelectorAll("#productGallery img").forEach(i => i.classList.remove("active"));
-
-            thumb.classList.add("active");
-
+            showImage(index);
         };
 
         gallery.appendChild(thumb);
 
     });
+
+    showImage(0);
+
+    // Hide the arrows if there's only one image
+    if (product.images.length <= 1) {
+        if (prevBtn) prevBtn.style.display = "none";
+        if (nextBtn) nextBtn.style.display = "none";
+    } else {
+        if (prevBtn) prevBtn.onclick = () => showImage(currentIndex - 1);
+        if (nextBtn) nextBtn.onclick = () => showImage(currentIndex + 1);
+    }
 
 });
