@@ -200,9 +200,11 @@
                 <div class="product-card reveal reveal-right"
      onclick="openProduct('mug')"
      style="cursor:pointer;">
-                    <div class="product-img-holder">
-                        <img src="./assets/custom_mugs.jpg" alt="مجات سحرية وعادية">
+                    <div class="product-img-holder" data-product="mug">
+                        <img class="product-slide-img" src="./assets/products/mug/1.jpg" alt="مجات سحرية وعادية">
                         <span class="product-badge">الأكثر مبيعاً</span>
+                        <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                     <div class="product-info">
                         <h3>مجات مطبوعة (عادي / سحري)</h3>
@@ -217,9 +219,11 @@
                 <div class="product-card reveal"
      onclick="openProduct('stickers')"
      style="cursor:pointer;">
-                    <div class="product-img-holder">
-                        <img src="./assets/custom_stickers.jpg" alt="استيكرات لابتوب">
+                    <div class="product-img-holder" data-product="stickers">
+                        <img class="product-slide-img" src="./assets/products/stickers/1.jpg" alt="استيكرات لابتوب">
                         <span class="product-badge">فينيل مستورد</span>
+                        <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                     <div class="product-info">
                         <h3>استيكرات لابتوب وموبايل مخصصة</h3>
@@ -234,9 +238,11 @@
                 <div class="product-card reveal reveal-left"
      onclick="openProduct('tshirt')"
      style="cursor:pointer;">
-                    <div class="product-img-holder">
-                        <img src="./assets/custom_sublimation.jpg" alt="تيشرتات سبليمشن">
+                    <div class="product-img-holder" data-product="tshirt">
+                        <img class="product-slide-img" src="./assets/custom_sublimation.jpg" alt="تيشرتات سبليمشن">
                         <span class="product-badge">سبليمشن كامل</span>
+                        <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                     <div class="product-info">
                         <h3>طباعة سبليمشن (تيشرتات وهودي)</h3>
