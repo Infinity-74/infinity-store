@@ -103,15 +103,6 @@ function calculatePrice() {
     document.getElementById("totalPriceVal").innerText = Math.round(grandTotal);
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-
-    alert(window.location.search);
-
-    if (!window.location.pathname.includes("product.html")) return;
-
-    const params = new URLSearchParams(window.location.search);
-
-    ...
     calculatePrice();
     
     // File upload preview listener
