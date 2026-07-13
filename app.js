@@ -454,3 +454,27 @@ const PRODUCTS = {
 
 };
 
+window.addEventListener("DOMContentLoaded", () => {
+
+    if (!window.location.pathname.includes("product.html")) return;
+
+    const params = new URLSearchParams(window.location.search);
+
+    const productId = params.get("id");
+
+    const product = PRODUCTS[productId];
+
+    if (!product) return;
+
+    document.getElementById("productTitle").textContent = product.title;
+
+    document.getElementById("productDescription").textContent = product.description;
+
+    document.getElementById("productPrice").textContent = product.price;
+
+    document.getElementById("productImage").src = product.image;
+
+    document.getElementById("productImage").alt = product.title;
+
+});
+
