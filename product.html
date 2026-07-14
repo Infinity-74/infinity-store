@@ -57,8 +57,9 @@
 
     <div class="main-image-wrap">
         <img id="productImage"
-             src=""
-             alt="">
+             src="./assets/placeholder.jpg"
+             alt="صورة المنتج"
+             onerror="this.src='./assets/placeholder.jpg'">
 
         <button type="button" id="productPrevBtn" class="img-nav-btn img-nav-left"><i class="fa-solid fa-chevron-left"></i></button>
         <button type="button" id="productNextBtn" class="img-nav-btn img-nav-right"><i class="fa-solid fa-chevron-right"></i></button>
@@ -106,8 +107,10 @@
                 </h2>
 
                 <button
-                    class="btn btn-primary btn-lg">
+                    class="btn btn-primary btn-lg"
+                    onclick="openOrderModal()">
 
+                    <i class="fa-solid fa-cart-shopping"></i>
                     اطلب الآن
 
                 </button>
