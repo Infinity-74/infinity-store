@@ -64,6 +64,7 @@ a {
     outline: none;
     position: relative;
     overflow: hidden;
+    min-height: 48px;
 }
 
 .btn:active {
@@ -86,15 +87,16 @@ a {
     }
 }
 
-
 .btn-lg {
     padding: 14px 30px;
     font-size: 1.05rem;
+    min-height: 56px;
 }
 
 .btn-sm {
     padding: 8px 16px;
     font-size: 0.85rem;
+    min-height: 40px;
 }
 
 .btn-primary {
@@ -180,6 +182,17 @@ a {
     letter-spacing: -0.5px;
 }
 
+.logo-img {
+    height: 45px;
+    width: auto;
+    display: block;
+}
+
+.logo-text {
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
 .logo-icon {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     -webkit-background-clip: text;
@@ -199,7 +212,7 @@ a {
     font-size: 2.1rem;
     font-style: italic;
     line-height: 1;
-    margin-left: 8px; /* Spacing from logo text in RTL */
+    margin-left: 8px;
 }
 
 .logo-custom-is .char-i {
@@ -218,8 +231,6 @@ a {
     opacity: 0.9;
     text-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
 }
-
-
 
 .accent-text {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
@@ -506,6 +517,8 @@ a {
     transition: var(--transition-smooth);
     display: flex;
     flex-direction: column;
+    height: 100%;
+    cursor: pointer;
 }
 
 .product-card:hover {
@@ -517,43 +530,45 @@ a {
     position: relative;
     width: 100%;
     aspect-ratio: 1/1;
-}
-
-.img-nav-btn{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    background:rgba(0,0,0,.5);
-    color:#fff;
-    border:none;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    font-size:14px;
-    z-index:5;
-    transition:.3s;
-}
-
-.img-nav-btn:hover{
-    background:rgba(0,0,0,.8);
-}
-
-.img-nav-left{
-    left:10px;
-}
-
-.img-nav-right{
-    right:10px;
+    overflow: hidden;
 }
 
 .product-img-holder img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: opacity 0.4s ease-in-out !important;
+}
+
+.img-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 5;
+    transition: 0.3s;
+}
+
+.img-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.img-nav-left {
+    left: 10px;
+}
+
+.img-nav-right {
+    right: 10px;
 }
 
 .product-badge {
@@ -592,8 +607,17 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    min-height: 50px;
     padding-top: 15px;
     border-top: 1px solid var(--border-color);
+}
+
+.product-footer .btn {
+    white-space: nowrap;
+    min-width: 100px;
+    text-align: center;
 }
 
 .product-footer .price {
@@ -681,7 +705,6 @@ a {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
-/* إصلاح لون قائمة الـ select لما تفتح (كانت بتطلع بيضا) */
 .form-group select {
     color-scheme: dark;
 }
@@ -815,13 +838,14 @@ a {
     overflow: hidden;
     aspect-ratio: 1/1;
     border: 1px solid var(--border-color);
+    cursor: pointer;
 }
 
 .portfolio-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: var(--transition-smooth);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .portfolio-overlay {
@@ -868,6 +892,13 @@ a {
     grid-template-columns: 1.5fr 1fr 1fr;
     gap: 50px;
     margin-bottom: 40px;
+}
+
+.footer-logo-img {
+    height: 50px;
+    width: auto;
+    margin-bottom: 10px;
+    display: block;
 }
 
 .footer-info p {
@@ -1265,7 +1296,7 @@ a {
     margin:auto;
     font-size:24px;
     color:#fff;
-    background:#f1c40f;   /* أصفر للمراحل اللي لسه */
+    background:#f1c40f;
     margin-bottom:12px;
     transition:.3s;
 }
@@ -1277,7 +1308,7 @@ a {
 }
 
 .step.active i{
-    background:#28a745;   /* أخضر للمراحل المكتملة */
+    background:#28a745;
 }
 
 .step.active span{
@@ -1391,8 +1422,6 @@ a {
     color:#9ca3af;
 }
 
-/* السهم */
-
 .ts-control::after{
     border-color:#3b82f6 transparent transparent transparent !important;
     transition:.3s;
@@ -1402,8 +1431,6 @@ a {
     transform:rotate(180deg);
     margin-top:-6px;
 }
-
-/* القائمة */
 
 .ts-dropdown{
     background:#1b2233 !important;
@@ -1689,6 +1716,7 @@ a {
     margin:0 auto;
     border-radius:20px;
     box-shadow:0 20px 50px rgba(0,0,0,.15);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .product-content h1{
@@ -1836,6 +1864,7 @@ font-size:30px;
 .product-gallery img.active{
     border-color:#0077ff;
 }
+
 /* ===========================
    تحسين حركة الصور (Smooth)
 =========================== */
