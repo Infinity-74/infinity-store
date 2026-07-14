@@ -10,8 +10,37 @@ const PRICING = {
     "stickers-pack": 45,
     "sticker-single": 15,
     "tshirt": 280,
-    "hoodie": 450
+    "hoodie": 450,
+    "graduation": 25
 };
+
+// ===========================
+//  Sound Effects
+// ===========================
+
+// إنشاء عنصر الصوت
+const clickSound = new Audio();
+
+// محاولة تحميل الصوت (لو مش موجود، يتجاهل)
+try {
+    clickSound.src = './assets/click.mp3';
+    clickSound.volume = 0.3;
+    clickSound.preload = 'auto';
+} catch (e) {
+    console.log('⚠️ ملف الصوت مش موجود، هيتجاهل');
+}
+
+// إضافة صوت الكليك لكل الأزرار والروابط القابلة للضغط
+function playClickSound() {
+    try {
+        if (clickSound.src) {
+            clickSound.currentTime = 0;
+            clickSound.play().catch(() => {});
+        }
+    } catch (e) {
+        // تجاهل الأخطاء
+    }
+}
 
 // --- Mobile Navigation Drawer ---
 function toggleMobileMenu() {
@@ -107,6 +136,16 @@ function calculatePrice() {
 document.addEventListener("DOMContentLoaded", () => {
     calculatePrice();
 
+    // إضافة صوت الكليك لكل الأزرار
+    document.querySelectorAll('button, .btn, a, .clickable, .thumb, .portfolio-item, .product-card, .feature-card, .payment-card, .testimonial-card, .step, .img-nav-btn').forEach(el => {
+        el.addEventListener('click', playClickSound);
+    });
+    
+    // أزرار الكمية في الحاسبة
+    document.querySelectorAll('.qty-selector button').forEach(el => {
+        el.addEventListener('click', playClickSound);
+    });
+
     const fileInput = document.getElementById("custFile");
     const namePreview = document.getElementById("fileNamePreview");
 
@@ -114,7 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
         fileInput.addEventListener("change", function() {
             if (this.files && this.files.length > 0) {
                 const file = this.files[0];
-                // عرض اسم الملف + الحجم
                 const fileSize = (file.size / 1024).toFixed(1);
                 namePreview.innerText = `📁 ${file.name} (${fileSize} KB)`;
             } else {
@@ -156,7 +194,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const img = holder.querySelector(".product-slide-img");
         if (img) img.src = images[0];
 
-        // Hide the nav arrows if there's only one image
         if (images.length <= 1) {
             holder.querySelectorAll(".img-nav-btn").forEach(btn => btn.style.display = "none");
         }
@@ -205,7 +242,8 @@ function orderFromCalculator() {
         "stickers-pack": "شيت استيكرات A4",
         "sticker-single": "استيكر فردي داي-كت",
         "tshirt": "تيشرت قطن مطبوع",
-        "hoodie": "هودي شتوي مطبوع"
+        "hoodie": "هودي شتوي مطبوع",
+        "graduation": "استيك تخرج"
     };
 
     const modalProductValue = productMapping[productKey] || "";
@@ -223,7 +261,6 @@ function orderFromCalculator() {
 async function submitOrder(event) {
     event.preventDefault();
 
-    // جمع البيانات
     const name = document.getElementById("custName").value.trim();
     const phone = document.getElementById("custPhone").value.trim();
     const product = document.getElementById("custProduct").value;
@@ -233,7 +270,6 @@ async function submitOrder(event) {
     const fileInput = document.getElementById("custFile");
     const file = fileInput.files && fileInput.files[0];
 
-    // التحقق من الحقول المطلوبة
     if (!name) {
         alert("❌ من فضلك أدخل اسمك بالكامل");
         return;
@@ -251,13 +287,11 @@ async function submitOrder(event) {
         return;
     }
 
-    // رقم الطلب
     const orderId =
         "INF-" +
         Date.now().toString().slice(-6) +
         Math.floor(Math.random() * 90 + 10);
 
-    // بناء رسالة واتساب
     let message =
 `السلام عليكم 🌹
 
@@ -278,7 +312,6 @@ async function submitOrder(event) {
 📝 التفاصيل:
 ${details || "لا يوجد"}`;
 
-    // إضافة معلومات الملف لو موجود
     if (file) {
         const fileSize = (file.size / 1024).toFixed(1);
         message += `\n\n📎 الملف المرفق: ${file.name} (${fileSize} KB)`;
@@ -287,7 +320,6 @@ ${details || "لا يوجد"}`;
 
     message += `\n\nيرجى تأكيد الطلب.`;
 
-    // إرسال الطلب إلى Google Sheets
     const orderData = {
         orderId,
         name,
@@ -301,24 +333,20 @@ ${details || "لا يوجد"}`;
     };
 
     try {
-        // محاولة إرسال البيانات إلى Google Sheets
         await fetch(API_URL, {
             method: "POST",
             mode: "no-cors",
             body: JSON.stringify(orderData)
         });
     } catch (err) {
-        // حتى لو فشل الإرسال، هنكمل عشان العميل مش يتأثر
         console.warn("⚠️ فشل إرسال البيانات إلى Google Sheets:", err);
     }
 
-    // فتح واتساب
     window.open(
         `https://wa.me/${BRAND_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
         "_blank"
     );
 
-    // رسالة نجاح مع رقم الطلب
     alert(
 `✅ تم إنشاء طلبك بنجاح ✅
 
@@ -330,7 +358,6 @@ ${orderId}
 📱 سيتم التواصل معك عبر واتساب لتأكيد الطلب واستلام التصميم.`
     );
 
-    // مسح الفورم
     document.getElementById("orderForm").reset();
     document.getElementById("fileNamePreview").innerText = "لم يتم اختيار ملف";
     closeOrderModal();
@@ -520,6 +547,17 @@ const PRODUCTS = {
         ],
         price: "280 EGP",
         description: "تيشرت قطني بطباعة احترافية بأعلى جودة."
+    },
+
+    graduation: {
+        title: "استيك تخرج مخصص",
+        images: [
+            "./assets/products/graduation/1.jpg",
+            "./assets/products/graduation/2.jpg",
+            "./assets/products/graduation/3.jpg"
+        ],
+        price: "25 EGP",
+        description: "استيكرات تخرج بتصميمك الخاص، جودة طباعة ممتازة وألوان ثابتة. مثالية لحفلات التخرج والهدايا التذكارية."
     }
 
 };
@@ -535,7 +573,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const product = PRODUCTS[productId];
 
     if (!product) {
-        // لو المنتج مش موجود، نعرض رسالة
         document.getElementById("productTitle").textContent = "المنتج غير موجود";
         document.getElementById("productDescription").textContent = "عذراً، هذا المنتج غير متوفر حالياً.";
         document.getElementById("productPrice").textContent = "---";
@@ -549,7 +586,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const mainImage = document.getElementById("productImage");
     mainImage.alt = product.title;
 
-    // إذا كانت الصورة الأولى غير موجودة، استخدم صورة افتراضية
     if (product.images && product.images.length > 0) {
         mainImage.src = product.images[0];
         mainImage.onerror = function() {
@@ -601,7 +637,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     showImage(0);
 
-    // Hide the arrows if there's only one image
     if (!product.images || product.images.length <= 1) {
         if (prevBtn) prevBtn.style.display = "none";
         if (nextBtn) nextBtn.style.display = "none";
