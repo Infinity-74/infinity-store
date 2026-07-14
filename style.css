@@ -1836,3 +1836,95 @@ font-size:30px;
 .product-gallery img.active{
     border-color:#0077ff;
 }
+/* ===========================
+   تحسين حركة الصور (Smooth)
+=========================== */
+
+.product-img-holder img,
+.hero-image-card img,
+.portfolio-item img,
+.product-image .main-image-wrap img {
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.product-slide-img {
+    transition: opacity 0.4s ease-in-out !important;
+}
+
+/* تناسق الأزرار في نفس المستوى */
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    min-height: 50px;
+}
+
+.product-footer .btn {
+    white-space: nowrap;
+    min-width: 100px;
+    text-align: center;
+}
+
+/* ضبط ارتفاع بطاقات المنتجات عشان تكون متساوية */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info p {
+    flex: 1;
+}
+
+/* ===========================
+   اللوجو في الهيدر
+=========================== */
+
+.logo-img {
+    height: 45px;
+    width: auto;
+    display: block;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-text {
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+/* ===========================
+   صوت الكليك (CSS فقط)
+=========================== */
+
+.clickable {
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.clickable:active {
+    transform: scale(0.97);
+}
+
+/* ===========================
+   تحسين الفوتر مع اللوجو
+=========================== */
+
+.footer-logo-img {
+    height: 50px;
+    width: auto;
+    margin-bottom: 10px;
+    display: block;
+}
