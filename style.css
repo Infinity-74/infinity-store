@@ -1957,3 +1957,276 @@ font-size:30px;
     margin-bottom: 10px;
     display: block;
 }
+
+/* ===========================
+   Interactive Preview Customizer Styles
+   =========================== */
+
+/* Main image wrap relative positioning */
+.main-image-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Preview Overlay Container */
+.preview-overlay {
+    position: absolute;
+    pointer-events: none; /* Let clicks pass through if needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 3;
+}
+
+/* Default product position presets */
+.preview-overlay.preview-mug {
+    top: 28%;
+    left: 31%;
+    width: 38%;
+    height: 44%;
+    transform: perspective(400px) rotateY(-8deg); /* Slight 3D curve rotation for mug */
+}
+
+.preview-overlay.preview-stickers {
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+}
+
+.preview-overlay.preview-tshirt {
+    top: 26%;
+    left: 32%;
+    width: 36%;
+    height: 38%;
+}
+
+.preview-overlay.preview-graduation {
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+}
+
+/* Image preview inside the mockup */
+#previewImage {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.1s ease;
+    mix-blend-mode: multiply; /* Blends print with item textures */
+    opacity: 0.9;
+}
+
+/* Sticker look: adds white outline and shadow to transparent PNGs/Text */
+.preview-stickers #previewImage, 
+.preview-graduation #previewImage {
+    mix-blend-mode: normal !important;
+    opacity: 1 !important;
+    filter: drop-shadow(1.5px 0 0 #ffffff) drop-shadow(-1.5px 0 0 #ffffff) 
+            drop-shadow(0 1.5px 0 #ffffff) drop-shadow(0 -1.5px 0 #ffffff)
+            drop-shadow(1px 1px 0 #ffffff) drop-shadow(-1px -1px 0 #ffffff)
+            drop-shadow(1px -1px 0 #ffffff) drop-shadow(-1px 1px 0 #ffffff)
+            drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
+}
+
+/* Text preview inside the mockup */
+#previewText {
+    position: absolute;
+    white-space: nowrap;
+    text-align: center;
+    user-select: none;
+    font-weight: 900;
+    transition: transform 0.1s ease;
+    mix-blend-mode: multiply;
+    opacity: 0.9;
+    direction: ltr; /* English numbers and text look better */
+}
+
+/* Apply sticker style to text on stickers */
+.preview-stickers #previewText,
+.preview-graduation #previewText {
+    mix-blend-mode: normal !important;
+    opacity: 1 !important;
+    filter: drop-shadow(1.5px 0 0 #ffffff) drop-shadow(-1.5px 0 0 #ffffff) 
+            drop-shadow(0 1.5px 0 #ffffff) drop-shadow(0 -1.5px 0 #ffffff)
+            drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
+}
+
+/* Customizer Card Panel */
+.customizer-widget-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 24px;
+    margin: 25px 0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.customizer-widget-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+}
+
+.customizer-widget-card h3 i {
+    color: var(--accent-color);
+}
+
+.widget-intro-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Fields in panel */
+.customizer-field {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.customizer-field label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.customizer-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Input Customizing */
+.customizer-field input[type="text"],
+.customizer-field select {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: #fff;
+    font-family: var(--font-ar);
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.customizer-field input[type="text"]:focus,
+.customizer-field select:focus {
+    border-color: var(--primary-color);
+}
+
+.customizer-field select {
+    color-scheme: dark;
+}
+
+/* Color input styling */
+.customizer-field input[type="color"] {
+    border: 1px solid var(--border-color);
+    background: transparent;
+    width: 100%;
+    height: 42px;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 2px;
+}
+
+/* File Upload custom style */
+.file-upload-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(37, 99, 235, 0.1) !important;
+    border: 1.5px dashed rgba(37, 99, 235, 0.4) !important;
+    color: #93c5fd !important;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.file-upload-label:hover {
+    background: rgba(37, 99, 235, 0.18) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.file-upload-label input[type="file"] {
+    display: none;
+}
+
+.btn-clear-file {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    color: #fca5a5 !important;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    margin-right: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-clear-file:hover {
+    background: rgba(239, 68, 68, 0.25) !important;
+    border-color: #ef4444 !important;
+}
+
+.file-selected-name {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: block;
+}
+
+/* Range input/slider styling */
+.customizer-field input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    margin: 10px 0;
+}
+
+.customizer-field input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    cursor: pointer;
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
+    transition: transform 0.1s ease;
+}
+
+.customizer-field input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Order button CTA on product page */
+.order-now-cta {
+    margin-top: 15px;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border: none;
+    color: white;
+}
+
+.order-now-cta:hover {
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+}
+

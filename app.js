@@ -562,15 +562,20 @@ const PRODUCTS = {
 
 };
 
+// Global product tracking for order modal integration
+let currentProductId = null;
+let currentProduct = null;
+
 window.addEventListener("DOMContentLoaded", () => {
 
     if (!window.location.pathname.includes("product.html")) return;
 
     const params = new URLSearchParams(window.location.search);
+    currentProductId = params.get("id");
+    currentProduct = PRODUCTS[currentProductId];
 
-    const productId = params.get("id");
-
-    const product = PRODUCTS[productId];
+    const productId = currentProductId;
+    const product = currentProduct;
 
     if (!product) {
         document.getElementById("productTitle").textContent = "المنتج غير موجود";
@@ -644,4 +649,165 @@ window.addEventListener("DOMContentLoaded", () => {
         if (prevBtn) prevBtn.onclick = () => showImage(currentIndex - 1);
         if (nextBtn) nextBtn.onclick = () => showImage(currentIndex + 1);
     }
+
+    // ==========================================
+    //  Interactive Live Customizer Logic
+    // ==========================================
+    const previewOverlay = document.getElementById("previewOverlay");
+    const previewImage = document.getElementById("previewImage");
+    const previewText = document.getElementById("previewText");
+
+    const previewFileInput = document.getElementById("previewFileInput");
+    const clearPreviewFileBtn = document.getElementById("clearPreviewFile");
+    const previewFileSelectedName = document.getElementById("previewFileSelectedName");
+
+    const previewTextInput = document.getElementById("previewTextInput");
+    const previewTextColor = document.getElementById("previewTextColor");
+    const previewTextFont = document.getElementById("previewTextFont");
+
+    const previewDesignSize = document.getElementById("previewDesignSize");
+    const previewDesignX = document.getElementById("previewDesignX");
+    const previewDesignY = document.getElementById("previewDesignY");
+
+    // Set mockup position class based on product
+    if (previewOverlay && productId) {
+        previewOverlay.className = `preview-overlay preview-${productId}`;
+    }
+
+    // Update dimensions and locations dynamically
+    function updateInteractivePreview() {
+        if (!previewOverlay) return;
+
+        const xVal = previewDesignX ? previewDesignX.value : 0;
+        const yVal = previewDesignY ? previewDesignY.value : 0;
+        const sizeVal = previewDesignSize ? previewDesignSize.value : 25;
+        const scale = sizeVal / 25; // 25 is standard scale (1.0x)
+
+        // Apply transforms on image
+        if (previewImage && previewImage.style.display !== "none") {
+            previewImage.style.transform = `translate(${xVal}px, ${yVal}px) scale(${scale})`;
+        }
+
+        // Apply transforms and styles on text
+        if (previewText && previewTextInput) {
+            const txt = previewTextInput.value.trim();
+            if (txt !== "") {
+                previewText.style.display = "block";
+                previewText.textContent = txt;
+                if (previewTextColor) previewText.style.color = previewTextColor.value;
+                if (previewTextFont) previewText.style.fontFamily = previewTextFont.value;
+                previewText.style.transform = `translate(${xVal}px, ${yVal}px) scale(${scale})`;
+            } else {
+                previewText.style.display = "none";
+            }
+        }
+    }
+
+    // File input change handler (readers image data URL)
+    if (previewFileInput) {
+        previewFileInput.addEventListener("change", function() {
+            if (this.files && this.files.length > 0) {
+                const file = this.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (previewImage) {
+                        previewImage.src = e.target.result;
+                        previewImage.style.display = "block";
+                        updateInteractivePreview();
+                    }
+                };
+                reader.readAsDataURL(file);
+
+                if (previewFileSelectedName) {
+                    previewFileSelectedName.textContent = `📁 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                }
+                if (clearPreviewFileBtn) {
+                    clearPreviewFileBtn.style.display = "inline-flex";
+                }
+            }
+        });
+    }
+
+    // Clear file handler
+    if (clearPreviewFileBtn) {
+        clearPreviewFileBtn.addEventListener("click", function() {
+            if (previewFileInput) previewFileInput.value = "";
+            if (previewImage) {
+                previewImage.src = "";
+                previewImage.style.display = "none";
+            }
+            if (previewFileSelectedName) previewFileSelectedName.textContent = "";
+            this.style.display = "none";
+            updateInteractivePreview();
+        });
+    }
+
+    // Bind event listeners to customizer inputs
+    if (previewTextInput) previewTextInput.addEventListener("input", updateInteractivePreview);
+    if (previewTextColor) previewTextColor.addEventListener("input", updateInteractivePreview);
+    if (previewTextFont) previewTextFont.addEventListener("change", updateInteractivePreview);
+    if (previewDesignSize) previewDesignSize.addEventListener("input", updateInteractivePreview);
+    if (previewDesignX) previewDesignX.addEventListener("input", updateInteractivePreview);
+    if (previewDesignY) previewDesignY.addEventListener("input", updateInteractivePreview);
+
+    // Initial run
+    updateInteractivePreview();
 });
+
+// ==========================================
+//  Sync Customizer with Order Modal & Open
+// ==========================================
+function openOrderModalWithDesign() {
+    // Open the standard modal
+    openOrderModal();
+
+    // Fill in product dropdown value based on currently loaded product
+    const selectElem = document.getElementById("custProduct");
+    if (selectElem && currentProductId) {
+        const productMapping = {
+            "mug": "مج سيراميك عادي",
+            "stickers": "شيت استيكرات A4",
+            "tshirt": "تيشرت قطن مطبوع",
+            "graduation": "استيك تخرج مخصص"
+        };
+        const mappedVal = productMapping[currentProductId] || (currentProduct && currentProduct.title) || "";
+        selectElem.value = mappedVal;
+    }
+
+    // Sync file upload input (copy file references using DataTransfer object)
+    const customFileInput = document.getElementById("previewFileInput");
+    const modalFileInput = document.getElementById("custFile");
+    if (customFileInput && modalFileInput && customFileInput.files && customFileInput.files.length > 0) {
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(customFileInput.files[0]);
+        modalFileInput.files = dataTransfer.files;
+
+        // Trigger change event to update modal's UI file preview name
+        modalFileInput.dispatchEvent(new Event("change"));
+    }
+
+    // Prepare design summary and write to notes
+    const customText = document.getElementById("previewTextInput") ? document.getElementById("previewTextInput").value.trim() : "";
+    const customColor = document.getElementById("previewTextColor") ? document.getElementById("previewTextColor").value : "";
+    const sizeVal = document.getElementById("previewDesignSize") ? document.getElementById("previewDesignSize").value : "";
+    const xVal = document.getElementById("previewDesignX") ? document.getElementById("previewDesignX").value : "";
+    const yVal = document.getElementById("previewDesignY") ? document.getElementById("previewDesignY").value : "";
+
+    let designNotes = "";
+    if (customText) {
+        designNotes += `- نص مخصص للطباعة: "${customText}" (لون: ${customColor})\n`;
+    }
+    if (customFileInput && customFileInput.files && customFileInput.files.length > 0) {
+        designNotes += `- صورة المعاينة المرفقة: ${customFileInput.files[0].name}\n`;
+    }
+    if (designNotes) {
+        designNotes = `[طلب مخصص تم تجهيزه بالمعاينة الحية]\n` + 
+                      designNotes + 
+                      `- خيارات موضع التصميم: الحجم (${sizeVal}%), تحريك أفقي (${xVal}px), تحريك رأسي (${yVal}px)`;
+        const notesTextarea = document.getElementById("custDetails");
+        if (notesTextarea) {
+            notesTextarea.value = designNotes;
+        }
+    }
+}
+
