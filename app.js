@@ -214,8 +214,6 @@ function quickOrder(productName) {
 function orderFromCalculator() {
     const productKey = document.getElementById("calcProduct").value;
     const qty = document.getElementById("calcQty").value;
-    const printSides = document.getElementById("calcPrintSides").value;
-    const totalPrice = document.getElementById("totalPriceVal").innerText;
 
     const productMapping = {
         "mug-regular": "مج سيراميك عادي",
@@ -231,9 +229,6 @@ function orderFromCalculator() {
 
     document.getElementById("custProduct").value = modalProductValue;
     document.getElementById("custQty").value = qty;
-
-    const sidesText = printSides === "double" ? "على الوجهين" : "على وجه واحد";
-    document.getElementById("custDetails").value = `طلب محدد من حاسبة الأسعار: طباعة ${sidesText} بسعر تقديري إجمالي ${totalPrice} EGP.`;
 
     openOrderModal();
 }
@@ -274,24 +269,24 @@ async function submitOrder(event) {
 
     let message = `السلام عليكم 🌹\n\nتم إنشاء طلب جديد من موقع Infinity Store.\n\n🆔 رقم الطلب: ${orderId}\n👤 الاسم: ${name}\n📱 الهاتف: ${phone}\n📦 المنتج: ${product}\n🔢 الكمية: ${qty}\n📍 المحافظة: ${city}\n📝 التفاصيل:\n${details || "لا يوجد"}`;
 
-    // قراءة الصورة وتحويلها لـ Base64 عشان تتبعت في الواتساب
     if (file) {
         const fileSize = (file.size / 1024).toFixed(1);
-        message += `\n\n📎 الملف المرفق: ${file.name} (${fileSize} KB)`;
-        
-        try {
-            const reader = new FileReader();
-            const imageData = await new Promise((resolve) => {
-                reader.onload = (e) => resolve(e.target.result);
-                reader.readAsDataURL(file);
-            });
-            message += `\n🖼️ الصورة:\n${imageData}`;
-        } catch (err) {
-            message += `\n⚠️ سيتم طلب إرسال الملف عبر واتساب بعد التأكيد.`;
-        }
+        message += `\n\n📎 الملف المرفق: ${file.name} (${fileSize} KB)\n(سيتم إرسال الملف يدوياً عبر واتساب بعد التأكيد)`;
     }
 
     message += `\n\nيرجى تأكيد الطلب.`;
+
+    // مهم: لازم نفتح واتساب فوراً هنا (قبل أي await) عشان المتصفح
+    // ما يعتبرش النافذة دي "popup" ويمنعها. لو فتحناها بعد await
+    // المتصفح بيمنعها لأنها مبقتش مرتبطة مباشرة بضغطة الزرار.
+    const whatsappWindow = window.open(
+        `https://wa.me/${BRAND_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+        "_blank"
+    );
+
+    if (!whatsappWindow) {
+        alert("⚠️ المتصفح منع فتح واتساب تلقائياً. من فضلك اسمح بالنوافذ المنبثقة (Pop-ups) لهذا الموقع وحاول تاني، أو اضغط على الرابط اللي هيظهر لك.");
+    }
 
     const orderData = {
         orderId,
@@ -314,8 +309,6 @@ async function submitOrder(event) {
     } catch (err) {
         console.warn("⚠️ فشل إرسال البيانات إلى Google Sheets:", err);
     }
-
-    window.open(`https://wa.me/${BRAND_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
 
     alert(`✅ تم إنشاء طلبك بنجاح ✅\n\n🆔 رقم طلبك هو: ${orderId}\n\n📌 احتفظ بهذا الرقم لتتبع طلبك لاحقاً.\n\n📱 سيتم التواصل معك عبر واتساب لتأكيد الطلب واستلام التصميم.`);
 
@@ -636,24 +629,4 @@ function openOrderModalWithDesign() {
         modalFileInput.dispatchEvent(new Event("change"));
     }
 
-    const customText = document.getElementById("previewTextInput") ? document.getElementById("previewTextInput").value.trim() : "";
-    const customColor = document.getElementById("previewTextColor") ? document.getElementById("previewTextColor").value : "";
-    const sizeVal = document.getElementById("previewDesignSize") ? document.getElementById("previewDesignSize").value : "";
-    const xVal = document.getElementById("previewDesignX") ? document.getElementById("previewDesignX").value : "";
-    const yVal = document.getElementById("previewDesignY") ? document.getElementById("previewDesignY").value : "";
-
-    let designNotes = "";
-    if (customText) {
-        designNotes += `- نص مخصص للطباعة: "${customText}" (لون: ${customColor})\n`;
-    }
-    if (customFileInput && customFileInput.files && customFileInput.files.length > 0) {
-        designNotes += `- صورة المعاينة المرفقة: ${customFileInput.files[0].name}\n`;
-    }
-    if (designNotes) {
-        designNotes = `[طلب مخصص تم تجهيزه بالمعاينة الحية]\n` + designNotes + `- خيارات موضع التصميم: الحجم (${sizeVal}%), تحريك أفقي (${xVal}px), تحريك رأسي (${yVal}px)`;
-        const notesTextarea = document.getElementById("custDetails");
-        if (notesTextarea) {
-            notesTextarea.value = designNotes;
-        }
-    }
 }
