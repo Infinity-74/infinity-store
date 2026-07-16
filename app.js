@@ -292,20 +292,6 @@ async function submitOrder(event) {
         Date.now().toString().slice(-6) +
         Math.floor(Math.random() * 90 + 10);
 
-    // قراءة الصورة وتحويلها إلى Base64
-    let imageBase64 = "";
-    if (file) {
-        try {
-            const reader = new FileReader();
-            imageBase64 = await new Promise((resolve) => {
-                reader.onload = (e) => resolve(e.target.result);
-                reader.readAsDataURL(file);
-            });
-        } catch (err) {
-            console.warn("⚠️ فشل قراءة الصورة:", err);
-        }
-    }
-
     let message =
 `السلام عليكم 🌹
 
@@ -326,11 +312,7 @@ async function submitOrder(event) {
 📝 التفاصيل:
 ${details || "لا يوجد"}`;
 
-    if (file && imageBase64) {
-        const fileSize = (file.size / 1024).toFixed(1);
-        message += `\n\n📎 الملف المرفق: ${file.name} (${fileSize} KB)`;
-        message += `\n🖼️ الصورة:\n${imageBase64}`;
-    } else if (file) {
+    if (file) {
         const fileSize = (file.size / 1024).toFixed(1);
         message += `\n\n📎 الملف المرفق: ${file.name} (${fileSize} KB)`;
         message += `\n⚠️ سيتم طلب إرسال الملف عبر واتساب بعد التأكيد.`;
