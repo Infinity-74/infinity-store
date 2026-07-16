@@ -444,9 +444,7 @@ a {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    margin-top: 20px;
 }
-
 .feature-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
