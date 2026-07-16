@@ -104,4 +104,231 @@
                     <div class="product-features">
                         <div class="feature">
                             <i class="fa-solid fa-circle-check"></i>
-                            <span>طباعة ديجيتال وحرارية بأعلى جودة وثبات
+                            <span>طباعة ديجيتال وحرارية بأعلى جودة وثبات ألوان تام</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fa-solid fa-truck-fast"></i>
+                            <span>تغليف آمن وشحن سريع لجميع محافظات مصر</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>خامات مستوردة ممتازة ومقاومة للمياه والخدش</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Info & Interactive Customization Panel Column -->
+                <div class="product-content">
+                    <span class="product-detail-badge" id="productBadge">الأكثر مبيعاً</span>
+                    <h1 id="productTitle">اسم المنتج</h1>
+                    <p id="productDescription">وصف المنتج وتفاصيله الفنية والخامات المستخدمة.</p>
+                    <h2 id="productPrice">--- EGP</h2>
+
+                    <!-- Live Customizer Widget -->
+                    <div class="customizer-widget-card">
+                        <h3><i class="fa-solid fa-wand-magic-sparkles"></i> لوحة التخصيص والمعاينة الحية</h3>
+                        <p class="widget-intro-text">ارفع شعارًا/صورة أو اكتب النص الذي ترغب في طباعته، وسيتم عرضه فورًا على المنتج بالدقة التقريبية!</p>
+                        
+                        <!-- Upload Image for Preview -->
+                        <div class="customizer-field">
+                            <label class="btn btn-secondary btn-sm file-upload-label">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> ارفق صورتك أو شعارك
+                                <input type="file" id="previewFileInput" accept="image/*">
+                            </label>
+                            <button type="button" id="clearPreviewFile" class="btn btn-sm btn-clear-file" style="display: none;">
+                                <i class="fa-solid fa-trash-can"></i> حذف الصورة
+                            </button>
+                            <span id="previewFileSelectedName" class="file-selected-name"></span>
+                        </div>
+
+                        <!-- Custom Text for Preview -->
+                        <div class="customizer-field">
+                            <label for="previewTextInput">أو اكتب نصاً مخصصاً (اختياري)</label>
+                            <input type="text" id="previewTextInput" placeholder="اكتب الكلمة أو العبارة هنا...">
+                        </div>
+
+                        <!-- Design Controls (Color & Size) -->
+                        <div class="customizer-row">
+                            <div class="customizer-field">
+                                <label for="previewTextColor">لون النص</label>
+                                <input type="color" id="previewTextColor" value="#ffffff">
+                            </div>
+                            <div class="customizer-field">
+                                <label for="previewTextFont">نوع الخط</label>
+                                <select id="previewTextFont">
+                                    <option value="'Cairo', sans-serif">Cairo (خط عربي عريض)</option>
+                                    <option value="'Outfit', sans-serif">Outfit (خط إنجليزي مودرن)</option>
+                                    <option value="system-ui, sans-serif">افتراضي النظام</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Sizing and Moving Sliders -->
+                        <div class="customizer-field">
+                            <label for="previewDesignSize">حجم التصميم (صورة / نص)</label>
+                            <input type="range" id="previewDesignSize" min="10" max="60" value="25">
+                        </div>
+
+                        <div class="customizer-row">
+                            <div class="customizer-field">
+                                <label for="previewDesignX">تحريك أفقي (يمين/يسار)</label>
+                                <input type="range" id="previewDesignX" min="-100" max="100" value="0">
+                            </div>
+                            <div class="customizer-field">
+                                <label for="previewDesignY">تحريك رأسي (أعلى/أسفل)</label>
+                                <input type="range" id="previewDesignY" min="-100" max="100" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Action Button -->
+                    <button class="btn btn-primary btn-lg btn-block order-now-cta" onclick="openOrderModalWithDesign()">
+                        <i class="fa-solid fa-cart-shopping"></i> اطلب دلوقتي بتصميمك المخصص
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-info">
+                <a href="index.html" class="logo">
+                    <img src="./assets/logo-white.png" alt="Infinity Store" class="logo-img">
+                    <span class="logo-text">Infinity <span class="accent-text">Store</span></span>
+                </a>
+                <p>بنساعدك تطبع كل اللي بتتمناه وتصمم هداياك وأدواتك بأعلى دقة وخامات ممتازة تدوم طويلاً.</p>
+            </div>
+            <div class="footer-links">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="index.html#hero">الرئيسية</a></li>
+                    <li><a href="index.html#products">منتجاتنا</a></li>
+                    <li><a href="index.html#calculator">الأسعار</a></li>
+                    <li><a href="index.html#portfolio">معرض الأعمال</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>تواصل معنا</h4>
+                <p><i class="fa-solid fa-phone"></i> +20 155 628 4315</p>
+                <p><i class="fa-solid fa-envelope"></i> info@infinitystore.com</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/people/Infinity-Store/61573269805230/?mibextid=wwXIfr&rdid=QBPnZZZNTei2mQRO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F195Dedjpvt%2F%3Fmibextid%3DwwXIfr" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/infinity_is_store?igsh=amQ5bDNxMHlsd3Az" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/201556284315" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Infinity Store. جميع الحقوق محفوظة. تم التطوير بكل حب .</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Order Modal Popup -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-card">
+            <button class="close-modal-btn" onclick="closeOrderModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-header">
+                <h2>طلب منتج مخصص جديد <i class="fa-solid fa-wand-magic-sparkles"></i></h2>
+                <p>دخل بياناتك وتفاصيل طلبك، وهنكلمك على الواتساب نأكد معاك ونستلم التصميم!</p>
+            </div>
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label for="custName">اسمك بالكامل <span class="required">*</span></label>
+                    <input type="text" id="custName" placeholder="اكتب اسمك ثلاثي مثلاً..." required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="custPhone">رقم الموبايل (واتساب) <span class="required">*</span></label>
+                        <input type="tel" id="custPhone" placeholder="01xxxxxxxxx" required pattern="01[0-2,5]{1}[0-9]{8}">
+                    </div>
+                    <div class="form-group">
+                        <label for="custProduct">المنتج المطلوب <span class="required">*</span></label>
+                        <select id="custProduct" required>
+                            <option value="">اختر المنتج...</option>
+                            <option value="مج سيراميك عادي">مج سيراميك عادي</option>
+                            <option value="مج سحري">مج سحري (يتغير بالحرارة)</option>
+                            <option value="شيت استيكرات A4">شيت استيكرات A4</option>
+                            <option value="استيكر فردي داي-كت">استيكر فردي داي-كت</option>
+                            <option value="تيشرت قطن مطبوع">تيشرت قطن مطبوع</option>
+                            <option value="هودي شتوي مطبوع">هودي شتوي مطبوع</option>
+                            <option value="استيك تخرج مخصص">استيك تخرج مخصص</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="custQty">الكمية المطلوبة <span class="required">*</span></label>
+                        <input type="number" id="custQty" value="1" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="custCity">المحافظة (لتحديد الشحن) <span class="required">*</span></label>
+                        <select id="custCity" required>
+                            <option value="">اختر المحافظة...</option>
+                            <option value="القاهرة">القاهرة</option>
+                            <option value="الجيزة">الجيزة</option>
+                            <option value="الإسكندرية">الإسكندرية</option>
+                            <option value="القليوبية">القليوبية</option>
+                            <option value="الغربية">الغربية</option>
+                            <option value="المنوفية">المنوفية</option>
+                            <option value="الدقهلية">الدقهلية</option>
+                            <option value="الشرقية">الشرقية</option>
+                            <option value="البحيرة">البحيرة</option>
+                            <option value="دمياط">دمياط</option>
+                            <option value="بورسعيد">بورسعيد</option>
+                            <option value="الإسماعيلية">الإسماعيلية</option>
+                            <option value="السويس">السويس</option>
+                            <option value="محافظة أخرى">محافظة أخرى</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="custDetails">تفاصيل التصميم أو الكلام المراد كتابته</label>
+                    <textarea id="custDetails" rows="3" placeholder="اكتب هنا التفاصيل اللي محتاج تطبعها، الألوان اللي بتحبها، أو لو عندك فكرة معينة..."></textarea>
+                </div>
+                <div class="form-group file-upload-wrapper">
+                    <label class="file-label">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>ارفق لوجو أو تصميمك المبدئي (اختياري)</span>
+                        <input type="file" id="custFile" accept="image/*" class="file-input">
+                    </label>
+                    <div class="file-name-preview" id="fileNamePreview">لم يتم اختيار ملف</div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                    <i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر واتساب وتأكيد التنفيذ
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tom Select (for search in dropdowns) -->
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.default.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+
+    <!-- Main JS Code -->
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                if (select.id === 'custProduct' || select.id === 'custCity') {
+                    new TomSelect(select, {
+                        create: false,
+                        sortField: 'text',
+                        searchField: 'text',
+                        maxItems: 1,
+                        placeholder: 'ابحث أو اختر...',
+                        dropdownParent: 'body'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
