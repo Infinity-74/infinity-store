@@ -511,33 +511,25 @@ const PRODUCTS = {
 
     mug: {
         title: "مج سيراميك مخصص",
-
         images: [
             "./assets/products/mug/1.jpg",
             "./assets/products/mug/2.jpg",
             "./assets/products/mug/3.jpg",
             "./assets/products/mug/4.jpg"
         ],
-
         price: "120 EGP",
-
         description: "مج سيراميك عالي الجودة مع إمكانية الطباعة بصورة أو لوجو أو تصميم خاص."
     },
 
     stickers: {
-
         title: "استيكرات مخصصة",
-
         images: [
             "./assets/products/stickers/1.jpg",
             "./assets/products/stickers/2.jpg",
             "./assets/products/stickers/3.jpg"
         ],
-
         price: "45 EGP",
-
         description: "استيكرات مقاومة للمياه مناسبة للابتوب والموبايل والزجاجات."
-
     },
 
     tshirt: {
@@ -810,4 +802,3 @@ function openOrderModalWithDesign() {
         }
     }
 }
-
