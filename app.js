@@ -292,16 +292,18 @@ async function submitOrder(event) {
         Date.now().toString().slice(-6) +
         Math.floor(Math.random() * 90 + 10);
 
-    // جلب رابط الصورة المرفوعة (إن وجدت)
-    let imageUrl = "";
+    // قراءة الصورة وتحويلها إلى Base64
+    let imageBase64 = "";
     if (file) {
-        // تحويل الصورة إلى Base64
-        const reader = new FileReader();
-        const imageData = await new Promise((resolve) => {
-            reader.onload = (e) => resolve(e.target.result);
-            reader.readAsDataURL(file);
-        });
-        imageUrl = imageData;
+        try {
+            const reader = new FileReader();
+            imageBase64 = await new Promise((resolve) => {
+                reader.onload = (e) => resolve(e.target.result);
+                reader.readAsDataURL(file);
+            });
+        } catch (err) {
+            console.warn("⚠️ فشل قراءة الصورة:", err);
+        }
     }
 
     let message =
@@ -324,12 +326,14 @@ async function submitOrder(event) {
 📝 التفاصيل:
 ${details || "لا يوجد"}`;
 
-    // إضافة رابط الصورة في الرسالة
-    if (file) {
+    if (file && imageBase64) {
         const fileSize = (file.size / 1024).toFixed(1);
         message += `\n\n📎 الملف المرفق: ${file.name} (${fileSize} KB)`;
-        message += `\n🖼️ رابط الصورة (أنقر للتحميل):\n${imageUrl}`;
-        message += `\n\n⚠️ ملاحظة: سيتم إرسال الصورة كرابط في رسالة الواتساب، يمكنك فتحها وتحميلها.`;
+        message += `\n🖼️ الصورة:\n${imageBase64}`;
+    } else if (file) {
+        const fileSize = (file.size / 1024).toFixed(1);
+        message += `\n\n📎 الملف المرفق: ${file.name} (${fileSize} KB)`;
+        message += `\n⚠️ سيتم طلب إرسال الملف عبر واتساب بعد التأكيد.`;
     }
 
     message += `\n\nيرجى تأكيد الطلب.`;
@@ -343,7 +347,6 @@ ${details || "لا يوجد"}`;
         city,
         details,
         fileName: file ? file.name : "لا يوجد",
-        imageData: imageUrl ? imageUrl.substring(0, 100) + "..." : "لا يوجد", // حفظ جزء من الصورة في قاعدة البيانات
         status: "قيد المراجعة"
     };
 
@@ -357,7 +360,6 @@ ${details || "لا يوجد"}`;
         console.warn("⚠️ فشل إرسال البيانات إلى Google Sheets:", err);
     }
 
-    // فتح واتساب مع الرسالة
     window.open(
         `https://wa.me/${BRAND_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
         "_blank"
