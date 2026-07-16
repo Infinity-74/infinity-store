@@ -2,37 +2,25 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="theme-color" content="#0D0D0D">
-
-    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-
     <title>Infinity Store | طباعة مجات واستيكرات وهدايا مخصصة</title>
-
     <meta name="description" content="اطبع تصميمك على المجات، الاستيكرات، الهدايا، والمنتجات المخصصة بجودة عالية وأسعار تنافسية مع Infinity Store. اطلب الآن بكل سهولة.">
-    <!-- Google Fonts: Cairo for Arabic & Outfit for English numbers/details -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for beautiful icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Main Style Sheet -->
     <link rel="stylesheet" href="style.css">
-    <!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Infinity Store">
-<meta property="og:title" content="Infinity Store | طباعة مجات واستيكرات وهدايا مخصصة">
-<meta property="og:description" content="اطبع تصميمك على المجات، الاستيكرات، والهدايا المخصصة بجودة عالية وأسعار تنافسية مع Infinity Store.">
-<meta property="og:url" content="https://infinity-74.github.io/infinity-store/">
-<meta property="og:locale" content="ar_EG">
-    
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Infinity Store">
+    <meta property="og:title" content="Infinity Store | طباعة مجات واستيكرات وهدايا مخصصة">
+    <meta property="og:description" content="اطبع تصميمك على المجات، الاستيكرات، والهدايا المخصصة بجودة عالية وأسعار تنافسية مع Infinity Store.">
+    <meta property="og:url" content="https://infinity-74.github.io/infinity-store/">
+    <meta property="og:locale" content="ar_EG">
     <link rel="canonical" href="https://infinity-74.github.io/infinity-store/">
-    
 </head>
 <body>
 
@@ -40,9 +28,9 @@
     <header class="navbar">
         <div class="container navbar-container">
             <a href="#" class="logo">
-    <img src="./assets/logo-white.png" alt="Infinity Store" class="logo-img">
-    <span class="logo-text">Infinity <span class="accent-text">Store</span></span>
-</a>
+                <img src="./assets/logo-white.png" alt="Infinity Store" class="logo-img">
+                <span class="logo-text">Infinity <span class="accent-text">Store</span></span>
+            </a>
             <nav class="nav-links">
                 <a href="#hero">الرئيسية</a>
                 <a href="#products">منتجاتنا</a>
@@ -59,7 +47,6 @@
     </header>
 
     <main>
-
 
     <!-- Mobile Navigation Drawer -->
     <div class="mobile-drawer" id="mobileDrawer">
@@ -98,7 +85,6 @@
                         <p>طباعة حرارية ثابتة ومقاومة للغسيل</p>
                     </div>
                 </div>
-                <!-- Thumbnail navigations to change hero main visual dynamically -->
                 <div class="hero-thumbnails">
                     <div class="thumb active" onclick="changeHeroImage('./assets/custom_mugs.jpg', 'مجات مخصصة حسب الطلب', 'طباعة حرارية ثابتة ومقاومة للغسيل', this)">
                         <img src="./assets/custom_mugs.jpg" alt="Mugs">
@@ -115,75 +101,44 @@
     </section>
 
     <!-- Why Choose Infinity Store -->
-<section class="features-section">
-
-    <div class="container">
-
-        <div class="section-header">
-            <h2>لماذا تختار Infinity Store؟</h2>
-            <p>
-                نهتم بكل تفاصيل طلبك بداية من التصميم وحتى وصول المنتج بأفضل جودة.
-            </p>
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>لماذا تختار Infinity Store؟</h2>
+                <p>نهتم بكل تفاصيل طلبك بداية من التصميم وحتى وصول المنتج بأفضل جودة.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal reveal-right">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-print"></i>
+                    </div>
+                    <h3>جودة طباعة احترافية</h3>
+                    <p>نستخدم خامات وأحبار عالية الجودة للحصول على ألوان ثابتة وتفاصيل واضحة.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3>تصميم حسب طلبك</h3>
+                    <p>ابعت فكرتك أو تصميمك ونحولها لمنتج مميز يناسب ذوقك.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3>تنفيذ سريع</h3>
+                    <p>نعمل على تجهيز الطلبات بأسرع وقت مع الحفاظ على جودة التنفيذ.</p>
+                </div>
+                <div class="feature-card reveal reveal-left">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <h3>شحن ومتابعة سهلة</h3>
+                    <p>نوصل طلبك لكل المحافظات مع إمكانية متابعة حالة الطلب حتى الاستلام.</p>
+                </div>
+            </div>
         </div>
-
-        <div class="features-grid">
-
-            <div class="feature-card reveal reveal-right">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-print"></i>
-                </div>
-
-                <h3>جودة طباعة احترافية</h3>
-
-                <p>
-                    نستخدم خامات وأحبار عالية الجودة للحصول على ألوان ثابتة وتفاصيل واضحة.
-                </p>
-            </div>
-
-
-            <div class="feature-card reveal">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                </div>
-
-                <h3>تصميم حسب طلبك</h3>
-
-                <p>
-                    ابعت فكرتك أو تصميمك ونحولها لمنتج مميز يناسب ذوقك.
-                </p>
-            </div>
-
-
-            <div class="feature-card reveal">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-bolt"></i>
-                </div>
-
-                <h3>تنفيذ سريع</h3>
-
-                <p>
-                    نعمل على تجهيز الطلبات بأسرع وقت مع الحفاظ على جودة التنفيذ.
-                </p>
-            </div>
-
-
-            <div class="feature-card reveal reveal-left">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-truck-fast"></i>
-                </div>
-
-                <h3>شحن ومتابعة سهلة</h3>
-
-                <p>
-                    نوصل طلبك لكل المحافظات مع إمكانية متابعة حالة الطلب حتى الاستلام.
-                </p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
+    </section>
 
     <!-- Products Section -->
     <section id="products" class="products-section">
@@ -193,10 +148,7 @@
                 <p>اكتشف تشكيلتنا الواسعة وابدأ في تخصيص منتجك المفضل</p>
             </div>
             <div class="products-grid">
-                <!-- Product 1 -->
-                <div class="product-card reveal reveal-right"
-     onclick="openProduct('mug')"
-     style="cursor:pointer;">
+                <div class="product-card reveal reveal-right" onclick="openProduct('mug')" style="cursor:pointer;">
                     <div class="product-img-holder" data-product="mug">
                         <img class="product-slide-img" src="./assets/products/mug/1.jpg" alt="مجات سحرية وعادية">
                         <span class="product-badge">الأكثر مبيعاً</span>
@@ -212,10 +164,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Product 2 -->
-                <div class="product-card reveal"
-     onclick="openProduct('stickers')"
-     style="cursor:pointer;">
+                <div class="product-card reveal" onclick="openProduct('stickers')" style="cursor:pointer;">
                     <div class="product-img-holder" data-product="stickers">
                         <img class="product-slide-img" src="./assets/products/stickers/1.jpg" alt="استيكرات لابتوب">
                         <span class="product-badge">فينيل مستورد</span>
@@ -231,25 +180,22 @@
                         </div>
                     </div>
                 </div>
-                <!-- Product 3 - استيك التخرج -->
-<div class="product-card reveal reveal-left"
-     onclick="openProduct('graduation')"
-     style="cursor:pointer;">
-    <div class="product-img-holder" data-product="graduation">
-        <img class="product-slide-img" src="./assets/products/graduation/1.jpg" alt="استيك تخرج مخصص">
-        <span class="product-badge">الأكثر طلباً</span>
-        <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
-        <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
-    <div class="product-info">
-        <h3>استيك تخرج مخصص</h3>
-        <p>استيكرات تخرج فريدة ومميزة تناسب حفلات التخرج والمناسبات، بتصميمك الخاص وبجودة طباعة رائعة.</p>
-        <div class="product-footer">
-            <span class="price">تبدأ من <span class="amount">25 EGP</span></span>
-            <button class="btn btn-outline-primary btn-sm" onclick="quickOrder('استيك تخرج')">اطلب الآن</button>
-        </div>
-    </div>
-</div>
+                <div class="product-card reveal reveal-left" onclick="openProduct('graduation')" style="cursor:pointer;">
+                    <div class="product-img-holder" data-product="graduation">
+                        <img class="product-slide-img" src="./assets/products/graduation/1.jpg" alt="استيك تخرج مخصص">
+                        <span class="product-badge">الأكثر طلباً</span>
+                        <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <div class="product-info">
+                        <h3>استيك تخرج مخصص</h3>
+                        <p>استيكرات تخرج فريدة ومميزة تناسب حفلات التخرج والمناسبات، بتصميمك الخاص وبجودة طباعة رائعة.</p>
+                        <div class="product-footer">
+                            <span class="price">تبدأ من <span class="amount">25 EGP</span></span>
+                            <button class="btn btn-outline-primary btn-sm" onclick="quickOrder('استيك تخرج')">اطلب الآن</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -313,240 +259,130 @@
     </section>
 
     <!-- Payment Methods -->
-<section id="payments" class="payments-section">
-    <div class="container">
-
-        <div class="section-header">
-            <h2>طرق الدفع</h2>
-            <p>بعد مراجعة الطلب والتواصل معك عبر واتساب، يمكنك اختيار وسيلة الدفع المناسبة بكل سهولة.</p>
+    <section id="payments" class="payments-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>طرق الدفع</h2>
+                <p>بعد مراجعة الطلب والتواصل معك عبر واتساب، يمكنك اختيار وسيلة الدفع المناسبة بكل سهولة.</p>
+            </div>
+            <div class="payments-grid">
+                <div class="payment-card">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <h3>InstaPay</h3>
+                    <p>دفع سريع وآمن من خلال InstaPay بعد تأكيد الطلب.</p>
+                </div>
+                <div class="payment-card">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <h3>Vodafone Cash</h3>
+                    <p>تحويل مباشر عبر Vodafone Cash بعد مراجعة الطلب.</p>
+                </div>
+                <div class="payment-card">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <h3>الشحن لجميع المحافظات</h3>
+                    <p>نشحن لجميع محافظات مصر مع إمكانية تتبع الطلب حتى الاستلام.</p>
+                </div>
+                <div class="payment-card">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <h3>تأكيد الطلب عبر واتساب</h3>
+                    <p>بعد إرسال الطلب سنتواصل معك لتأكيد البيانات وإرسال وسيلة الدفع المناسبة.</p>
+                </div>
+            </div>
+            <div class="payment-notes">
+                <h3><i class="fa-solid fa-circle-info"></i> ملاحظات مهمة</h3>
+                <ul>
+                    <li><i class="fa-solid fa-circle-check"></i> لا يتم الدفع إلا بعد مراجعة الطلب والتواصل معك عبر واتساب.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> يتم إرسال بيانات الدفع المناسبة بعد تأكيد الطلب.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> يبدأ تنفيذ الطلب بعد تأكيد عملية الدفع.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> تكلفة الشحن تختلف حسب المحافظة وشركة الشحن.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> يمكنك متابعة حالة طلبك باستخدام رقم الطلب حتى يتم التسليم.</li>
+                </ul>
+            </div>
         </div>
-
-        <div class="payments-grid">
-
-            <div class="payment-card">
-                <i class="fa-solid fa-credit-card"></i>
-                <h3>InstaPay</h3>
-                <p>دفع سريع وآمن من خلال InstaPay بعد تأكيد الطلب.</p>
-            </div>
-
-            <div class="payment-card">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-                <h3>Vodafone Cash</h3>
-                <p>تحويل مباشر عبر Vodafone Cash بعد مراجعة الطلب.</p>
-            </div>
-
-            <div class="payment-card">
-                <i class="fa-solid fa-truck-fast"></i>
-                <h3>الشحن لجميع المحافظات</h3>
-                <p>نشحن لجميع محافظات مصر مع إمكانية تتبع الطلب حتى الاستلام.</p>
-            </div>
-
-            <div class="payment-card">
-                <i class="fa-brands fa-whatsapp"></i>
-                <h3>تأكيد الطلب عبر واتساب</h3>
-                <p>بعد إرسال الطلب سنتواصل معك لتأكيد البيانات وإرسال وسيلة الدفع المناسبة.</p>
-            </div>
-
-        </div>
-
-        <div class="payment-notes">
-
-            <h3>
-                <i class="fa-solid fa-circle-info"></i>
-                ملاحظات مهمة
-            </h3>
-
-            <ul>
-
-                <li>
-                    <i class="fa-solid fa-circle-check"></i>
-                    لا يتم الدفع إلا بعد مراجعة الطلب والتواصل معك عبر واتساب.
-                </li>
-
-                <li>
-                    <i class="fa-solid fa-circle-check"></i>
-                    يتم إرسال بيانات الدفع المناسبة بعد تأكيد الطلب.
-                </li>
-
-                <li>
-                    <i class="fa-solid fa-circle-check"></i>
-                    يبدأ تنفيذ الطلب بعد تأكيد عملية الدفع.
-                </li>
-
-                <li>
-                    <i class="fa-solid fa-circle-check"></i>
-                    تكلفة الشحن تختلف حسب المحافظة وشركة الشحن.
-                </li>
-
-                <li>
-                    <i class="fa-solid fa-circle-check"></i>
-                    يمكنك متابعة حالة طلبك باستخدام رقم الطلب حتى يتم التسليم.
-                </li>
-
-            </ul>
-
-        </div>
-
-    </div>
-</section>
+    </section>
     
     <!-- Tracking Section -->
-<section id="tracking" class="tracking-section">
-    <div class="container">
-        <div class="section-header">
-            <h2>تتبع طلبك</h2>
-            <p>ادخل رقم الطلب أو رقم التتبع لمعرفة حالة الشحنة.</p>
+    <section id="tracking" class="tracking-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>تتبع طلبك</h2>
+                <p>ادخل رقم الطلب أو رقم التتبع لمعرفة حالة الشحنة.</p>
+            </div>
+            <div class="tracking-card">
+                <div class="tracking-search">
+                    <input type="text" id="trackingInput" placeholder="مثال: INF10254">
+                    <button class="btn btn-primary" onclick="trackOrder()">
+                        <i class="fa-solid fa-magnifying-glass"></i> تتبع الطلب
+                    </button>
+                </div>
+                <div id="trackingResult" class="tracking-result" style="display:none;">
+                    <div class="tracking-status">
+                        <h3>حالة الطلب : <span id="statusText">جاري الشحن</span></h3>
+                    </div>
+                    <div class="tracking-progress">
+                        <div class="step active"><i class="fa-solid fa-cart-shopping"></i><span>تم استلام الطلب</span></div>
+                        <div class="step active"><i class="fa-solid fa-box"></i><span>جاري التجهيز</span></div>
+                        <div class="step active"><i class="fa-solid fa-truck"></i><span>تم الشحن</span></div>
+                        <div class="step"><i class="fa-solid fa-house"></i><span>تم التسليم</span></div>
+                    </div>
+                    <div class="tracking-details">
+                        <div><strong>رقم الطلب:</strong> INF10254</div>
+                        <div><strong>شركة الشحن:</strong> Infinity Express</div>
+                        <div><strong>آخر تحديث:</strong> اليوم 3:45 مساءً</div>
+                        <div><strong>التسليم المتوقع:</strong> خلال يومين</div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="tracking-card">
-
-            <div class="tracking-search">
-
-                <input
-                    type="text"
-                    id="trackingInput"
-                    placeholder="مثال: INF10254">
-
-                <button
-                    class="btn btn-primary"
-                    onclick="trackOrder()">
-
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    تتبع الطلب
-
-                </button>
-
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>آراء عملائنا</h2>
+                <p>نفخر بثقة عملائنا ونسعى دائمًا لتقديم أفضل جودة وخدمة.</p>
             </div>
-
-            <div id="trackingResult" class="tracking-result" style="display:none;">
-
-                <div class="tracking-status">
-
-                    <h3>
-                        حالة الطلب :
-                        <span id="statusText">جاري الشحن</span>
-                    </h3>
-
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"الطباعة كانت ممتازة والخامة أحسن من المتوقع، والتعامل محترم جدًا."</p>
+                    <div class="client">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <div>
+                            <h4>محمد أحمد</h4>
+                            <span>عميل</span>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="tracking-progress">
-
-                    <div class="step active">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span>تم استلام الطلب</span>
+                <div class="testimonial-card reveal">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"استلمت طلبي بسرعة جدًا والجودة ممتازة، وأكيد هطلب مرة تانية."</p>
+                    <div class="client">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <div>
+                            <h4>سارة خالد</h4>
+                            <span>عميلة</span>
+                        </div>
                     </div>
-
-                    <div class="step active">
-                        <i class="fa-solid fa-box"></i>
-                        <span>جاري التجهيز</span>
-                    </div>
-
-                    <div class="step active">
-                        <i class="fa-solid fa-truck"></i>
-                        <span>تم الشحن</span>
-                    </div>
-
-                    <div class="step">
-                        <i class="fa-solid fa-house"></i>
-                        <span>تم التسليم</span>
-                    </div>
-
                 </div>
-
-                <div class="tracking-details">
-
-                    <div><strong>رقم الطلب:</strong> INF10254</div>
-
-                    <div><strong>شركة الشحن:</strong> Infinity Express</div>
-
-                    <div><strong>آخر تحديث:</strong> اليوم 3:45 مساءً</div>
-
-                    <div><strong>التسليم المتوقع:</strong> خلال يومين</div>
-
+                <div class="testimonial-card reveal">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"التصميم طلع بالظبط زي ما كنت متخيل، وخدمة العملاء ممتازة."</p>
+                    <div class="client">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <div>
+                            <h4>أحمد علي</h4>
+                            <span>عميل</span>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-
         </div>
+    </section>
 
-    </div>
-</section>
-
-<!-- Testimonials Section -->
-<section id="testimonials" class="testimonials-section">
-
-    <div class="container">
-
-        <div class="section-header">
-            <h2>آراء عملائنا</h2>
-            <p>نفخر بثقة عملائنا ونسعى دائمًا لتقديم أفضل جودة وخدمة.</p>
-        </div>
-
-        <div class="testimonials-grid">
-
-            <div class="testimonial-card reveal">
-                <div class="stars">
-                    ⭐⭐⭐⭐⭐
-                </div>
-
-                <p>
-                    "الطباعة كانت ممتازة والخامة أحسن من المتوقع، والتعامل محترم جدًا."
-                </p>
-
-                <div class="client">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <div>
-                        <h4>محمد أحمد</h4>
-                        <span>عميل</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card reveal">
-                <div class="stars">
-                    ⭐⭐⭐⭐⭐
-                </div>
-
-                <p>
-                    "استلمت طلبي بسرعة جدًا والجودة ممتازة، وأكيد هطلب مرة تانية."
-                </p>
-
-                <div class="client">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <div>
-                        <h4>سارة خالد</h4>
-                        <span>عميلة</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card reveal">
-                <div class="stars">
-                    ⭐⭐⭐⭐⭐
-                </div>
-
-                <p>
-                    "التصميم طلع بالظبط زي ما كنت متخيل، وخدمة العملاء ممتازة."
-                </p>
-
-                <div class="client">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <div>
-                        <h4>أحمد علي</h4>
-                        <span>عميل</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- Portfolio Section -->
-<section id="portfolio" class="portfolio-section">
-    <div class="container">
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="container">
             <div class="section-header">
                 <h2>ألبوم أعمالنا المعروضة</h2>
                 <p>شوف جودة الطباعة والألوان على الطبيعة لمنتجات عملاءنا الحقيقيين</p>
@@ -569,18 +405,14 @@
                 <div class="portfolio-item reveal reveal-left">
                     <img src="./assets/custom_sublimation.jpg" alt="تيشرت مطبوع">
                     <div class="portfolio-overlay">
-                        <h4>طباعة تي شرت سبليمشن </h4>
-                        <span>طباعة مليانة تفاصيل  </span>
+                        <h4>طباعة تي شرت سبليمشن</h4>
+                        <span>طباعة مليانة تفاصيل</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <!-- Payment Methods -->
-    
-    
     </main>
 
     <footer class="main-footer">
@@ -609,24 +441,14 @@
                 <p><i class="fa-solid fa-phone"></i> +20 155 628 4315</p>
                 <p><i class="fa-solid fa-envelope"></i> info@infinitystore.com</p>
                 <div class="social-icons">
-                    <a href="https://www.facebook.com/people/Infinity-Store/61573269805230/?mibextid=wwXIfr&rdid=QBPnZZZNTei2mQRO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F195Dedjpvt%2F%3Fmibextid%3DwwXIfr"
-   target="_blank"
-   rel="noopener noreferrer">
-    <i class="fa-brands fa-facebook"></i>
-</a>
-                    <a href="https://www.instagram.com/infinity_is_store?igsh=amQ5bDNxMHlsd3Az"
-   target="_blank"
-   rel="noopener noreferrer">
-    <i class="fa-brands fa-instagram"></i>
-</a>
-                    <a href="https://wa.me/201556284315" target="_blank">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+                    <a href="https://www.facebook.com/people/Infinity-Store/61573269805230/?mibextid=wwXIfr&rdid=QBPnZZZNTei2mQRO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F195Dedjpvt%2F%3Fmibextid%3DwwXIfr" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/infinity_is_store?igsh=amQ5bDNxMHlsd3Az" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/201556284315" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Infinity Store. جميع الحقوق محفوظة. تم التطوير بكل حب .</p>
+            <p>&copy; 2025 Infinity Store. جميع الحقوق محفوظة. تم التطوير بكل حب.</p>
         </div>
     </footer>
 
@@ -693,47 +515,21 @@
                     <label for="custDetails">تفاصيل التصميم أو الكلام المراد كتابته</label>
                     <textarea id="custDetails" rows="3" placeholder="اكتب هنا التفاصيل اللي محتاج تطبعها، الألوان اللي بتحبها، أو لو عندك فكرة معينة..."></textarea>
                 </div>
-               <div class="form-group file-upload-wrapper">
-    <label class="file-label">
-        <i class="fa-solid fa-cloud-arrow-up"></i>
-        <span>ارفق لوجو أو تصميمك المبدئي (اختياري)</span>
-        <input type="file" id="custFile" accept="image/*" class="file-input">
-    </label>
-    <div class="file-name-preview" id="fileNamePreview">لم يتم اختيار ملف</div>
-    <p style="font-size:0.75rem; color:#94a3b8; margin-top:6px; text-align:center;">
-        <i class="fa-solid fa-info-circle"></i> سيتم إرسال الصورة مع طلبك عبر واتساب
-    </p>
-</div>
-                
+                <div class="form-group file-upload-wrapper">
+                    <label class="file-label">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>ارفق لوجو أو تصميمك المبدئي (اختياري)</span>
+                        <input type="file" id="custFile" accept="image/*" class="file-input">
+                    </label>
+                    <div class="file-name-preview" id="fileNamePreview">لم يتم اختيار ملف</div>
+                </div>
                 <button type="submit" class="btn btn-primary btn-block btn-lg">
                     <i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر واتساب وتأكيد التنفيذ
                 </button>
             </form>
         </div>
     </div>
-    
-<!-- Tom Select -->
-<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 
-    <!-- Main JS Code -->
-<script src="app.js"></script>
-<script>
-    // Fix for Tom Select - remove extra input field inside dropdown
-    document.addEventListener('DOMContentLoaded', function() {
-        const selects = document.querySelectorAll('select');
-        selects.forEach(select => {
-            if (select.id === 'custProduct' || select.id === 'calcProduct' || select.id === 'custCity') {
-                new TomSelect(select, {
-                    create: false,
-                    sortField: 'text',
-                    searchField: 'text',
-                    maxItems: 1,
-                    placeholder: 'ابحث أو اختر...',
-                    dropdownParent: 'body'
-                });
-            }
-        });
-    });
-</script>
+    <script src="app.js"></script>
 </body>
 </html>
