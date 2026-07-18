@@ -73,17 +73,62 @@ Logout
 
 <main class="dashboard-content">
 
-<h3>
+    <div class="stats">
 
-مرحباً بك يا محمد 👋
+        <div class="card">
+            <h2 id="ordersCount">0</h2>
+            <p>إجمالي الطلبات</p>
+        </div>
 
-</h3>
+        <div class="card">
+            <h2 id="newCount">0</h2>
+            <p>طلبات جديدة</p>
+        </div>
 
-<p>
+        <div class="card">
+            <h2 id="shippingCount">0</h2>
+            <p>جاري الشحن</p>
+        </div>
 
-سيتم عرض الطلبات هنا...
+        <div class="card">
+            <h2 id="doneCount">0</h2>
+            <p>تم التسليم</p>
+        </div>
 
-</p>
+    </div>
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="ابحث برقم الطلب أو اسم العميل أو رقم الهاتف">
+
+    </div>
+
+    <table class="orders-table">
+
+        <thead>
+
+            <tr>
+
+                <th>رقم الطلب</th>
+                <th>العميل</th>
+                <th>المنتج</th>
+                <th>المحافظة</th>
+                <th>الحالة</th>
+                <th>التاريخ</th>
+                <th>الإجراءات</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="ordersTable">
+
+        </tbody>
+
+    </table>
 
 </main>
 
