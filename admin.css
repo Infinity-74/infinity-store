@@ -95,3 +95,48 @@ transition:.3s;
 background:#0b5ed7;
 
 }
+.admin-dashboard{
+
+min-height:100vh;
+
+background:#f5f7fb;
+
+}
+
+.admin-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px 35px;
+
+background:#111827;
+
+color:white;
+
+}
+
+.admin-header button{
+
+background:#dc3545;
+
+color:white;
+
+border:none;
+
+padding:10px 20px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+.dashboard-content{
+
+padding:35px;
+
+}
