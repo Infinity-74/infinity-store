@@ -135,6 +135,57 @@ Logout
 
 </div>
 
+<div id="orderModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+
+        <h2>تفاصيل الطلب</h2>
+
+        <div class="order-info">
+
+            <p><strong>رقم الطلب:</strong> <span id="mOrderId"></span></p>
+
+            <p><strong>اسم العميل:</strong> <span id="mName"></span></p>
+
+            <p><strong>رقم الهاتف:</strong> <span id="mPhone"></span></p>
+
+            <p><strong>المنتج:</strong> <span id="mProduct"></span></p>
+
+            <p><strong>الكمية:</strong> <span id="mQty"></span></p>
+
+            <p><strong>المحافظة:</strong> <span id="mCity"></span></p>
+
+            <p><strong>العنوان:</strong> <span id="mDetails"></span></p>
+
+            <p><strong>التاريخ:</strong> <span id="mDate"></span></p>
+
+            <p><strong>الحالة:</strong></p>
+
+            <select id="mStatus">
+
+                <option>تم استلام الطلب</option>
+                <option>جاري التصميم</option>
+                <option>جاري الطباعة</option>
+                <option>جاهز للشحن</option>
+                <option>تم الشحن</option>
+                <option>تم التسليم</option>
+
+            </select>
+
+            <button id="saveStatusBtn">
+
+                حفظ الحالة
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+    
 <script src="admin.js"></script>
 
 </body>
