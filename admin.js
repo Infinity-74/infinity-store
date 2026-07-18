@@ -38,3 +38,58 @@ dashboard.style.display="none";
 loginPage.style.display="flex";
 
 };
+loadOrders();
+
+function loadOrders(){
+
+fetch(`${WEB_APP_URL}?action=orders`)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(!data.success) return;
+
+document.getElementById("ordersCount").innerText=data.total;
+
+let html="";
+
+data.orders.forEach(order=>{
+
+html+=`
+
+<tr>
+
+<td>${order.orderId}</td>
+
+<td>${order.name}</td>
+
+<td>${order.product}</td>
+
+<td>${order.city}</td>
+
+<td>${order.status}</td>
+
+<td>${order.date}</td>
+
+<td>
+
+<button onclick="viewOrder('${order.orderId}')">
+
+👁
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("ordersTable").innerHTML=html;
+
+});
+
+}
