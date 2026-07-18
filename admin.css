@@ -98,9 +98,13 @@ background:#0b5ed7;
 }
 .admin-dashboard{
 
+display:none;
+
 min-height:100vh;
 
-background:#f5f7fb;
+background:#0f172a;
+
+color:#e5e7eb;
 
 }
 
@@ -167,17 +171,37 @@ margin-bottom:30px;
 }
 
 .card{
-background:#fff;
-padding:25px;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-text-align:center;
-}
 
+background:#1e293b;
+
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+text-align:center;
+
+border:1px solid #334155;
+
+}
 .card h2{
+
 font-size:34px;
+
 margin-bottom:10px;
-color:#0d6efd;
+
+color:#38bdf8;
+
+}
+.card p{
+
+color:#f1f5f9;
+
+font-size:16px;
+
+font-weight:700;
+
 }
 
 .search-box{
@@ -185,30 +209,73 @@ margin-bottom:25px;
 }
 
 .search-box input{
+
 width:100%;
-padding:14px;
+
+padding:15px;
+
+background:#1e293b;
+
+color:#fff;
+
+border:1px solid #334155;
+
 border-radius:12px;
-border:1px solid #ddd;
+
 font-size:16px;
+
+outline:none;
+
 }
 
 .orders-table{
+
 width:100%;
+
 border-collapse:collapse;
-background:#fff;
+
+background:#1e293b;
+
 border-radius:15px;
+
 overflow:hidden;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+box-shadow:0 10px 25px rgba(0,0,0,.35);
+
 }
 
 .orders-table th,
 .orders-table td{
-padding:16px;
-border-bottom:1px solid #eee;
-text-align:center;
+
+color:#f1f5f9;
+
+background:#1e293b;
+
 }
 
 .orders-table th{
+
 background:#111827;
+
 color:#fff;
+
+}
+.orders-table tr:hover{
+
+background:#334155;
+
+transition:.3s;
+
+}
+
+.dashboard-content h3{
+
+color:#fff;
+
+}
+
+.dashboard-content p{
+
+color:#cbd5e1;
+
 }
