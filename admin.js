@@ -1,62 +1,75 @@
-const WEB_APP_URL="https://script.google.com/macros/s/AKfycbwht6HzZSKt3nIfhGU6Cu7rquxuV77FtL3sLbnAoUq-S46xUpjqsy57OSADstgeToWa/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwht6HzZSKt3nIfhGU6Cu7rquxuV77FtL3sLbnAoUq-S46xUpjqsy57OSADstgeToWa/exec";
 
-const loginPage=document.querySelector(".admin-login");
-const dashboard=document.querySelector(".admin-dashboard");
+const loginPage = document.querySelector(".admin-login");
+const dashboard = document.querySelector(".admin-dashboard");
 
-document.getElementById("loginBtn").onclick=()=>{
+let allOrders = [];
 
-const username=document.getElementById("username").value;
+document.getElementById("loginBtn").onclick = () => {
 
-const password=document.getElementById("password").value;
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-fetch(`${WEB_APP_URL}?action=login&username=${username}&password=${password}`)
+    fetch(`${WEB_APP_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`)
 
-.then(r=>r.json())
+        .then(r => r.json())
 
-.then(data=>{
+        .then(data => {
 
-if(data.success){
+            if (data.success) {
 
-loginPage.style.display="none";
+                loginPage.style.display = "none";
+                dashboard.style.display = "block";
 
-dashboard.style.display="block";
+                loadOrders();
 
-}else{
+            } else {
 
-alert("بيانات الدخول غير صحيحة");
+                alert("اسم المستخدم أو كلمة المرور غير صحيحة");
+
+            }
+
+        });
+
+};
+
+
+document.getElementById("logoutBtn").onclick = () => {
+
+    dashboard.style.display = "none";
+    loginPage.style.display = "flex";
+
+};
+
+
+function loadOrders() {
+
+    fetch(`${WEB_APP_URL}?action=orders`)
+
+        .then(res => res.json())
+
+        .then(data => {
+
+            if (!data.success) return;
+
+            allOrders = data.orders;
+
+            document.getElementById("ordersCount").innerText = data.total;
+
+            drawOrders(allOrders);
+
+        });
 
 }
 
-});
 
-};
+function drawOrders(orders) {
 
-document.getElementById("logoutBtn").onclick=()=>{
+    let html = "";
 
-dashboard.style.display="none";
+    orders.forEach(order => {
 
-loginPage.style.display="flex";
-
-};
-loadOrders();
-
-function loadOrders(){
-
-fetch(`${WEB_APP_URL}?action=orders`)
-
-.then(res=>res.json())
-
-.then(data=>{
-
-if(!data.success) return;
-
-document.getElementById("ordersCount").innerText=data.total;
-
-let html="";
-
-data.orders.forEach(order=>{
-
-html+=`
+        html += `
 
 <tr>
 
@@ -74,9 +87,9 @@ html+=`
 
 <td>
 
-<button onclick="viewOrder('${order.orderId}')">
+<button class="view-btn" onclick="viewOrder('${order.orderId}')">
 
-👁
+👁️
 
 </button>
 
@@ -86,15 +99,65 @@ html+=`
 
 `;
 
-});
+    });
 
-document.getElementById("ordersTable").innerHTML=html;
-
-});
+    document.getElementById("ordersTable").innerHTML = html;
 
 }
-function viewOrder(orderId){
 
-alert("رقم الطلب : "+orderId);
+
+function searchOrders() {
+
+    const value = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const filtered = allOrders.filter(order => {
+
+        return (
+
+            order.orderId.toLowerCase().includes(value) ||
+
+            order.name.toLowerCase().includes(value) ||
+
+            order.phone.toLowerCase().includes(value)
+
+        );
+
+    });
+
+    drawOrders(filtered);
+
+}
+
+
+function viewOrder(orderId) {
+
+    const order = allOrders.find(o => o.orderId === orderId);
+
+    if (!order) return;
+
+    alert(
+
+`رقم الطلب : ${order.orderId}
+
+العميل : ${order.name}
+
+الهاتف : ${order.phone}
+
+المنتج : ${order.product}
+
+الكمية : ${order.qty}
+
+المحافظة : ${order.city}
+
+العنوان : ${order.details}
+
+الحالة : ${order.status}
+
+التاريخ : ${order.date}`
+
+    );
 
 }
