@@ -20,12 +20,16 @@ document.getElementById("loginBtn").onclick = () => {
 
             if (data.success) {
 
-                loginPage.style.display = "none";
-                dashboard.style.display = "block";
+    localStorage.setItem("adminLogged","true");
 
-                loadOrders();
+    resetLogoutTimer();
 
-            } else {
+    loginPage.style.display = "none";
+    dashboard.style.display = "block";
+
+    loadOrders();
+
+}
 
                 alert("اسم المستخدم أو كلمة المرور غير صحيحة");
 
@@ -36,13 +40,18 @@ document.getElementById("loginBtn").onclick = () => {
 };
 
 
-document.getElementById("logoutBtn").onclick = () => {
+document.getElementById("logoutBtn").onclick = logout;
+
+function logout(){
+
+    localStorage.removeItem("adminLogged");
+
+    clearTimeout(logoutTimer);
 
     dashboard.style.display = "none";
     loginPage.style.display = "flex";
 
-};
-
+}
 
 function loadOrders() {
 
@@ -159,3 +168,45 @@ function closeModal(){
 document.getElementById("orderModal").style.display="none";
 
 }
+function resetLogoutTimer(){
+
+    clearTimeout(logoutTimer);
+
+    logoutTimer = setTimeout(() => {
+
+        alert("تم تسجيل الخروج بسبب عدم النشاط");
+
+        logout();
+
+    }, SESSION_TIME);
+
+}
+
+["click","mousemove","keydown","scroll","touchstart"].forEach(event => {
+
+    document.addEventListener(event, () => {
+
+        if(localStorage.getItem("adminLogged")){
+
+            resetLogoutTimer();
+
+        }
+
+    });
+
+});
+
+window.onload = () => {
+
+    if(localStorage.getItem("adminLogged")){
+
+        loginPage.style.display = "none";
+        dashboard.style.display = "block";
+
+        loadOrders();
+
+        resetLogoutTimer();
+
+    }
+
+};
