@@ -93,3 +93,8 @@ document.getElementById("ordersTable").innerHTML=html;
 });
 
 }
+function viewOrder(orderId){
+
+alert("رقم الطلب : "+orderId);
+
+}
