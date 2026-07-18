@@ -4,9 +4,9 @@
     --primary-hover: #1d4ed8;
     --accent-color: #10b981; /* Fresh Green */
     --accent-hover: #059669;
-    --bg-dark: #ffffff; /* Clean white background */
-    --bg-card: rgba(255, 255, 255, 0.85); /* Frosted light card */
-    --border-color: rgba(15, 23, 42, 0.08); /* Dark subtle border */
+    --bg-dark: #eef1f5; /* Slightly deeper off-white so cards/frames stand out */
+    --bg-card: rgba(255, 255, 255, 0.92); /* Lighter card, contrasts with page bg */
+    --border-color: rgba(15, 23, 42, 0.1); /* Dark subtle border */
     --text-primary: #0f172a; /* Near-black for strong contrast on white */
     --text-muted: #64748b; /* Muted slate text, readable on white */
     --success-color: #10b981;
@@ -902,7 +902,7 @@ a {
 
 /* Footer Section */
 .main-footer {
-    background: #f8fafc;
+    background: #ffffff;
     border-top: 1px solid var(--border-color);
     padding: 60px 0 20px;
 }
