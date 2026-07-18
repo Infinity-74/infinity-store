@@ -140,3 +140,21 @@ cursor:pointer;
 padding:35px;
 
 }
+.admin-dashboard{
+display:none;
+min-height:100vh;
+background:#f5f7fb;
+}
+
+.admin-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 35px;
+background:#111827;
+color:#fff;
+}
+
+.dashboard-content{
+padding:40px;
+}
