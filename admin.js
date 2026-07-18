@@ -132,32 +132,28 @@ function searchOrders() {
 }
 
 
-function viewOrder(orderId) {
+function viewOrder(orderId){
 
-    const order = allOrders.find(o => o.orderId === orderId);
+const order=allOrders.find(o=>o.orderId===orderId);
 
-    if (!order) return;
+if(!order) return;
 
-    alert(
+document.getElementById("mOrderId").innerText=order.orderId;
+document.getElementById("mName").innerText=order.name;
+document.getElementById("mPhone").innerText=order.phone;
+document.getElementById("mProduct").innerText=order.product;
+document.getElementById("mQty").innerText=order.qty;
+document.getElementById("mCity").innerText=order.city;
+document.getElementById("mDetails").innerText=order.details;
+document.getElementById("mDate").innerText=order.date;
+document.getElementById("mStatus").value=order.status;
 
-`رقم الطلب : ${order.orderId}
+document.getElementById("orderModal").style.display="flex";
 
-العميل : ${order.name}
+}
 
-الهاتف : ${order.phone}
+function closeModal(){
 
-المنتج : ${order.product}
-
-الكمية : ${order.qty}
-
-المحافظة : ${order.city}
-
-العنوان : ${order.details}
-
-الحالة : ${order.status}
-
-التاريخ : ${order.date}`
-
-    );
+document.getElementById("orderModal").style.display="none";
 
 }
