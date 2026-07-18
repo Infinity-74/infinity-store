@@ -388,3 +388,28 @@ cursor:pointer;
 font-size:17px;
 
 }
+.loading-orders{
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+padding:80px;
+
+font-size:20px;
+
+color:#1d4ed8;
+
+}
+
+.loading-orders i{
+
+font-size:45px;
+
+margin-bottom:20px;
+
+}
