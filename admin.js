@@ -2,6 +2,8 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwht6HzZSKt3nIfhGU6
 
 const loginPage = document.querySelector(".admin-login");
 const dashboard = document.querySelector(".admin-dashboard");
+const SESSION_TIME = 30 * 60 * 1000; // 30 دقيقة
+let logoutTimer;
 
 let allOrders = [];
 
