@@ -1,118 +1,95 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0D0D0D">
 
-    <link rel="icon" type="image/png" href="./assets/logo-white.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Infinity Store | Admin Dashboard</title>
+<title>Infinity Store | Admin Dashboard</title>
 
-    <meta name="description" content="لوحة تحكم Infinity Store">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="admin.css">
-
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Infinity Store">
-    <meta property="og:title" content="Infinity Store | Admin Dashboard">
-    <meta property="og:url" content="https://infinity-74.github.io/infinity-store/">
-    <meta property="og:locale" content="ar_EG">
-
-    <link rel="canonical" href="https://infinity-74.github.io/infinity-store/">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
 
 </head>
 
 <body>
 
-    <!-- Login -->
+<div class="admin-login">
 
-    <div class="admin-login">
+    <div class="login-card">
 
-        <div class="login-card">
+        <img src="./assets/logo.png" class="admin-logo">
 
-            <img src="./assets/logo.png.png" class="admin-logo" alt="Infinity Logo">
+        <h1>Infinity Store</h1>
 
-            <h1>Infinity Store</h1>
+        <p>Admin Dashboard</p>
 
-            <p>Admin Dashboard</p>
+        <input id="username" type="text" placeholder="Username">
 
-            <input
-                type="text"
-                id="username"
-                placeholder="Username">
+        <input id="password" type="password" placeholder="Password">
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Password">
+        <button id="loginBtn">
 
-            <button id="loginBtn">
+            <i class="fas fa-right-to-bracket"></i>
 
-                <i class="fas fa-right-to-bracket"></i>
-                Login
+            Login
 
-            </button>
-
-        </div>
+        </button>
 
     </div>
 
+</div>
 
-    <!-- Dashboard -->
 
-    <div class="admin-dashboard" style="display:none;">
 
-        <header class="admin-header">
+<div class="admin-dashboard">
 
-    <h2>
+<header class="admin-header">
 
-        <i class="fas fa-chart-line"></i>
+<h2>
 
-        Infinity Dashboard
+<i class="fas fa-chart-line"></i>
 
-    </h2>
+Infinity Dashboard
 
-    <button id="logoutBtn">
+</h2>
 
-        <i class="fas fa-right-from-bracket"></i>
+<button id="logoutBtn">
 
-        Logout
+<i class="fas fa-right-from-bracket"></i>
 
-    </button>
+Logout
+
+</button>
 
 </header>
 
+<main class="dashboard-content">
 
-        <main class="dashboard-content">
+<h3>
 
-            <h3>
+مرحباً بك يا محمد 👋
 
-                مرحباً بك يا محمد 👋
+</h3>
 
-            </h3>
+<p>
 
-            <p>
+سيتم عرض الطلبات هنا...
 
-                سيتم عرض الطلبات هنا...
+</p>
 
-            </p>
+</main>
 
-        </main>
+</div>
 
-    </div>
-
-
-    <script src="admin.js"></script>
+<script src="admin.js"></script>
 
 </body>
 
