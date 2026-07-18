@@ -16,26 +16,26 @@ document.getElementById("loginBtn").onclick = () => {
 
         .then(r => r.json())
 
-        .then(data => {
+       .then(data => {
 
-            if (data.success) {
+    if (data.success) {
 
-    localStorage.setItem("adminLogged","true");
+        localStorage.setItem("adminLogged", "true");
 
-    resetLogoutTimer();
+        resetLogoutTimer();
 
-    loginPage.style.display = "none";
-    dashboard.style.display = "block";
+        loginPage.style.display = "none";
+        dashboard.style.display = "block";
 
-    loadOrders();
+        loadOrders();
 
-}
+    } else {
 
-                alert("اسم المستخدم أو كلمة المرور غير صحيحة");
+        alert("اسم المستخدم أو كلمة المرور غير صحيحة");
 
-            }
+    }
 
-        });
+});
 
 };
 
