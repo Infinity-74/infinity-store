@@ -1,80 +1,40 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwht6HzZSKt3nIfhGU6Cu7rquxuV77FtL3sLbnAoUq-S46xUpjqsy57OSADstgeToWa/exec";
+const WEB_APP_URL="https://script.google.com/macros/s/AKfycbwht6HzZSKt3nIfhGU6Cu7rquxuV77FtL3sLbnAoUq-S46xUpjqsy57OSADstgeToWa/exec";
 
-const loginPage = document.querySelector(".admin-login");
-const dashboard = document.querySelector(".admin-dashboard");
+const loginPage=document.querySelector(".admin-login");
+const dashboard=document.querySelector(".admin-dashboard");
 
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
+document.getElementById("loginBtn").onclick=()=>{
 
-loginBtn.addEventListener("click", login);
+const username=document.getElementById("username").value;
 
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", logout);
-}
+const password=document.getElementById("password").value;
 
-function login() {
+fetch(`${WEB_APP_URL}?action=login&username=${username}&password=${password}`)
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
+.then(r=>r.json())
 
-    if (!username || !password) {
-        alert("اكتب اسم المستخدم وكلمة المرور");
-        return;
-    }
+.then(data=>{
 
-    loginBtn.disabled = true;
-    loginBtn.innerHTML = "جاري تسجيل الدخول...";
+if(data.success){
 
-    fetch(`${WEB_APP_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`)
-        .then(res => res.json())
-        .then(data => {
+loginPage.style.display="none";
 
-            loginBtn.disabled = false;
-            loginBtn.innerHTML = "Login";
+dashboard.style.display="block";
 
-            if (data.success) {
+}else{
 
-                sessionStorage.setItem("adminLogged", "true");
-
-                loginPage.style.display = "none";
-                dashboard.style.display = "block";
-
-            } else {
-
-                alert("اسم المستخدم أو كلمة المرور غير صحيحة");
-
-            }
-
-        })
-        .catch(err => {
-
-            console.error(err);
-
-            loginBtn.disabled = false;
-            loginBtn.innerHTML = "Login";
-
-            alert("حدث خطأ أثناء الاتصال بالسيرفر");
-
-        });
+alert("بيانات الدخول غير صحيحة");
 
 }
 
-function logout() {
+});
 
-    sessionStorage.removeItem("adminLogged");
+};
 
-    dashboard.style.display = "none";
-    loginPage.style.display = "flex";
+document.getElementById("logoutBtn").onclick=()=>{
 
-}
+dashboard.style.display="none";
 
-window.onload = () => {
-
-    if (sessionStorage.getItem("adminLogged") === "true") {
-
-        loginPage.style.display = "none";
-        dashboard.style.display = "block";
-
-    }
+loginPage.style.display="flex";
 
 };
