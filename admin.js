@@ -53,26 +53,36 @@ function logout(){
 
 }
 
-function loadOrders() {
+function loadOrders(){
 
-    fetch(`${WEB_APP_URL}?action=orders`)
+document.getElementById("loadingOrders").style.display="flex";
 
-        .then(res => res.json())
+fetch(`${WEB_APP_URL}?action=orders`)
 
-        .then(data => {
+.then(res=>res.json())
 
-            if (!data.success) return;
+.then(data=>{
 
-            allOrders = data.orders;
+if(!data.success) return;
 
-            document.getElementById("ordersCount").innerText = data.total;
+allOrders=data.orders;
+sessionStorage.setItem("ordersCache",JSON.stringify(allOrders));    
 
-            drawOrders(allOrders);
+document.getElementById("ordersCount").innerText=data.total;
 
-        });
+drawOrders(allOrders);
+
+document.getElementById("loadingOrders").style.display="none";
+
+})
+
+.catch(()=>{
+
+document.getElementById("loadingOrders").style.display="none";
+
+});
 
 }
-
 
 function drawOrders(orders) {
 
@@ -203,6 +213,18 @@ window.onload = () => {
         loginPage.style.display = "none";
         dashboard.style.display = "block";
 
+const cache=sessionStorage.getItem("ordersCache");
+
+if(cache){
+
+allOrders=JSON.parse(cache);
+
+drawOrders(allOrders);
+
+document.getElementById("ordersCount").innerText=allOrders.length;
+
+}
+        
         loadOrders();
 
         resetLogoutTimer();
