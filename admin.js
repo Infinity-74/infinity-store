@@ -232,3 +232,32 @@ document.getElementById("ordersCount").innerText=allOrders.length;
     }
 
 };
+document.getElementById("saveStatusBtn").onclick=()=>{
+
+const id=document.getElementById("mOrderId").innerText;
+
+const status=document.getElementById("mStatus").value;
+
+fetch(`${WEB_APP_URL}?action=updateStatus&orderId=${encodeURIComponent(id)}&status=${encodeURIComponent(status)}`)
+
+.then(r=>r.json())
+
+.then(data=>{
+
+if(data.success){
+
+alert("تم تحديث الحالة");
+
+closeModal();
+
+loadOrders();
+
+}else{
+
+alert("حدث خطأ");
+
+}
+
+});
+
+};
