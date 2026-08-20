@@ -186,6 +186,10 @@
                 <p>دخل بياناتك وتفاصيل طلبك، وهنكلمك على الواتساب نأكد معاك ونستلم التصميم!</p>
             </div>
             <form id="orderForm" onsubmit="submitOrder(event)">
+                <div class="form-group" style="position:absolute; left:-9999px; top:-9999px;" aria-hidden="true">
+                    <label for="custWebsite">اتركه فارغاً</label>
+                    <input type="text" id="custWebsite" name="custWebsite" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="form-group">
                     <label for="custName">اسمك بالكامل <span class="required">*</span></label>
                     <input type="text" id="custName" placeholder="اكتب اسمك ثلاثي مثلاً..." required>
