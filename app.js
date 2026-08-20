@@ -13,6 +13,35 @@ const PRICING = {
     "graduation": 25
 };
 
+// تعقيم أي نص قبل حقنه في الصفحة، لمنع هجمات XSS من بيانات قادمة من الشيت
+function escapeHtml(value) {
+    if (value === undefined || value === null) return "";
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// توليد رقم طلب عشوائي صعب التخمين (8 أحرف/أرقام) بدل الاعتماد على الوقت فقط
+function generateOrderSuffix() {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // من غير حروف/أرقام متشابهة بصريًا زي O و0 و I و1
+    let result = "";
+    if (window.crypto && window.crypto.getRandomValues) {
+        const randomValues = new Uint32Array(8);
+        window.crypto.getRandomValues(randomValues);
+        for (let i = 0; i < 8; i++) {
+            result += chars[randomValues[i] % chars.length];
+        }
+    } else {
+        for (let i = 0; i < 8; i++) {
+            result += chars[Math.floor(Math.random() * chars.length)];
+        }
+    }
+    return result;
+}
+
 // Sound Effects
 const clickSound = new Audio();
 
@@ -237,6 +266,14 @@ function orderFromCalculator() {
 async function submitOrder(event) {
     event.preventDefault();
 
+    // Honeypot: حقل مخفي عن البني آدمين - لو اتملى يبقى الطلب من بوت، نتجاهله بهدوء
+    const honeypot = document.getElementById("custWebsite");
+    if (honeypot && honeypot.value.trim() !== "") {
+        document.getElementById("orderForm").reset();
+        closeOrderModal();
+        return;
+    }
+
     const name = document.getElementById("custName").value.trim();
     const phone = document.getElementById("custPhone").value.trim();
     const product = document.getElementById("custProduct").value;
@@ -263,7 +300,7 @@ async function submitOrder(event) {
         return;
     }
 
-    const orderId = "INF-" + Date.now().toString().slice(-6) + Math.floor(Math.random() * 90 + 10);
+    const orderId = "INF-" + generateOrderSuffix();
 
     let message = `السلام عليكم 🌹\n\nتم إنشاء طلب جديد من موقع Infinity Store.\n\n🆔 رقم الطلب: ${orderId}\n👤 الاسم: ${name}\n📱 الهاتف: ${phone}\n📦 المنتج: ${product}\n🔢 الكمية: ${qty}\n📍 المحافظة: ${city}\n📝 التفاصيل:\n${details || "لا يوجد"}`;
 
@@ -382,7 +419,7 @@ async function trackOrder() {
         result.style.display = "block";
         result.innerHTML = `
             <div class="tracking-status">
-                <h3>حالة الطلب : <span id="statusText">${order.status}</span></h3>
+                <h3>حالة الطلب : <span id="statusText">${escapeHtml(order.status)}</span></h3>
             </div>
             <div class="tracking-progress">
                 <div class="step ${first}"><i class="fa-solid fa-cart-shopping"></i><span>تم استلام الطلب</span></div>
@@ -391,12 +428,12 @@ async function trackOrder() {
                 <div class="step ${fourth}"><i class="fa-solid fa-house"></i><span>تم التسليم</span></div>
             </div>
             <div class="tracking-details">
-                <div><strong>رقم الطلب:</strong> ${order.orderId}</div>
-                <div><strong>الاسم:</strong> ${order.name}</div>
-                <div><strong>رقم الهاتف:</strong> ${order.phone}</div>
-                <div><strong>المنتج:</strong> ${order.product}</div>
-                <div><strong>الكمية:</strong> ${order.qty}</div>
-                <div><strong>المحافظة:</strong> ${order.city}</div>
+                <div><strong>رقم الطلب:</strong> ${escapeHtml(order.orderId)}</div>
+                <div><strong>الاسم:</strong> ${escapeHtml(order.name)}</div>
+                <div><strong>رقم الهاتف:</strong> ${escapeHtml(order.phone)}</div>
+                <div><strong>المنتج:</strong> ${escapeHtml(order.product)}</div>
+                <div><strong>الكمية:</strong> ${escapeHtml(order.qty)}</div>
+                <div><strong>المحافظة:</strong> ${escapeHtml(order.city)}</div>
             </div>
         `;
     } catch (error) {
