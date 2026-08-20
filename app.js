@@ -9,7 +9,6 @@ const PRICING = {
     "mug-magic": 170,
     "stickers-pack": 45,
     "sticker-single": 15,
-    "tshirt": 280,
     "hoodie": 450,
     "graduation": 25
 };
@@ -220,7 +219,6 @@ function orderFromCalculator() {
         "mug-magic": "مج سحري",
         "stickers-pack": "شيت استيكرات A4",
         "sticker-single": "استيكر فردي داي-كت",
-        "tshirt": "تيشرت قطن مطبوع",
         "hoodie": "هودي شتوي مطبوع",
         "graduation": "استيك تخرج"
     };
@@ -289,15 +287,17 @@ async function submitOrder(event) {
     }
 
     const orderData = {
-        orderId,
-        name,
-        phone,
-        product,
-        qty,
-        city,
-        details,
-        fileName: file ? file.name : "لا يوجد",
-        status: "قيد المراجعة"
+        action: "addOrder",
+        order: {
+            "Order ID": orderId,
+            "Name": name,
+            "Phone": phone,
+            "Product": product,
+            "Qty": qty,
+            "City": city,
+            "Details": details || "لا يوجد",
+            "Status": "قيد المراجعة"
+        }
     };
 
     try {
@@ -421,12 +421,6 @@ const PRODUCTS = {
         images: ["./assets/products/stickers/1.jpg", "./assets/products/stickers/2.jpg", "./assets/products/stickers/3.jpg"],
         price: "45 EGP",
         description: "استيكرات مقاومة للمياه مناسبة للابتوب والموبايل والزجاجات."
-    },
-    tshirt: {
-        title: "تيشرت مطبوع",
-        images: ["./assets/custom_sublimation.jpg"],
-        price: "280 EGP",
-        description: "تيشرت قطني بطباعة احترافية بأعلى جودة."
     },
     graduation: {
         title: "استيك تخرج مخصص",
@@ -613,7 +607,6 @@ function openOrderModalWithDesign() {
         const productMapping = {
             "mug": "مج سيراميك عادي",
             "stickers": "شيت استيكرات A4",
-            "tshirt": "تيشرت قطن مطبوع",
             "graduation": "استيك تخرج مخصص"
         };
         const mappedVal = productMapping[currentProductId] || (currentProduct && currentProduct.title) || "";
