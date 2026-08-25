@@ -78,7 +78,7 @@
             </div>
             <div class="hero-image-wrapper">
                 <div class="hero-image-card">
-                    <img src="./assets/products/mug/1.jpg" alt="مجات مطبوعة مخصصة" class="hero-img active" id="heroImage">
+                    <img src="./assets/products/mug/1.jpg" alt="مجات مطبوعة مخصصة" class="hero-img active" id="heroImage" fetchpriority="high">
                     <div class="image-overlay-info">
                         <h4>مجات مخصصة حسب الطلب</h4>
                         <p>طباعة حرارية ثابتة ومقاومة للغسيل</p>
@@ -149,7 +149,7 @@
             <div class="products-grid">
                 <div class="product-card reveal reveal-right" onclick="openProduct('mug')" style="cursor:pointer;">
                     <div class="product-img-holder" data-product="mug">
-                        <img class="product-slide-img" src="./assets/products/mug/1.jpg" alt="مجات سحرية وعادية">
+                        <img loading="lazy" class="product-slide-img" src="./assets/products/mug/1.jpg" alt="مجات سحرية وعادية">
                         <span class="product-badge">الأكثر مبيعاً</span>
                         <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
@@ -165,7 +165,7 @@
                 </div>
                 <div class="product-card reveal" onclick="openProduct('stickers')" style="cursor:pointer;">
                     <div class="product-img-holder" data-product="stickers">
-                        <img class="product-slide-img" src="./assets/products/stickers/1.jpg" alt="استيكرات لابتوب">
+                        <img loading="lazy" class="product-slide-img" src="./assets/products/stickers/1.jpg" alt="استيكرات لابتوب">
                         <span class="product-badge">فينيل مستورد</span>
                         <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
@@ -181,7 +181,7 @@
                 </div>
                 <div class="product-card reveal reveal-left" onclick="openProduct('graduation')" style="cursor:pointer;">
                     <div class="product-img-holder" data-product="graduation">
-                        <img class="product-slide-img" src="./assets/products/graduation/1.jpg" alt="استيك تخرج مخصص">
+                        <img loading="lazy" class="product-slide-img" src="./assets/products/graduation/1.jpg" alt="استيك تخرج مخصص">
                         <span class="product-badge">الأكثر طلباً</span>
                         <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
@@ -387,21 +387,21 @@
             </div>
             <div class="portfolio-grid">
                 <div class="portfolio-item reveal reveal-right">
-                    <img src="./assets/products/mug/2.jpg" alt="تصميم مج مخصص">
+                    <img loading="lazy" src="./assets/products/mug/2.jpg" alt="تصميم مج مخصص">
                     <div class="portfolio-overlay">
                         <h4>مج تذكار للأصدقاء</h4>
                         <span>تصميم واقعي ديجيتال</span>
                     </div>
                 </div>
                 <div class="portfolio-item reveal">
-                    <img src="./assets/products/stickers/2.jpg" alt="استيكرات لابتوب مطبوعة">
+                    <img loading="lazy" src="./assets/products/stickers/2.jpg" alt="استيكرات لابتوب مطبوعة">
                     <div class="portfolio-overlay">
                         <h4>اكتر من مجموعة استيكرات لاب توب</h4>
                         <span>مقاومة للمياه والرطوبة</span>
                     </div>
                 </div>
                 <div class="portfolio-item reveal reveal-left">
-                    <img src="./assets/products/graduation/2.jpg" alt="استيك تخرج مخصص">
+                    <img loading="lazy" src="./assets/products/graduation/2.jpg" alt="استيك تخرج مخصص">
                     <div class="portfolio-overlay">
                         <h4>استيك تخرج مميز</h4>
                         <span>تصميمك الخاص بجودة طباعة عالية</span>
@@ -417,7 +417,7 @@
         <div class="container footer-grid">
             <div class="footer-info">
                 <a href="#" class="logo">
-                    <img src="./assets/logo-white.png" alt="Infinity Store" class="logo-img">
+                    <img loading="lazy" src="./assets/logo-white.png" alt="Infinity Store" class="logo-img">
                     <span class="logo-text">Infinity <span class="accent-text">Store</span></span>
                 </a>
                 <p>بنساعدك تطبع كل اللي بتتمناه وتصمم هداياك وأدواتك بأعلى دقة وخامات ممتازة تدوم طويلاً.</p>
