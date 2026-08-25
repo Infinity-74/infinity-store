@@ -171,6 +171,23 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
 .empty-state, .loading-state{
   text-align:center;padding:60px 20px;color:var(--muted);
 }
+
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+.product-card{border:1px solid var(--border);border-radius:14px;padding:18px;}
+.product-card .p-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:12px;}
+.product-card h4{font-size:.92rem;font-weight:800;margin-bottom:10px;}
+.product-card .p-row{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);padding:4px 0;}
+.product-card .p-row b{color:var(--text);font-weight:700;}
+
+.report-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.report-row:last-child{border-bottom:none;}
+.report-row .r-label{width:120px;flex-shrink:0;font-size:.83rem;font-weight:700;}
+.report-row .r-bar-wrap{flex:1;background:var(--bg);border-radius:8px;height:10px;overflow:hidden;}
+.report-row .r-bar{height:100%;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--accent));}
+.report-row .r-count{width:34px;text-align:left;flex-shrink:0;font-size:.8rem;font-weight:800;font-family:var(--font-en);}
+
+.cust-link{color:var(--primary);cursor:pointer;}
+.cust-link:hover{text-decoration:underline;}
 .empty-state i, .loading-state i{font-size:2rem;margin-bottom:12px;color:var(--primary);}
 
 /* ===== Modal (add order) ===== */
@@ -311,10 +328,10 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
   <main class="main">
     <div class="topbar">
       <div>
-        <h1><span>👋</span> أهلاً بيك</h1>
-        <div class="sub">طلبات المتجر من الشيت مباشرة</div>
+        <h1><span id="pageEmoji">👋</span> <span id="pageTitle">أهلاً بيك</span></h1>
+        <div class="sub" id="pageSub">طلبات المتجر من الشيت مباشرة</div>
       </div>
-      <div class="topbar-actions">
+      <div class="topbar-actions" id="homeActions">
         <div class="search-box" style="min-width:220px;">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input type="text" id="searchInput" placeholder="دور برقم الطلب، اسم العميل، أو المنتج...">
@@ -325,6 +342,7 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
       </div>
     </div>
 
+    <div class="page-view" id="page-home">
     <div class="stats-grid" id="statsGrid">
       <div class="stat-card">
         <div class="stat-top">
@@ -412,6 +430,109 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
           <i class="fa-solid fa-inbox"></i>
           <div>مفيش طلبات لسه</div>
         </div>
+      </div>
+    </div>
+    </div>
+    <!-- ============ Products page ============ -->
+    <div class="page-view" id="page-products" style="display:none;">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>المنتجات</h3>
+          <div class="search-box" style="min-width:220px;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="productSearchInput" placeholder="دور باسم المنتج...">
+          </div>
+        </div>
+        <div class="products-grid" id="productsGrid"></div>
+        <div class="empty-state" id="productsEmpty" style="display:none;">
+          <i class="fa-solid fa-box"></i>
+          <div>مفيش منتجات لسه، هتظهر هنا أول ما تيجي طلبات</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Customers page ============ -->
+    <div class="page-view" id="page-customers" style="display:none;">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>العملاء</h3>
+          <div class="search-box" style="min-width:220px;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="customerSearchInput" placeholder="دور باسم العميل أو رقمه...">
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="customersTable" style="display:none;">
+            <thead>
+              <tr>
+                <th>العميل</th>
+                <th>التليفون</th>
+                <th>المدينة</th>
+                <th>عدد الطلبات</th>
+                <th>آخر طلب</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="customersBody"></tbody>
+          </table>
+          <div class="empty-state" id="customersEmpty" style="display:none;">
+            <i class="fa-solid fa-users"></i>
+            <div>مفيش عملاء لسه، هيظهروا هنا أول ما تيجي طلبات</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Reports page ============ -->
+    <div class="page-view" id="page-reports" style="display:none;">
+      <div class="stats-grid" id="reportsStatsGrid"></div>
+      <div class="content-grid">
+        <div class="panel">
+          <div class="panel-head"><h3>الطلبات حسب المحافظة</h3></div>
+          <div id="reportsCityList"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>الطلبات حسب الحالة</h3></div>
+          <div id="reportsStatusList"></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:20px;">
+        <div class="panel-head"><h3>أكثر المنتجات طلبًا</h3></div>
+        <div id="reportsTopProducts"></div>
+      </div>
+    </div>
+
+    <!-- ============ Settings page ============ -->
+    <div class="page-view" id="page-settings" style="display:none;">
+      <div class="panel" style="max-width:560px;">
+        <div class="panel-head"><h3>بيانات التواصل</h3></div>
+        <div class="field">
+          <label>رقم الواتساب</label>
+          <input type="text" id="set_whatsapp" placeholder="20155628XXXX">
+        </div>
+        <div class="field">
+          <label>رقم التليفون</label>
+          <input type="text" id="set_phone" placeholder="0155628XXXX">
+        </div>
+        <div class="field">
+          <label>الإيميل</label>
+          <input type="text" id="set_email" placeholder="info@infinitystore.com">
+        </div>
+        <button class="btn-primary" id="saveSettingsBtn"><i class="fa-solid fa-circle-check"></i> حفظ</button>
+        <div class="save-hint" id="settingsSaveHint">تم الحفظ ✓</div>
+        <p style="font-size:.75rem;color:var(--muted);margin-top:14px;">البيانات دي بتتحفظ على المتصفح ده بس، ومش بتتبعت للموقع تلقائيًا لحد ما تحدّثها هناك بنفسك.</p>
+      </div>
+
+      <div class="panel" style="max-width:560px;margin-top:20px;">
+        <div class="panel-head"><h3>الحساب</h3></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div class="avatar" id="settingsAvatar" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">IS</div>
+          <div>
+            <div style="font-weight:700;" id="settingsWho">—</div>
+            <div style="font-size:.78rem;color:var(--muted);">مدير المتجر</div>
+          </div>
+        </div>
+        <button class="btn-logout" id="settingsLogoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> تسجيل خروج</button>
       </div>
     </div>
   </main>
@@ -591,16 +712,36 @@ document.getElementById('sideLogout').addEventListener('click', doLogout);
 
 document.getElementById('refreshBtn').addEventListener('click', loadOrders);
 
-// ---------- Sidebar nav (الطلبات دلوقتي هي الصفحة الوحيدة الشغالة) ----------
+// ---------- Sidebar nav ----------
+const PAGES = {
+  home:      { emoji:'👋', title:'أهلاً بيك',   sub:'طلبات المتجر من الشيت مباشرة',      el:'page-home',      showActions:true  },
+  orders:    { emoji:'👋', title:'أهلاً بيك',   sub:'طلبات المتجر من الشيت مباشرة',      el:'page-home',      showActions:true  },
+  products:  { emoji:'📦', title:'المنتجات',    sub:'المنتجات المطلوبة من واقع الطلبات', el:'page-products',  showActions:false },
+  customers: { emoji:'👥', title:'العملاء',     sub:'قائمة عملاء المتجر',                el:'page-customers', showActions:false },
+  reports:   { emoji:'📊', title:'التقارير',    sub:'تحليل الطلبات على حسب الحالة والمحافظة', el:'page-reports', showActions:false },
+  settings:  { emoji:'⚙️', title:'الإعدادات',   sub:'بيانات التواصل وحسابك',             el:'page-settings',  showActions:false }
+};
+
+function switchPage(key){
+  const page = PAGES[key] || PAGES.home;
+  document.querySelectorAll('.page-view').forEach(el => el.style.display = 'none');
+  document.getElementById(page.el).style.display = 'block';
+  document.getElementById('pageEmoji').textContent = page.emoji;
+  document.getElementById('pageTitle').textContent = page.title;
+  document.getElementById('pageSub').textContent = page.sub;
+  document.getElementById('homeActions').style.display = page.showActions ? 'flex' : 'none';
+
+  if (key === 'products') renderProductsPage();
+  if (key === 'customers') renderCustomersPage();
+  if (key === 'reports') renderReportsPage();
+  if (key === 'settings') renderSettingsPage();
+}
+
 document.querySelectorAll('.nav-link').forEach(function(link){
   link.addEventListener('click', function(){
     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-    if (link.dataset.nav === 'home' || link.dataset.nav === 'orders'){
-      link.classList.add('active');
-    } else {
-      document.querySelector('.nav-link[data-nav="home"]').classList.add('active');
-      showToast('الصفحة دي هتتضاف قريبًا');
-    }
+    link.classList.add('active');
+    switchPage(link.dataset.nav);
   });
 });
 
@@ -861,7 +1002,7 @@ async function updateStatus(selectEl){
   }
 }
 
-// ---------- Search ----------
+// ---------- Search (orders) ----------
 document.getElementById('searchInput').addEventListener('input', function(e){
   const q = e.target.value.trim().toLowerCase();
   if (!q){ renderTable(allOrders); return; }
@@ -873,6 +1014,200 @@ document.getElementById('searchInput').addEventListener('input', function(e){
   });
   renderTable(filtered);
 });
+
+/* ============================================================
+   Products page
+============================================================ */
+function buildProductStats(){
+  const map = {};
+  allOrders.forEach(function(o){
+    const p = (o.Product || 'غير محدد').toString().trim() || 'غير محدد';
+    if (!map[p]) map[p] = { name:p, orders:0, qty:0, cities:new Set() };
+    map[p].orders++;
+    const qty = parseInt(o.Qty, 10);
+    map[p].qty += isNaN(qty) ? 1 : qty;
+    if (o.City) map[p].cities.add(o.City);
+  });
+  return Object.values(map).sort(function(a,b){ return b.orders - a.orders; });
+}
+
+function renderProductsPage(list){
+  const products = list || buildProductStats();
+  const grid = document.getElementById('productsGrid');
+  const empty = document.getElementById('productsEmpty');
+
+  if (!products.length){
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.style.display = 'grid';
+
+  grid.innerHTML = products.map(function(p){
+    return '<div class="product-card">'
+      + '<div class="p-icon"><i class="fa-solid fa-box"></i></div>'
+      + '<h4>'+escapeHtml(p.name)+'</h4>'
+      + '<div class="p-row"><span>عدد الطلبات</span><b>'+p.orders+'</b></div>'
+      + '<div class="p-row"><span>إجمالي القطع</span><b>'+p.qty+'</b></div>'
+      + '<div class="p-row"><span>المحافظات</span><b>'+p.cities.size+'</b></div>'
+      + '</div>';
+  }).join('');
+}
+
+document.getElementById('productSearchInput').addEventListener('input', function(e){
+  const q = e.target.value.trim().toLowerCase();
+  const all = buildProductStats();
+  if (!q){ renderProductsPage(all); return; }
+  renderProductsPage(all.filter(p => p.name.toLowerCase().includes(q)));
+});
+
+/* ============================================================
+   Customers page
+============================================================ */
+function buildCustomerStats(){
+  const map = {};
+  allOrders.forEach(function(o){
+    const key = (o.Phone || o.Name || 'غير معروف').toString().trim();
+    if (!map[key]){
+      map[key] = { name:o.Name || 'غير معروف', phone:o.Phone || '—', city:o.City || '—', orders:0, lastDate:null, lastRaw:'—' };
+    }
+    map[key].orders++;
+    const d = parseOrderDate(o['وقت إنشاء الطلب']);
+    if (d && (!map[key].lastDate || d > map[key].lastDate)){
+      map[key].lastDate = d;
+      map[key].lastRaw = o['وقت إنشاء الطلب'] || '—';
+      map[key].city = o.City || map[key].city;
+    }
+  });
+  return Object.values(map).sort(function(a,b){ return b.orders - a.orders; });
+}
+
+function renderCustomersPage(list){
+  const customers = list || buildCustomerStats();
+  const table = document.getElementById('customersTable');
+  const body = document.getElementById('customersBody');
+  const empty = document.getElementById('customersEmpty');
+
+  if (!customers.length){
+    table.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  table.style.display = 'table';
+
+  body.innerHTML = customers.map(function(c){
+    const waNumber = String(c.phone).replace(/[^0-9]/g,'');
+    return '<tr>'
+      + '<td><div class="cust"><div class="av">'+initials(c.name)+'</div><div>'+escapeHtml(c.name)+'</div></div></td>'
+      + '<td>'+escapeHtml(c.phone)+'</td>'
+      + '<td>'+escapeHtml(c.city)+'</td>'
+      + '<td>'+c.orders+'</td>'
+      + '<td>'+escapeHtml(c.lastRaw)+'</td>'
+      + '<td>'+(waNumber ? '<a class="cust-link" href="https://wa.me/'+waNumber+'" target="_blank"><i class="fa-brands fa-whatsapp"></i> واتساب</a>' : '')+'</td>'
+      + '</tr>';
+  }).join('');
+}
+
+document.getElementById('customerSearchInput').addEventListener('input', function(e){
+  const q = e.target.value.trim().toLowerCase();
+  const all = buildCustomerStats();
+  if (!q){ renderCustomersPage(all); return; }
+  renderCustomersPage(all.filter(function(c){
+    return c.name.toLowerCase().includes(q) || String(c.phone).toLowerCase().includes(q);
+  }));
+});
+
+/* ============================================================
+   Reports page
+============================================================ */
+function renderReportsPage(){
+  const total = allOrders.length;
+  const delivered = allOrders.filter(o => o.Status === 'تم التسليم').length;
+  const pending = allOrders.filter(o => o.Status === 'قيد المراجعة' || o.Status === 'قيد التجهيز').length;
+  const cancelled = allOrders.filter(o => o.Status === 'ملغي').length;
+
+  document.getElementById('reportsStatsGrid').innerHTML =
+    '<div class="stat-card"><div class="stat-top"><div class="stat-icon" style="background:linear-gradient(135deg,#2563eb,#3b82f6);"><i class="fa-solid fa-bag-shopping"></i></div></div><div class="stat-value">'+total+'</div><div class="stat-label">إجمالي الطلبات</div></div>'
+    + '<div class="stat-card"><div class="stat-top"><div class="stat-icon" style="background:linear-gradient(135deg,#10b981,#34d399);"><i class="fa-solid fa-circle-check"></i></div></div><div class="stat-value">'+delivered+'</div><div class="stat-label">تم التسليم</div></div>'
+    + '<div class="stat-card"><div class="stat-top"><div class="stat-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);"><i class="fa-solid fa-hourglass-half"></i></div></div><div class="stat-value">'+pending+'</div><div class="stat-label">قيد التنفيذ</div></div>'
+    + '<div class="stat-card"><div class="stat-top"><div class="stat-icon" style="background:linear-gradient(135deg,#ef4444,#f87171);"><i class="fa-solid fa-xmark"></i></div></div><div class="stat-value">'+cancelled+'</div><div class="stat-label">ملغي</div></div>';
+
+  renderBreakdown('reportsCityList', groupCount('City'));
+  renderBreakdown('reportsStatusList', groupCount('Status'));
+
+  const products = buildProductStats().slice(0,5);
+  document.getElementById('reportsTopProducts').innerHTML = products.length
+    ? products.map(function(p){
+        return '<div class="top-item">'
+          + '<div class="thumb"><i class="fa-solid fa-box"></i></div>'
+          + '<div class="info"><h4>'+escapeHtml(p.name)+'</h4><p>'+p.qty+' قطعة</p></div>'
+          + '<div class="amount">'+p.orders+'</div>'
+          + '</div>';
+      }).join('')
+    : '<div style="color:var(--muted);font-size:.85rem;padding:10px 0;">مفيش بيانات كفاية لسه</div>';
+}
+
+function groupCount(field){
+  const map = {};
+  allOrders.forEach(function(o){
+    const v = (o[field] || 'غير محدد').toString().trim() || 'غير محدد';
+    map[v] = (map[v] || 0) + 1;
+  });
+  return Object.entries(map).sort(function(a,b){ return b[1]-a[1]; });
+}
+
+function renderBreakdown(containerId, entries){
+  const el = document.getElementById(containerId);
+  if (!entries.length){
+    el.innerHTML = '<div style="color:var(--muted);font-size:.85rem;padding:10px 0;">مفيش بيانات كفاية لسه</div>';
+    return;
+  }
+  const max = Math.max.apply(null, entries.map(e => e[1]));
+  el.innerHTML = entries.map(function(e){
+    const pct = Math.max((e[1] / max) * 100, 6);
+    return '<div class="report-row">'
+      + '<div class="r-label">'+escapeHtml(e[0])+'</div>'
+      + '<div class="r-bar-wrap"><div class="r-bar" style="width:'+pct+'%;"></div></div>'
+      + '<div class="r-count">'+e[1]+'</div>'
+      + '</div>';
+  }).join('');
+}
+
+/* ============================================================
+   Settings page
+============================================================ */
+const SETTINGS_KEY = 'infinity_dash_settings';
+
+function loadSettings(){
+  try{
+    return JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {};
+  }catch(e){ return {}; }
+}
+
+function renderSettingsPage(){
+  const s = loadSettings();
+  document.getElementById('set_whatsapp').value = s.whatsapp || '201556284315';
+  document.getElementById('set_phone').value = s.phone || '01556284315';
+  document.getElementById('set_email').value = s.email || 'info@infinitystore.com';
+  document.getElementById('settingsWho').textContent = currentUser || '—';
+  document.getElementById('settingsAvatar').textContent = (currentUser || 'IS').slice(0,2).toUpperCase();
+}
+
+document.getElementById('saveSettingsBtn').addEventListener('click', function(){
+  const settings = {
+    whatsapp: document.getElementById('set_whatsapp').value.trim(),
+    phone: document.getElementById('set_phone').value.trim(),
+    email: document.getElementById('set_email').value.trim()
+  };
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  const hint = document.getElementById('settingsSaveHint');
+  hint.style.display = 'block';
+  setTimeout(function(){ hint.style.display = 'none'; }, 2000);
+});
+
+document.getElementById('settingsLogoutBtn').addEventListener('click', doLogout);
 </script>
 </body>
 </html>
