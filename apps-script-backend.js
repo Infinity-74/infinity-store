@@ -114,7 +114,7 @@ function isValidPhone_(phone) {
 
 // التحقق من رقم الطلب
 function isValidOrderId_(orderId) {
-  return /^INF-[A-Z0-9]{8}$/.test(orderId);
+  return /^INF-[A-Z0-9]{6,8}$/.test(orderId);
 }
 
 // التحقق من الطلب بالكامل
