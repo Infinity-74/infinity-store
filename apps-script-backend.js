@@ -3,6 +3,12 @@ var USERNAME = 'infinity';
 var PASSWORD = 'Mo@112233';
 var SHEET_ID = '1J9xcyEOjiVr4Z4sfbkclco8N6Ago2eAmjsqcv87vAvg';
 
+// ⚠️ مهم: استبدل المفتاح ده بمفتاحك من Google reCAPTCHA
+var RECAPTCHA_SECRET_KEY = "PUT_YOUR_SECRET_KEY_HERE";
+
+// فعّل أو عطّل reCAPTCHA (لو عطلتها، مش هيتحقق من المستخدم)
+var ENABLE_RECAPTCHA = true;
+
 // أسماء الأعمدة بالظبط زي ما هي في الشيت
 var COL_ORDER_ID = 'Order ID';
 var COL_STATUS   = 'Status';
@@ -10,10 +16,10 @@ var COL_STATUS   = 'Status';
 // الحالات المسموح بيها
 var ALLOWED_STATUSES = ['قيد المراجعة', 'قيد التجهيز', 'تم الشحن', 'تم التسليم', 'ملغي'];
 
-// أقصى عدد طلبات مسموح بيها كل دقيقة لكل سكريبت
+// أقصى عدد طلبات مسموح بيها كل دقيقة
 var MAX_ORDERS_PER_MINUTE = 20;
 
-// الحد الأقصى لطول النصوص (لمنع السبام)
+// الحد الأقصى لطول النصوص
 var MAX_NAME_LEN    = 100;
 var MAX_PHONE_LEN   = 20;
 var MAX_PRODUCT_LEN = 100;
@@ -21,7 +27,7 @@ var MAX_CITY_LEN    = 50;
 var MAX_DETAILS_LEN = 1000;
 
 
-// ===== لا تعدل تحت السطر ده إلا لو متأكد =====
+// ===== لا تعدل تحت السطر ده =====
 
 function doPost(e) {
   try {
@@ -34,10 +40,18 @@ function doPost(e) {
       return respond(ok ? { success: true } : { success: false, error: 'اليوزر أو الباسورد غلط' });
     }
 
-    // ---- addOrder (مفتوحة للعملاء - مع validation + rate limit) ----
+    // ---- addOrder (مفتوحة للعملاء) ----
     if (action === 'addOrder') {
       if (!checkRateLimit_()) {
         return respond({ success: false, error: 'في ضغط كبير دلوقتي، حاول تاني بعد شوية' });
+      }
+
+      // ---- التحقق من reCAPTCHA ----
+      if (ENABLE_RECAPTCHA) {
+        var captchaOk = verifyRecaptcha_(data.recaptchaToken);
+        if (!captchaOk) {
+          return respond({ success: false, error: 'فشل التحقق من reCAPTCHA. حاول تاني.' });
+        }
       }
 
       var validation = validateOrder_(data.order);
@@ -96,10 +110,36 @@ function doGet(e) {
 }
 
 // ============================================
+// reCAPTCHA Verification
+// ============================================
+function verifyRecaptcha_(token) {
+  if (!token) return false;
+  if (!RECAPTCHA_SECRET_KEY || RECAPTCHA_SECRET_KEY === 'PUT_YOUR_SECRET_KEY_HERE') {
+    // لو المفتاح مش متظبط، اسمح بالطلب (عشان مايتعطلش الموقع)
+    return true;
+  }
+  try {
+    var response = UrlFetchApp.fetch(
+      'https://www.google.com/recaptcha/api/siteverify',
+      {
+        method: 'post',
+        payload: {
+          secret: RECAPTCHA_SECRET_KEY,
+          response: token
+        },
+        muteHttpExceptions: true
+      }
+    );
+    var result = JSON.parse(response.getContentText());
+    return result.success === true;
+  } catch (err) {
+    return false;
+  }
+}
+
+// ============================================
 // Validation helpers
 // ============================================
-
-// تنظيف النص من الرموز الخطيرة + تحديد الطول
 function cleanText_(val, maxLen) {
   if (val === undefined || val === null) return '';
   var s = String(val).replace(/[\u0000-\u001F\u007F]/g, '').trim();
@@ -107,17 +147,15 @@ function cleanText_(val, maxLen) {
   return s;
 }
 
-// التحقق من صحة رقم الموبايل المصري
 function isValidPhone_(phone) {
   return /^01[0-2,5][0-9]{8}$/.test(phone);
 }
 
-// التحقق من رقم الطلب
 function isValidOrderId_(orderId) {
+  // يقبل INF-XXXXXXXX (8) أو INF-XXXXXX (6)
   return /^INF-[A-Z0-9]{6,8}$/.test(orderId);
 }
 
-// التحقق من الطلب بالكامل
 function validateOrder_(order) {
   if (!order || typeof order !== 'object') {
     return { ok: false, error: 'بيانات الطلب غير صحيحة' };
@@ -166,7 +204,6 @@ function validateOrder_(order) {
   };
 }
 
-// التحقق من الحالة
 function validateStatus_(status) {
   var s = cleanText_(status, 50);
   if (ALLOWED_STATUSES.indexOf(s) === -1) {
@@ -183,7 +220,7 @@ function checkAuth(u, p) {
 }
 
 // ============================================
-// Rate Limit (لكل سكريبت - مش لكل IP)
+// Rate Limit
 // ============================================
 function checkRateLimit_() {
   var cache = CacheService.getScriptCache();
@@ -249,7 +286,6 @@ function updateStatus(orderId, newStatus) {
 function addOrder(order) {
   if (!order) return false;
 
-  // ---- استخدام LockService لمنع التسابق ----
   var lock = LockService.getScriptLock();
   try {
     lock.waitLock(10000);
