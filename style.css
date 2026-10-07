@@ -2256,3 +2256,54 @@ font-size:30px;
 .order-now-cta:hover {
     box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
 }
+
+/* ===========================
+   Announcement Bar (Marquee)
+=========================== */
+:root {
+    --bar-h: 38px;
+}
+
+.announcement-bar {
+    position: relative;
+    z-index: 101;
+    height: var(--bar-h);
+    background: #000;
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    direction: ltr;
+}
+
+.announcement-track {
+    display: flex;
+    width: max-content;
+    animation: announcement-marquee 25s linear infinite;
+}
+
+.announcement-group {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.announcement-group span {
+    padding: 0 40px;
+}
+
+.announcement-bar:hover .announcement-track {
+    animation-play-state: paused;
+}
+
+@keyframes announcement-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* الـ navbar ينزل تحت الشريط ويطلع لفوق لما الشريط يختفي بالسكرول */
+.navbar {
+    top: var(--bar-h, 0px);
+}
