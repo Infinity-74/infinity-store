@@ -1,0 +1,20 @@
+/* Scroll Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+
+.reveal.reveal-left {
+    transform: translateX(-80px);
+}
+
+.reveal.reveal-right {
+    transform: translateX(80px);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translate(0) !important;
+}

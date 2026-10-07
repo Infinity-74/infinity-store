@@ -1,0 +1,40 @@
+/* ==========================================================
+   🌙 Dark Mode
+========================================================== */
+[data-theme="dark"] {
+    --bg-dark: #0b1120;
+    --bg-card: rgba(20, 29, 48, 0.92);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-primary: #e5e7eb;
+    --text-muted: #94a3b8;
+    --glow-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
+    color-scheme: dark;
+}
+[data-theme="dark"] .navbar { background: rgba(11, 17, 32, 0.85); }
+[data-theme="dark"] .main-footer,
+[data-theme="dark"] .modal-card,
+[data-theme="dark"] .page-header { background: #0f172a; }
+[data-theme="dark"] #pageTitle { color: var(--text-primary); }
+[data-theme="dark"] .logo-img { filter: invert(1); mix-blend-mode: screen; }
+[data-theme="dark"] .preloader img { filter: invert(1); mix-blend-mode: screen; }
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group select,
+[data-theme="dark"] .form-group textarea { background: rgba(255, 255, 255, 0.05); }
+[data-theme="dark"] .form-group select option { background-color: #0f172a; color: #e5e7eb; }
+[data-theme="dark"] .btn-secondary { background: rgba(255, 255, 255, 0.06); }
+[data-theme="dark"] .btn-secondary:hover { background: rgba(255, 255, 255, 0.12); }
+[data-theme="dark"] .calc-result-box { background: rgba(255, 255, 255, 0.03); }
+[data-theme="dark"] .social-icons a { background: rgba(255, 255, 255, 0.08); }
+[data-theme="dark"] .offer-strip .btn { color: #0b1120; }
+[data-theme="dark"] .ts-control,
+[data-theme="dark"] .ts-wrapper.single .ts-control,
+[data-theme="dark"] .ts-dropdown,
+[data-theme="dark"] .ts-dropdown-content,
+[data-theme="dark"] .ts-dropdown .option {
+    background: #0f172a !important;
+    color: #e5e7eb !important;
+}
+[data-theme="dark"] .ts-control input { color: #e5e7eb !important; }
+[data-theme="dark"] .ts-dropdown .option:hover { background: #1e293b !important; }
+[data-theme="dark"] .ts-dropdown .active,
+[data-theme="dark"] .ts-dropdown .selected { background: #2563eb !important; color: #fff !important; }

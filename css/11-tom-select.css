@@ -1,0 +1,165 @@
+/* ===========================
+   Tom Select Premium Style
+=========================== */
+
+.ts-wrapper{
+    font-size:16px;
+}
+
+.ts-control{
+    background:#ffffff !important;
+    border:1.5px solid rgba(37,99,235,.25) !important;
+    color:#0f172a !important;
+    border-radius:14px;
+    min-height:56px;
+    transition:all .35s ease;
+    box-shadow:none !important;
+}
+
+.ts-control:hover{
+    border-color:#3b82f6 !important;
+}
+
+.ts-wrapper.focus .ts-control{
+    border-color:#3b82f6 !important;
+    box-shadow:0 0 0 4px rgba(59,130,246,.15) !important;
+}
+
+.ts-control input{
+    color:#0f172a !important;
+    font-size:16px;
+}
+
+.ts-control input::placeholder{
+    color:#94a3b8;
+}
+
+.ts-control::after{
+    border-color:#3b82f6 transparent transparent transparent !important;
+    transition:.3s;
+}
+
+.ts-wrapper.dropdown-active .ts-control::after{
+    transform:rotate(180deg);
+    margin-top:-6px;
+}
+
+.ts-dropdown{
+    background:#ffffff !important;
+    border:1px solid #bfdbfe !important;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.ts-dropdown .option{
+    background:#ffffff !important;
+    color:#0f172a !important;
+    font-size:16px;
+    padding:12px 15px;
+}
+
+.ts-dropdown .option:hover{
+    background:#eff6ff !important;
+    color:#1d4ed8 !important;
+}
+
+.ts-dropdown .active{
+    background:#2563eb !important;
+    color:#ffffff !important;
+}
+
+.ts-dropdown .selected{
+    background:#2563eb !important;
+    color:#ffffff !important;
+}
+
+@keyframes dropdownFade{
+
+    from{
+        opacity:0;
+        transform:translateY(-8px) scale(.98);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+.ts-control input {
+    display: none !important;
+}
+
+.ts-dropdown .dropdown-input {
+    display: none !important;
+}
+/* =========================
+   Tom Select Dark Theme
+========================= */
+
+.ts-wrapper.single .ts-control{
+    background:#ffffff !important;
+    border:1px solid #93c5fd !important;
+    color:#0f172a !important;
+    border-radius:14px;
+    min-height:56px;
+}
+
+.ts-wrapper.single .ts-control input{
+    color:#0f172a !important;
+}
+
+.ts-dropdown{
+    background:#ffffff !important;
+    border:1px solid #93c5fd !important;
+    border-radius:0 0 14px 14px;
+    overflow:hidden;
+}
+
+.ts-dropdown .option{
+    background:#ffffff !important;
+    color:#0f172a !important;
+    font-size:17px !important;
+    padding:14px 16px !important;
+    transition:.25s;
+}
+
+.ts-dropdown .option:hover{
+    background:#eaf1ff !important;
+    color:#0f172a !important;
+}
+
+.ts-dropdown .active{
+    background:#2563eb !important;
+    color:#fff !important;
+}
+
+.ts-dropdown .selected{
+    background:#2563eb !important;
+    color:#fff !important;
+}
+/* إصلاح لون خلفية قائمة Tom Select */
+.ts-dropdown,
+.ts-dropdown-content {
+    background: #ffffff !important;
+}
+
+.ts-dropdown .option {
+    background: #ffffff !important;
+    color: #0f172a !important;
+}
+
+.ts-dropdown .option:hover,
+.ts-dropdown .active,
+.ts-dropdown .selected {
+    background: #2563eb !important;
+    color: #fff !important;
+}
+.ts-dropdown-content{
+    background:#ffffff !important;
+}
+
+.ts-dropdown .option{
+    background:#ffffff !important;
+    color:#0f172a !important;
+}

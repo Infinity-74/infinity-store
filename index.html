@@ -12,7 +12,26 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/01-base.css">
+    <link rel="stylesheet" href="css/02-navbar.css">
+    <link rel="stylesheet" href="css/03-hero-features.css">
+    <link rel="stylesheet" href="css/04-products.css">
+    <link rel="stylesheet" href="css/05-calculator.css">
+    <link rel="stylesheet" href="css/06-portfolio-footer.css">
+    <link rel="stylesheet" href="css/07-modal.css">
+    <link rel="stylesheet" href="css/08-responsive.css">
+    <link rel="stylesheet" href="css/09-animations.css">
+    <link rel="stylesheet" href="css/10-tracking.css">
+    <link rel="stylesheet" href="css/11-tom-select.css">
+    <link rel="stylesheet" href="css/12-payments.css">
+    <link rel="stylesheet" href="css/13-product-page.css">
+    <link rel="stylesheet" href="css/14-tweaks.css">
+    <link rel="stylesheet" href="css/15-customizer.css">
+    <link rel="stylesheet" href="css/16-announcement-bar.css">
+    <link rel="stylesheet" href="css/17-ui-extras.css">
+    <link rel="stylesheet" href="css/18-new-sections.css">
+    <link rel="stylesheet" href="css/19-polish.css">
+    <link rel="stylesheet" href="css/20-dark-mode.css">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Infinity Store">
     <meta property="og:title" content="Infinity Store | طباعة مجات واستيكرات وهدايا مخصصة">
@@ -442,27 +461,20 @@
                 <h2>ألبوم أعمالنا المعروضة</h2>
                 <p>شوف جودة الطباعة والألوان على الطبيعة لمنتجات عملاءنا الحقيقيين</p>
             </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item reveal reveal-right">
-                    <img loading="lazy" src="./assets/products/mug/2.jpg" alt="تصميم مج مخصص">
-                    <div class="portfolio-overlay">
-                        <h4>مج تذكار للأصدقاء</h4>
-                        <span>تصميم واقعي ديجيتال</span>
-                    </div>
+            <div class="portfolio-grid" id="portfolioGrid">
+                <!-- الصور بتتحمّل تلقائيًا من assets/portfolio.json (بيتحدّث لوحده من فولدر assets/portfolio).
+                     العناصر دي مجرد عرض احتياطي لو فشل التحميل. -->
+                <div class="portfolio-item reveal">
+                    <img loading="lazy" src="assets/portfolio/%D9%85%D8%AC%20%D8%AA%D8%B0%D9%83%D8%A7%D8%B1%20%D9%84%D9%84%D8%A3%D8%B5%D8%AF%D9%82%D8%A7%D8%A1%20-%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D9%88%D8%A7%D9%82%D8%B9%D9%8A%20%D8%AF%D9%8A%D8%AC%D9%8A%D8%AA%D8%A7%D9%84.jpg" alt="مج تذكار للأصدقاء">
+                    <div class="portfolio-overlay"><h4>مج تذكار للأصدقاء</h4><span>تصميم واقعي ديجيتال</span></div>
                 </div>
                 <div class="portfolio-item reveal">
-                    <img loading="lazy" src="./assets/products/stickers/2.jpg" alt="استيكرات لابتوب مطبوعة">
-                    <div class="portfolio-overlay">
-                        <h4>اكتر من مجموعة استيكرات لاب توب</h4>
-                        <span>مقاومة للمياه والرطوبة</span>
-                    </div>
+                    <img loading="lazy" src="assets/portfolio/%D8%A7%D9%83%D8%AA%D8%B1%20%D9%85%D9%86%20%D9%85%D8%AC%D9%85%D9%88%D8%B9%D8%A9%20%D8%A7%D8%B3%D8%AA%D9%8A%D9%83%D8%B1%D8%A7%D8%AA%20%D9%84%D8%A7%D8%A8%20%D8%AA%D9%88%D8%A8%20-%20%D9%85%D9%82%D8%A7%D9%88%D9%85%D8%A9%20%D9%84%D9%84%D9%85%D9%8A%D8%A7%D9%87%20%D9%88%D8%A7%D9%84%D8%B1%D8%B7%D9%88%D8%A8%D8%A9.jpg" alt="استيكرات لاب توب">
+                    <div class="portfolio-overlay"><h4>اكتر من مجموعة استيكرات لاب توب</h4><span>مقاومة للمياه والرطوبة</span></div>
                 </div>
-                <div class="portfolio-item reveal reveal-left">
-                    <img loading="lazy" src="./assets/products/graduation/2.jpg" alt="استيك تخرج مخصص">
-                    <div class="portfolio-overlay">
-                        <h4>استيك تخرج مميز</h4>
-                        <span>تصميمك الخاص بجودة طباعة عالية</span>
-                    </div>
+                <div class="portfolio-item reveal">
+                    <img loading="lazy" src="assets/portfolio/%D8%A7%D8%B3%D8%AA%D9%8A%D9%83%20%D8%AA%D8%AE%D8%B1%D8%AC%20%D9%85%D9%85%D9%8A%D8%B2%20-%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%D9%83%20%D8%A7%D9%84%D8%AE%D8%A7%D8%B5%20%D8%A8%D8%AC%D9%88%D8%AF%D8%A9%20%D8%B7%D8%A8%D8%A7%D8%B9%D8%A9%20%D8%B9%D8%A7%D9%84%D9%8A%D8%A9.jpg" alt="استيك تخرج مميز">
+                    <div class="portfolio-overlay"><h4>استيك تخرج مميز</h4><span>تصميمك الخاص بجودة طباعة عالية</span></div>
                 </div>
             </div>
         </div>
@@ -639,6 +651,22 @@
     <a href="https://wa.me/201556284315?text=%D8%A3%D9%87%D9%84%D8%A7%D9%8B%D8%8C%20%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A3%D8%B3%D8%AA%D9%81%D8%B3%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D8%B7%D8%A8%D8%A7%D8%B9%D8%A9" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="تواصل معنا عبر واتساب"><i class="fa-brands fa-whatsapp"></i></a>
     <button type="button" class="back-to-top" id="backToTop" aria-label="الرجوع للأعلى"><i class="fa-solid fa-chevron-up"></i></button>
 
-    <script src="app.js"></script>
+    <script src="js/01-config.js"></script>
+    <script src="js/02-utils.js"></script>
+    <script src="js/03-ui.js"></script>
+    <script src="js/04-calculator.js"></script>
+    <script src="js/05-home.js"></script>
+    <script src="js/06-order.js"></script>
+    <script src="js/07-animations.js"></script>
+    <script src="js/08-tracking.js"></script>
+    <script src="js/09-product-page.js"></script>
+    <script src="js/10-announcement.js"></script>
+    <script src="js/11-preloader.js"></script>
+    <script src="js/12-theme.js"></script>
+    <script src="js/13-scroll-ui.js"></script>
+    <script src="js/14-counters.js"></script>
+    <script src="js/15-countdown.js"></script>
+    <script src="js/16-faq.js"></script>
+    <script src="js/17-portfolio.js"></script>
 </body>
 </html>

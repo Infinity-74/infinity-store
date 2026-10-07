@@ -1,0 +1,254 @@
+/* ---------- Offer strip + countdown ---------- */
+.offer-strip {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: #fff;
+    padding: 14px 0;
+}
+.offer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+.offer-text {
+    font-size: 1.02rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.offer-text i { font-size: 1.2rem; }
+.countdown {
+    display: flex;
+    gap: 8px;
+    direction: ltr;
+}
+.cd-box {
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    min-width: 54px;
+    padding: 4px 8px;
+    text-align: center;
+    line-height: 1.2;
+}
+.cd-box b {
+    display: block;
+    font-family: var(--font-en);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+.cd-box small { font-size: 0.68rem; opacity: 0.9; }
+.offer-strip .btn {
+    background: #fff;
+    color: var(--primary-color);
+    border: none;
+}
+
+/* ---------- Offer badge on product cards ---------- */
+.offer-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 4;
+    background: #ef4444;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35);
+}
+
+/* ---------- Section spacing for new sections ---------- */
+.steps-section,
+.stats-section,
+.faq-section {
+    padding: 70px 0;
+}
+
+/* ---------- How it works ---------- */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    position: relative;
+}
+.step-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 34px 20px 24px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.step-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-color);
+    box-shadow: var(--glow-shadow);
+}
+.step-num {
+    position: absolute;
+    top: -16px;
+    right: 50%;
+    transform: translateX(50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: #fff;
+    font-family: var(--font-en);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.step-card .step-icon {
+    font-size: 2rem;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.step-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.step-card p { font-size: 0.88rem; color: var(--text-muted); }
+
+/* ---------- Stats / counters ---------- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 28px 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+.stat-num {
+    font-family: var(--font-en);
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    direction: ltr;
+}
+.stat-label { color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+/* ---------- Ticker (marquee) ---------- */
+.ticker {
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 16px 0;
+    direction: ltr;
+}
+.ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-move 35s linear infinite;
+}
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.ticker-group { display: flex; flex-shrink: 0; }
+.ticker-group span {
+    padding: 0 34px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+.ticker-group span i { color: var(--accent-color); }
+@keyframes ticker-move {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+}
+
+/* ---------- FAQ accordion ---------- */
+.faq-list {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.faq-item.open {
+    border-color: var(--accent-color);
+    box-shadow: var(--glow-shadow);
+}
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-family: var(--font-ar);
+    font-size: 1.02rem;
+    font-weight: 700;
+    text-align: start;
+    padding: 18px 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+.faq-question i {
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+.faq-item.open .faq-question i { transform: rotate(180deg); }
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+.faq-answer p {
+    padding: 0 22px 20px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ---------- Follow band ---------- */
+.follow-band {
+    padding: 50px 0;
+    text-align: center;
+}
+.follow-band h2 { font-size: 1.6rem; margin-bottom: 6px; }
+.follow-band p { color: var(--text-muted); margin-bottom: 22px; }
+.follow-links {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.follow-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 700;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.follow-links a:hover { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18); }
+.follow-links .f-fb { background: #1877f2; }
+.follow-links .f-ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
+.follow-links .f-wa { background: #25d366; }

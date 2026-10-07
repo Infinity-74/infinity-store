@@ -1,0 +1,30 @@
+/* ---------- Hover polish ---------- */
+.product-card { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); }
+.product-card:hover { box-shadow: 0 18px 40px rgba(37, 99, 235, 0.16); }
+.product-card:hover .product-slide-img { transform: scale(1.08); }
+.portfolio-item img { transition: transform 0.6s ease !important; }
+.portfolio-item:hover img { transform: scale(1.08); }
+.feature-card:hover,
+.payment-card:hover,
+.testimonial-card:hover { transform: translateY(-6px); }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .ticker-track, .wa-float::before, .preloader img { animation: none; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 992px) {
+    .steps-grid, .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .steps-grid { gap: 28px 14px; }
+    .steps-section, .stats-section, .faq-section { padding: 50px 0; }
+    .offer-inner { justify-content: center; text-align: center; }
+    .offer-text { font-size: 0.92rem; justify-content: center; }
+    .cd-box { min-width: 46px; }
+    .stat-num { font-size: 1.9rem; }
+    .wa-float { width: 52px; height: 52px; font-size: 28px; left: 14px; bottom: 14px; }
+    .back-to-top { right: 14px; bottom: 14px; width: 42px; height: 42px; }
+}
