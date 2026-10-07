@@ -588,8 +588,6 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
 <script>
 /* =========================================================
    حط هنا رابط الـ Apps Script بتاعك بعد ما تعمله Deploy
-   شكله هيكون تقريبًا:
-   https://script.google.com/macros/s/XXXXXXXXXXXX/exec
 ========================================================= */
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwht6HzZSKt3nIfhGU6Cu7rquxuV77FtL3sLbnAoUq-S46xUpjqsy57OSADstgeToWa/exec";
 
@@ -606,9 +604,9 @@ let currentPass = null;
 let allOrders = [];
 let allStatuses = ['قيد المراجعة', 'قيد التجهيز', 'تم الشحن', 'تم التسليم', 'ملغي'];
 
-// ---------- Session (تفضل مسجل دخول لحد ما تسيب الموقع فترة طويلة) ----------
+// ---------- Session ----------
 const SESSION_KEY = 'infinity_dash_session';
-const SESSION_TIMEOUT_MS = 60 * 60 * 1000; // ساعة واحدة من عدم الاستخدام تسجل خروج تلقائي. غيّرها هنا لو عايز مدة مختلفة.
+const SESSION_TIMEOUT_MS = 60 * 60 * 1000;
 
 function saveSession(){
   localStorage.setItem(SESSION_KEY, JSON.stringify({ u: currentUser, p: currentPass, ts: Date.now() }));
@@ -633,23 +631,18 @@ function restoreSession(){
 async function callApi(payload) {
   const res = await fetch(APPS_SCRIPT_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // يمنع مشاكل CORS
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify(payload)
   });
   return res.json();
 }
 
 // ---------- Login ----------
-if (APPS_SCRIPT_URL.indexOf('PASTE_YOUR') === 0) {
-  document.getElementById('configWarning').style.display = 'block';
-}
-
-// جرّب ترجع لجلسة سابقة أول ما الصفحة تفتح
 if (restoreSession()){
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('dashboardWrap').style.display = 'block';
   setSidebarUser(currentUser);
-  saveSession(); // نمدد الجلسة لأنه لسه بيستخدم الموقع
+  saveSession();
   loadOrders();
 }
 
@@ -748,7 +741,7 @@ document.querySelectorAll('.nav-link').forEach(function(link){
 // ---------- Add Order Modal ----------
 const addOrderModal = document.getElementById('addOrderModal');
 document.getElementById('addOrderBtn').addEventListener('click', function(){
-  document.getElementById('f_orderId').value = 'ORD-' + Date.now().toString().slice(-6);
+  document.getElementById('f_orderId').value = 'INF-' + Date.now().toString().slice(-6);
   addOrderModal.classList.add('active');
 });
 document.getElementById('closeModalBtn').addEventListener('click', function(){
@@ -776,7 +769,7 @@ document.getElementById('addOrderForm').addEventListener('submit', async functio
   };
 
   try{
-    const result = await callApi({ action:'addOrder', username: currentUser, password: currentPass, order });
+    const result = await callApi({ action:'addOrder', order });
     if (result.success){
       addOrderModal.classList.remove('active');
       document.getElementById('addOrderForm').reset();
@@ -807,7 +800,7 @@ async function loadOrders(){
     allOrders = result.orders || [];
     if (result.statuses && result.statuses.length) allStatuses = result.statuses;
 
-    saveSession(); // نجاح أي طلب من السيرفر = مستخدم نشط، نمدد الجلسة
+    saveSession();
     renderStats();
     renderTable(allOrders);
     renderChart();
@@ -820,30 +813,41 @@ async function loadOrders(){
   }
 }
 
-// ---------- Weekly chart ----------
+// ---------- Date parsing (نسخة محسّنة) ----------
 function parseOrderDate(str){
   if (!str) return null;
-  const parts = String(str).split(' ');
-  const d = parts[0].split('/'); // dd/MM/yyyy
+  const parts = String(str).trim().split(' ');
+  if (!parts[0]) return null;
+  const d = parts[0].split('/');
   if (d.length < 3) return null;
-  return new Date(parseInt(d[2]), parseInt(d[1]) - 1, parseInt(d[0]));
+  const day = parseInt(d[0], 10);
+  const month = parseInt(d[1], 10);
+  const year = parseInt(d[2], 10);
+  if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
+  const key = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+  return { y: year, m: month, d: day, key: key };
 }
 
+// ---------- Weekly chart ----------
 function renderChart(){
   const days = [];
   const dayNames = ['أحد','إثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
+
   for (let i = 6; i >= 0; i--){
     const d = new Date();
     d.setHours(0,0,0,0);
     d.setDate(d.getDate() - i);
-    days.push({ date: d, count: 0 });
+    const key = d.getFullYear() + '-' +
+                String(d.getMonth() + 1).padStart(2, '0') + '-' +
+                String(d.getDate()).padStart(2, '0');
+    days.push({ date: d, key: key, count: 0 });
   }
+
   allOrders.forEach(function(o){
-    const od = parseOrderDate(o['وقت إنشاء الطلب']);
-    if (!od) return;
-    od.setHours(0,0,0,0);
+    const parsed = parseOrderDate(o['وقت إنشاء الطلب']);
+    if (!parsed) return;
     days.forEach(function(day){
-      if (day.date.getTime() === od.getTime()) day.count++;
+      if (day.key === parsed.key) day.count++;
     });
   });
 
@@ -911,14 +915,19 @@ function renderStats(){
   renderTrend('trendDone', countInWindow(allOrders.filter(o=>o.Status==='تم التسليم'), 0, 7), countInWindow(allOrders.filter(o=>o.Status==='تم التسليم'), 7, 14));
 }
 
-// عدد الطلبات اللي تاريخها بين (اليوم - toDays) و (اليوم - fromDays)
+// ---------- Count in window (نسخة محسّنة) ----------
 function countInWindow(orders, fromDaysAgoExclusive, toDaysAgoExclusive){
-  const now = new Date(); now.setHours(0,0,0,0);
+  const now = new Date();
+  now.setHours(0,0,0,0);
+
   return orders.filter(function(o){
-    const od = parseOrderDate(o['وقت إنشاء الطلب']);
-    if (!od) return false;
-    od.setHours(0,0,0,0);
-    const diffDays = Math.floor((now - od) / 86400000);
+    const parsed = parseOrderDate(o['وقت إنشاء الطلب']);
+    if (!parsed) return false;
+
+    const orderDate = new Date(parsed.y, parsed.m - 1, parsed.d);
+    orderDate.setHours(0,0,0,0);
+    const diffDays = Math.round((now - orderDate) / 86400000);
+
     return diffDays >= fromDaysAgoExclusive && diffDays < toDaysAgoExclusive;
   }).length;
 }
@@ -1070,12 +1079,12 @@ function buildCustomerStats(){
   allOrders.forEach(function(o){
     const key = (o.Phone || o.Name || 'غير معروف').toString().trim();
     if (!map[key]){
-      map[key] = { name:o.Name || 'غير معروف', phone:o.Phone || '—', city:o.City || '—', orders:0, lastDate:null, lastRaw:'—' };
+      map[key] = { name:o.Name || 'غير معروف', phone:o.Phone || '—', city:o.City || '—', orders:0, lastKey:null, lastRaw:'—' };
     }
     map[key].orders++;
-    const d = parseOrderDate(o['وقت إنشاء الطلب']);
-    if (d && (!map[key].lastDate || d > map[key].lastDate)){
-      map[key].lastDate = d;
+    const parsed = parseOrderDate(o['وقت إنشاء الطلب']);
+    if (parsed && (!map[key].lastKey || parsed.key > map[key].lastKey)){
+      map[key].lastKey = parsed.key;
       map[key].lastRaw = o['وقت إنشاء الطلب'] || '—';
       map[key].city = o.City || map[key].city;
     }
