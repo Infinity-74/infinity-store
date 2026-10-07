@@ -150,3 +150,12 @@ a {
     gap: 8px;
     margin-bottom: 20px;
 }
+
+/* ============================================
+   منع وميض الوضع الليلي (FOUC)
+   ============================================ */
+html:not(.theme-ready) *,
+html:not(.theme-ready) *::before,
+html:not(.theme-ready) *::after {
+    transition: none !important;
+}
