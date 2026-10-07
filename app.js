@@ -362,6 +362,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("active");
                 observer.unobserve(entry.target);
+                // امسح تأخير الـ stagger بعد ما الحركة تخلص عشان الـ hover يفضل سريع
+                setTimeout(() => { entry.target.style.transitionDelay = ""; }, 1300);
             }
         });
     }, {
@@ -674,4 +676,129 @@ function openOrderModalWithDesign() {
     window.addEventListener('scroll', syncNavbar, { passive: true });
     window.addEventListener('resize', syncNavbar);
     syncNavbar();
+})();
+
+
+/* ==========================================================
+   ✨ Enhancements
+========================================================== */
+(function () {
+    // ---------- Preloader ----------
+    const preloader = document.getElementById('preloader');
+    function hidePreloader() {
+        if (preloader) preloader.classList.add('hide');
+    }
+    if (document.readyState === 'complete') {
+        hidePreloader();
+    } else {
+        window.addEventListener('load', hidePreloader);
+        setTimeout(hidePreloader, 2500); // شبكة أمان
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // ---------- Dark mode ----------
+        const toggle = document.getElementById('themeToggle');
+        const metaTheme = document.querySelector('meta[name="theme-color"]');
+        function applyTheme(dark) {
+            if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+            else document.documentElement.removeAttribute('data-theme');
+            if (toggle) toggle.innerHTML = dark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            if (metaTheme) metaTheme.setAttribute('content', dark ? '#0b1120' : '#0D0D0D');
+        }
+        applyTheme(document.documentElement.getAttribute('data-theme') === 'dark');
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                const dark = document.documentElement.getAttribute('data-theme') !== 'dark';
+                applyTheme(dark);
+                try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+            });
+        }
+
+        // ---------- Back to top ----------
+        const topBtn = document.getElementById('backToTop');
+        if (topBtn) {
+            const onScroll = () => topBtn.classList.toggle('show', window.scrollY > 500);
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+            topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        }
+
+        // ---------- Stagger reveal inside grids ----------
+        document.querySelectorAll('.features-grid, .products-grid, .steps-grid, .stats-grid, .payments-grid, .faq-list, .testimonials-grid, .portfolio-grid')
+            .forEach(grid => {
+                grid.querySelectorAll('.reveal').forEach((el, i) => {
+                    el.style.transitionDelay = (i * 90) + 'ms';
+                });
+            });
+
+        // ---------- Counters ----------
+        const counters = document.querySelectorAll('.counter');
+        if (counters.length && 'IntersectionObserver' in window) {
+            const counterObs = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target, 10) || 0;
+                    const duration = 1600;
+                    const start = performance.now();
+                    function tick(now) {
+                        const p = Math.min((now - start) / duration, 1);
+                        const eased = 1 - Math.pow(1 - p, 3);
+                        el.textContent = Math.round(target * eased).toLocaleString('en-US');
+                        if (p < 1) requestAnimationFrame(tick);
+                    }
+                    requestAnimationFrame(tick);
+                    obs.unobserve(el);
+                });
+            }, { threshold: 0.4 });
+            counters.forEach(c => counterObs.observe(c));
+        } else {
+            counters.forEach(c => { c.textContent = c.dataset.target; });
+        }
+
+        // ---------- Countdown ----------
+        const strip = document.getElementById('offerStrip');
+        if (strip) {
+            const end = new Date(strip.dataset.end).getTime();
+            const d = document.getElementById('cdDays');
+            const h = document.getElementById('cdHours');
+            const m = document.getElementById('cdMins');
+            const sec = document.getElementById('cdSecs');
+            const pad = n => String(n).padStart(2, '0');
+            let timer;
+            function updateCountdown() {
+                const diff = end - Date.now();
+                if (isNaN(end) || diff <= 0) {
+                    strip.style.display = 'none'; // العرض خلص → الشريط يختفي لوحده
+                    clearInterval(timer);
+                    return;
+                }
+                d.textContent = pad(Math.floor(diff / 86400000));
+                h.textContent = pad(Math.floor(diff / 3600000) % 24);
+                m.textContent = pad(Math.floor(diff / 60000) % 60);
+                sec.textContent = pad(Math.floor(diff / 1000) % 60);
+            }
+            updateCountdown();
+            timer = setInterval(updateCountdown, 1000);
+        }
+
+        // ---------- FAQ accordion ----------
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const btn = item.querySelector('.faq-question');
+            const ans = item.querySelector('.faq-answer');
+            btn.addEventListener('click', () => {
+                const open = item.classList.contains('open');
+                document.querySelectorAll('.faq-item.open').forEach(o => {
+                    o.classList.remove('open');
+                    o.querySelector('.faq-answer').style.maxHeight = null;
+                    o.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                });
+                if (!open) {
+                    item.classList.add('open');
+                    ans.style.maxHeight = ans.scrollHeight + 'px';
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+    });
 })();

@@ -20,8 +20,30 @@
     <meta property="og:url" content="https://infinity-74.github.io/infinity-store/">
     <meta property="og:locale" content="ar_EG">
     <link rel="canonical" href="https://infinity-74.github.io/infinity-store/">
+    <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+    <meta property="og:image" content="https://infinity-74.github.io/infinity-store/assets/web-app-manifest-512x512.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Infinity Store | طباعة مجات واستيكرات وهدايا مخصصة">
+    <meta name="twitter:description" content="اطبع تصميمك على المجات والاستيكرات والهدايا المخصصة بجودة عالية وأسعار تنافسية.">
+    <meta name="twitter:image" content="https://infinity-74.github.io/infinity-store/assets/web-app-manifest-512x512.png">
+    <meta name="robots" content="index, follow">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[
+      {"@type":"Store","@id":"https://infinity-74.github.io/infinity-store/#store","name":"Infinity Store","url":"https://infinity-74.github.io/infinity-store/","logo":"https://infinity-74.github.io/infinity-store/assets/web-app-manifest-512x512.png","image":"https://infinity-74.github.io/infinity-store/assets/web-app-manifest-512x512.png","description":"طباعة مجات واستيكرات وهدايا مخصصة بجودة عالية مع شحن لجميع محافظات مصر.","telephone":"+201556284315","priceRange":"EGP","areaServed":{"@type":"Country","name":"Egypt"},"sameAs":["https://www.facebook.com/people/Infinity-Store/61573269805230/","https://www.instagram.com/infinity_is_store"]},
+      {"@type":"Product","name":"مجات مطبوعة (عادي / سحري)","image":"https://infinity-74.github.io/infinity-store/assets/products/mug/1.jpg","description":"مج سيراميك أو مج سحري بطباعة مخصصة.","brand":{"@type":"Brand","name":"Infinity Store"},"offers":{"@type":"Offer","priceCurrency":"EGP","price":"120","availability":"https://schema.org/InStock","url":"https://infinity-74.github.io/infinity-store/product.html?id=mug"}},
+      {"@type":"Product","name":"استيكرات لابتوب وموبايل مخصصة","image":"https://infinity-74.github.io/infinity-store/assets/products/stickers/1.jpg","description":"استيكرات داي-كت مقاومة للمياه.","brand":{"@type":"Brand","name":"Infinity Store"},"offers":{"@type":"Offer","priceCurrency":"EGP","price":"15","availability":"https://schema.org/InStock","url":"https://infinity-74.github.io/infinity-store/product.html?id=stickers"}},
+      {"@type":"Product","name":"استيك تخرج مخصص","image":"https://infinity-74.github.io/infinity-store/assets/products/graduation/1.jpg","description":"استيكرات تخرج بتصميمك الخاص.","brand":{"@type":"Brand","name":"Infinity Store"},"offers":{"@type":"Offer","priceCurrency":"EGP","price":"25","availability":"https://schema.org/InStock","url":"https://infinity-74.github.io/infinity-store/product.html?id=graduation"}},
+      {"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"إزاي أطلب؟","acceptedAnswer":{"@type":"Answer","text":"اضغط على «اطلب الآن»، املأ بياناتك وتفاصيل التصميم (وتقدر ترفق صورة أو لوجو)، وبعد إرسال الطلب هنتواصل معاك على واتساب لتأكيد التفاصيل."}},{"@type":"Question","name":"إمتى بدفع؟ وإيه طرق الدفع؟","acceptedAnswer":{"@type":"Answer","text":"الدفع بيتم بعد مراجعة الطلب وتأكيده معاك على واتساب. بنرسل لك وسيلة الدفع المناسبة (InstaPay أو Vodafone Cash) وبيبدأ التنفيذ بعد تأكيد الدفع."}},{"@type":"Question","name":"بتشحنوا لأي محافظات؟","acceptedAnswer":{"@type":"Answer","text":"بنشحن لجميع محافظات مصر. تكلفة الشحن بتختلف حسب المحافظة وشركة الشحن، وبتتحدد معاك وقت تأكيد الطلب."}},{"@type":"Question","name":"أتابع طلبي إزاي؟","acceptedAnswer":{"@type":"Answer","text":"من قسم «تتبع طلبك» في الموقع، اكتب رقم الطلب وتعرف حالته لحد الاستلام."}},{"@type":"Question","name":"إيه المطلوب مني عشان التصميم؟","acceptedAnswer":{"@type":"Answer","text":"ابعت صورة أو لوجو أو فكرتك، ولو معندكش تصميم جاهز اكتب لنا التفاصيل والألوان اللي بتحبها وهنساعدك نوصل للشكل المناسب."}},{"@type":"Question","name":"في خصم على الكميات؟","acceptedAnswer":{"@type":"Answer","text":"أيوه، بنطبق خصم 10% على الطلبات من 10 قطع فأكتر، وتقدر تشوف السعر النهائي من حاسبة الأسعار في الموقع."}}]}
+    ]}
+    </script>
 </head>
 <body>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader" aria-hidden="true">
+        <img src="./assets/logo-white.png" alt="">
+        <div class="preloader-bar"><span></span></div>
+    </div>
 
     <!-- Announcement Bar -->
     <div class="announcement-bar" id="announcementBar">
@@ -56,11 +78,15 @@
                 <a href="#payments">طرق الدفع</a>
                 <a href="#tracking">تتبع الطلب</a>
                 <a href="#portfolio">معرض الأعمال</a>
+                <a href="#faq">الأسئلة الشائعة</a>
             </nav>
-            <button class="btn btn-primary btn-nav open-order-btn" onclick="openOrderModal()">اطلب الآن</button>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع الليلي"><i class="fa-solid fa-moon"></i></button>
+                <button class="btn btn-primary btn-nav open-order-btn" onclick="openOrderModal()">اطلب الآن</button>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
                 <i class="fa-solid fa-bars"></i>
             </button>
+            </div>
         </div>
     </header>
 
@@ -78,6 +104,7 @@
             <a href="#payments" onclick="toggleMobileMenu()">طرق الدفع</a>
             <a href="#tracking" onclick="toggleMobileMenu()">تتبع الطلب</a>
             <a href="#portfolio" onclick="toggleMobileMenu()">معرض الأعمال</a>
+            <a href="#faq" onclick="toggleMobileMenu()">الأسئلة الشائعة</a>
             <button class="btn btn-primary open-order-btn" onclick="toggleMobileMenu(); openOrderModal()">اطلب الآن</button>
         </div>
     </div>
@@ -118,10 +145,41 @@
         </div>
     </section>
 
+
+    <!-- Limited Offer + Countdown (عدّل data-end والنص حسب عرضك الحقيقي) -->
+    <section class="offer-strip" id="offerStrip" data-end="2026-10-31T23:59:59+02:00">
+        <div class="container offer-inner">
+            <div class="offer-text"><i class="fa-solid fa-fire"></i> <span><strong>عرض لفترة محدودة:</strong> خصم 10% على الطلبات من 10 قطع فأكتر</span></div>
+            <div class="countdown" aria-label="الوقت المتبقي للعرض">
+                <div class="cd-box"><b id="cdDays">00</b><small>يوم</small></div>
+                <div class="cd-box"><b id="cdHours">00</b><small>ساعة</small></div>
+                <div class="cd-box"><b id="cdMins">00</b><small>دقيقة</small></div>
+                <div class="cd-box"><b id="cdSecs">00</b><small>ثانية</small></div>
+            </div>
+            <button class="btn btn-sm" onclick="openOrderModal()">استفيد بالعرض</button>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="steps-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>إزاي تطلب؟ في 4 خطوات بس</h2>
+                <p>من الفكرة لحد باب بيتك، من غير تعقيد.</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card reveal"><span class="step-num">1</span><i class="fa-solid fa-bag-shopping step-icon"></i><h3>اختار منتجك</h3><p>مج، استيكرات، استيك تخرج أو هودي.</p></div>
+                <div class="step-card reveal"><span class="step-num">2</span><i class="fa-solid fa-cloud-arrow-up step-icon"></i><h3>ابعت تصميمك</h3><p>ارفع اللوجو أو الصورة أو اكتب فكرتك.</p></div>
+                <div class="step-card reveal"><span class="step-num">3</span><i class="fa-brands fa-whatsapp step-icon"></i><h3>نأكد على واتساب</h3><p>بنراجع التفاصيل معاك ونحدد الدفع.</p></div>
+                <div class="step-card reveal"><span class="step-num">4</span><i class="fa-solid fa-truck-fast step-icon"></i><h3>نطبع ونوصّلك</h3><p>شحن لكل المحافظات مع تتبع للطلب.</p></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Why Choose Infinity Store -->
     <section class="features-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2>لماذا تختار Infinity Store؟</h2>
                 <p>نهتم بكل تفاصيل طلبك بداية من التصميم وحتى وصول المنتج بأفضل جودة.</p>
             </div>
@@ -161,7 +219,7 @@
     <!-- Products Section -->
     <section id="products" class="products-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2>منتجاتنا المميزة</h2>
                 <p>اكتشف تشكيلتنا الواسعة وابدأ في تخصيص منتجك المفضل</p>
             </div>
@@ -170,6 +228,7 @@
                     <div class="product-img-holder" data-product="mug">
                         <img loading="lazy" class="product-slide-img" src="./assets/products/mug/1.jpg" alt="مجات سحرية وعادية">
                         <span class="product-badge">الأكثر مبيعاً</span>
+                        <span class="offer-badge">خصم 10% من 10 قطع</span>
                         <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
@@ -186,6 +245,7 @@
                     <div class="product-img-holder" data-product="stickers">
                         <img loading="lazy" class="product-slide-img" src="./assets/products/stickers/1.jpg" alt="استيكرات لابتوب">
                         <span class="product-badge">فينيل مستورد</span>
+                        <span class="offer-badge">خصم 10% من 10 قطع</span>
                         <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
@@ -202,6 +262,7 @@
                     <div class="product-img-holder" data-product="graduation">
                         <img loading="lazy" class="product-slide-img" src="./assets/products/graduation/1.jpg" alt="استيك تخرج مخصص">
                         <span class="product-badge">الأكثر طلباً</span>
+                        <span class="offer-badge">خصم 10% من 10 قطع</span>
                         <button type="button" class="img-nav-btn img-nav-left" data-dir="-1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button type="button" class="img-nav-btn img-nav-right" data-dir="1" onclick="event.stopPropagation(); cardChangeImage(this)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
@@ -214,6 +275,27 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Ticker -->
+    <div class="ticker" aria-label="مميزات Infinity Store">
+        <div class="ticker-track">
+            <div class="ticker-group"><span><i class="fa-solid fa-print"></i> طباعة حرارية ثابتة</span><span><i class="fa-solid fa-droplet"></i> استيكرات مقاومة للمياه</span><span><i class="fa-solid fa-scissors"></i> قص ليزر دقيق</span><span><i class="fa-solid fa-truck-fast"></i> شحن لكل المحافظات</span><span><i class="fa-solid fa-wand-magic-sparkles"></i> تصميم حسب طلبك</span><span><i class="fa-brands fa-whatsapp"></i> تأكيد سريع على واتساب</span></div>
+            <div class="ticker-group" aria-hidden="true"><span><i class="fa-solid fa-print"></i> طباعة حرارية ثابتة</span><span><i class="fa-solid fa-droplet"></i> استيكرات مقاومة للمياه</span><span><i class="fa-solid fa-scissors"></i> قص ليزر دقيق</span><span><i class="fa-solid fa-truck-fast"></i> شحن لكل المحافظات</span><span><i class="fa-solid fa-wand-magic-sparkles"></i> تصميم حسب طلبك</span><span><i class="fa-brands fa-whatsapp"></i> تأكيد سريع على واتساب</span></div>
+        </div>
+    </div>
+
+    <!-- Stats (عدّل الأرقام data-target لأرقامك الحقيقية) -->
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card reveal"><div class="stat-num"><span class="counter" data-target="500">0</span>+</div><div class="stat-label">عميل سعيد</div></div>
+                <div class="stat-card reveal"><div class="stat-num"><span class="counter" data-target="2000">0</span>+</div><div class="stat-label">قطعة مطبوعة</div></div>
+                <div class="stat-card reveal"><div class="stat-num"><span class="counter" data-target="27">0</span></div><div class="stat-label">محافظة بنوصلها</div></div>
+                <div class="stat-card reveal"><div class="stat-num"><span class="counter" data-target="5">0</span></div><div class="stat-label">أنواع منتجات</div></div>
             </div>
         </div>
     </section>
@@ -278,33 +360,33 @@
     <!-- Payment Methods -->
     <section id="payments" class="payments-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2>طرق الدفع</h2>
                 <p>بعد مراجعة الطلب والتواصل معك عبر واتساب، يمكنك اختيار وسيلة الدفع المناسبة بكل سهولة.</p>
             </div>
             <div class="payments-grid">
-                <div class="payment-card">
+                <div class="payment-card reveal">
                     <i class="fa-solid fa-credit-card"></i>
                     <h3>InstaPay</h3>
                     <p>دفع سريع وآمن من خلال InstaPay بعد تأكيد الطلب.</p>
                 </div>
-                <div class="payment-card">
+                <div class="payment-card reveal">
                     <i class="fa-solid fa-mobile-screen-button"></i>
                     <h3>Vodafone Cash</h3>
                     <p>تحويل مباشر عبر Vodafone Cash بعد مراجعة الطلب.</p>
                 </div>
-                <div class="payment-card">
+                <div class="payment-card reveal">
                     <i class="fa-solid fa-truck-fast"></i>
                     <h3>الشحن لجميع المحافظات</h3>
                     <p>نشحن لجميع محافظات مصر مع إمكانية تتبع الطلب حتى الاستلام.</p>
                 </div>
-                <div class="payment-card">
+                <div class="payment-card reveal">
                     <i class="fa-brands fa-whatsapp"></i>
                     <h3>تأكيد الطلب عبر واتساب</h3>
                     <p>بعد إرسال الطلب سنتواصل معك لتأكيد البيانات وإرسال وسيلة الدفع المناسبة.</p>
                 </div>
             </div>
-            <div class="payment-notes">
+            <div class="payment-notes reveal">
                 <h3><i class="fa-solid fa-circle-info"></i> ملاحظات مهمة</h3>
                 <ul>
                     <li><i class="fa-solid fa-circle-check"></i> لا يتم الدفع إلا بعد مراجعة الطلب والتواصل معك عبر واتساب.</li>
@@ -320,7 +402,7 @@
     <!-- Tracking Section -->
     <section id="tracking" class="tracking-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2>تتبع طلبك</h2>
                 <p>ادخل رقم الطلب أو رقم التتبع لمعرفة حالة الشحنة.</p>
             </div>
@@ -355,7 +437,7 @@
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2>آراء عملائنا</h2>
                 <p>نفخر بثقة عملائنا ونسعى دائمًا لتقديم أفضل جودة وخدمة.</p>
             </div>
@@ -400,7 +482,7 @@
     <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2>ألبوم أعمالنا المعروضة</h2>
                 <p>شوف جودة الطباعة والألوان على الطبيعة لمنتجات عملاءنا الحقيقيين</p>
             </div>
@@ -430,6 +512,56 @@
         </div>
     </section>
 
+
+    <!-- FAQ -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>أسئلة شائعة</h2>
+                <p>إجابات سريعة على أكتر الأسئلة اللي بتوصلنا.</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item reveal">
+                    <button type="button" class="faq-question" aria-expanded="false"><span>إزاي أطلب؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer"><p>اضغط على «اطلب الآن»، املأ بياناتك وتفاصيل التصميم (وتقدر ترفق صورة أو لوجو)، وبعد إرسال الطلب هنتواصل معاك على واتساب لتأكيد التفاصيل.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button type="button" class="faq-question" aria-expanded="false"><span>إمتى بدفع؟ وإيه طرق الدفع؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer"><p>الدفع بيتم بعد مراجعة الطلب وتأكيده معاك على واتساب. بنرسل لك وسيلة الدفع المناسبة (InstaPay أو Vodafone Cash) وبيبدأ التنفيذ بعد تأكيد الدفع.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button type="button" class="faq-question" aria-expanded="false"><span>بتشحنوا لأي محافظات؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer"><p>بنشحن لجميع محافظات مصر. تكلفة الشحن بتختلف حسب المحافظة وشركة الشحن، وبتتحدد معاك وقت تأكيد الطلب.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button type="button" class="faq-question" aria-expanded="false"><span>أتابع طلبي إزاي؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer"><p>من قسم «تتبع طلبك» في الموقع، اكتب رقم الطلب وتعرف حالته لحد الاستلام.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button type="button" class="faq-question" aria-expanded="false"><span>إيه المطلوب مني عشان التصميم؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer"><p>ابعت صورة أو لوجو أو فكرتك، ولو معندكش تصميم جاهز اكتب لنا التفاصيل والألوان اللي بتحبها وهنساعدك نوصل للشكل المناسب.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button type="button" class="faq-question" aria-expanded="false"><span>في خصم على الكميات؟</span><i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer"><p>أيوه، بنطبق خصم 10% على الطلبات من 10 قطع فأكتر، وتقدر تشوف السعر النهائي من حاسبة الأسعار في الموقع.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Follow band -->
+    <section class="follow-band">
+        <div class="container reveal">
+            <h2>تابعنا على السوشيال ميديا</h2>
+            <p>شوف أحدث أعمالنا وعروضنا أول بأول.</p>
+            <div class="follow-links">
+                <a class="f-fb" href="https://www.facebook.com/people/Infinity-Store/61573269805230/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i> فيسبوك</a>
+                <a class="f-ig" href="https://www.instagram.com/infinity_is_store?igsh=amQ5bDNxMHlsd3Az" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i> إنستجرام</a>
+                <a class="f-wa" href="https://wa.me/201556284315" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
+            </div>
+        </div>
+    </section>
+
     </main>
 
     <footer class="main-footer">
@@ -448,15 +580,16 @@
                     <li><a href="#products">منتجاتنا</a></li>
                     <li><a href="#calculator">الأسعار</a></li>
                     <li><a href="#portfolio">معرض الأعمال</a></li>
+                    <li><a href="#faq">الأسئلة الشائعة</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
                 <h4>تواصل معنا</h4>
                 <p><i class="fa-solid fa-phone"></i> +20 155 628 4315</p>
                 <div class="social-icons">
-                    <a href="https://www.facebook.com/people/Infinity-Store/61573269805230/?mibextid=wwXIfr&rdid=QBPnZZZNTei2mQRO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F195Dedjpvt%2F%3Fmibextid%3DwwXIfr" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/infinity_is_store?igsh=amQ5bDNxMHlsd3Az" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://wa.me/201556284315" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/people/Infinity-Store/61573269805230/?mibextid=wwXIfr&rdid=QBPnZZZNTei2mQRO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F195Dedjpvt%2F%3Fmibextid%3DwwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/infinity_is_store?igsh=amQ5bDNxMHlsd3Az" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/201556284315" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
@@ -545,6 +678,10 @@
             </form>
         </div>
     </div>
+
+    <!-- Floating buttons -->
+    <a href="https://wa.me/201556284315?text=%D8%A3%D9%87%D9%84%D8%A7%D9%8B%D8%8C%20%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A3%D8%B3%D8%AA%D9%81%D8%B3%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D8%B7%D8%A8%D8%A7%D8%B9%D8%A9" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="تواصل معنا عبر واتساب"><i class="fa-brands fa-whatsapp"></i></a>
+    <button type="button" class="back-to-top" id="backToTop" aria-label="الرجوع للأعلى"><i class="fa-solid fa-chevron-up"></i></button>
 
     <script src="app.js"></script>
 </body>

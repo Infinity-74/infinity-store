@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://infinity-74.github.io/infinity-store/sitemap.xml
