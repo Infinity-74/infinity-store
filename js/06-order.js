@@ -44,6 +44,18 @@ async function submitOrder(event) {
         return;
     }
 
+    // ---- reCAPTCHA ----
+    const recaptchaResponse = typeof grecaptcha !== "undefined"
+        ? grecaptcha.getResponse()
+        : "";
+
+    // لو reCAPTCHA موجود في الصفحة، لازم المستخدم يدوس عليه
+    const recaptchaWidget = document.querySelector(".g-recaptcha");
+    if (recaptchaWidget && !recaptchaResponse) {
+        alert("❌ من فضلك أكد إنك مش روبوت (اضغط على المربع)");
+        return;
+    }
+
     // ---- اقفل الإرسال ----
     isSubmittingOrder = true;
 
@@ -79,6 +91,7 @@ async function submitOrder(event) {
         // ---- إرسال البيانات للشيت ----
         const orderData = {
             action: "addOrder",
+            recaptchaToken: recaptchaResponse,
             order: {
                 "Order ID": orderId,
                 "Name": name,
@@ -107,6 +120,7 @@ async function submitOrder(event) {
         document.getElementById("orderForm").reset();
         const namePreview = document.getElementById("fileNamePreview");
         if (namePreview) namePreview.innerText = "لم يتم اختيار ملف";
+        if (typeof grecaptcha !== "undefined") grecaptcha.reset();
         closeOrderModal();
 
     } finally {
