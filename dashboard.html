@@ -117,19 +117,28 @@ body{background:var(--bg);font-family:var(--font-ar);color:var(--text);min-heigh
 .sidebar-footer .who{font-size:.82rem;font-weight:700;}
 .sidebar-footer .role{font-size:.7rem;color:var(--muted);}
 .sidebar-footer i{margin-right:auto;color:var(--muted);cursor:pointer;}
-.mobile-sidebar-toggle{display:none;}
 
 .main{margin-right:250px;padding:26px 32px;max-width:1300px;}
 
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:16px;flex-wrap:wrap;}
 .topbar h1{font-size:1.4rem;font-weight:800;display:flex;align-items:center;gap:10px;}
 .topbar .sub{font-size:.82rem;color:var(--muted);margin-top:4px;font-weight:600;}
-.topbar-actions{display:flex;align-items:center;gap:10px;}
-.icon-btn{width:42px;height:42px;border-radius:12px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;flex-shrink:0;}
+.topbar-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.icon-btn{width:42px;height:42px;border-radius:12px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;flex-shrink:0;position:relative;}
 .icon-btn:hover{color:var(--primary);border-color:var(--primary);}
+.icon-btn .notif-dot{
+  position:absolute;top:6px;right:6px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--danger);border:2px solid var(--card);
+  display:none;
+}
+.icon-btn.has-notif .notif-dot{display:block;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;padding:11px 20px;border-radius:12px;font-family:var(--font-ar);font-weight:700;font-size:.85rem;cursor:pointer;white-space:nowrap;}
 .btn-logout{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:11px 16px;border-radius:12px;font-family:var(--font-ar);font-weight:700;font-size:.85rem;cursor:pointer;white-space:nowrap;}
 .btn-logout:hover{color:var(--danger);border-color:var(--danger);}
+.btn-export{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:none;padding:11px 16px;border-radius:12px;font-family:var(--font-ar);font-weight:700;font-size:.85rem;cursor:pointer;white-space:nowrap;}
+.btn-export:hover{background:var(--accent-hover);}
 
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:22px;}
 .stat-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;}
@@ -152,11 +161,36 @@ body{background:var(--bg);font-family:var(--font-ar);color:var(--text);min-heigh
 .search-box input{border:none;outline:none;background:transparent;font-family:var(--font-ar);font-size:.85rem;width:100%;color:var(--text);}
 .search-box i{color:var(--muted);}
 
+/* ===== Date Filter Bar ===== */
+.date-filter-bar{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:12px 14px;background:var(--bg);border-radius:12px;
+  border:1px solid var(--border);margin-bottom:14px;
+}
+.date-filter-bar label{font-size:.78rem;font-weight:700;color:var(--muted);}
+.date-filter-bar input[type="date"]{
+  padding:8px 12px;border-radius:10px;border:1px solid var(--border);
+  background:var(--card);font-family:var(--font-ar);font-size:.82rem;
+  color:var(--text);outline:none;
+}
+.date-filter-bar input[type="date"]:focus{border-color:var(--primary);}
+.date-filter-bar .btn-clear{
+  padding:8px 14px;border-radius:10px;border:1px solid var(--border);
+  background:var(--card);color:var(--muted);font-family:var(--font-ar);
+  font-size:.78rem;font-weight:700;cursor:pointer;
+}
+.date-filter-bar .btn-clear:hover{color:var(--danger);border-color:var(--danger);}
+
 .table-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
 thead th{text-align:right;font-size:.75rem;color:var(--muted);font-weight:700;padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}
 tbody td{padding:13px 12px;font-size:.83rem;border-bottom:1px solid var(--border);white-space:nowrap;}
 tbody tr:hover{background:rgba(37,99,235,.03);}
+tbody tr.new-order-flash{animation:flashNew 2s ease-out;}
+@keyframes flashNew{
+  0%{background:rgba(16,185,129,.3);}
+  100%{background:transparent;}
+}
 .order-id{font-family:var(--font-en);font-weight:800;color:var(--primary);}
 .cust{display:flex;align-items:center;gap:10px;}
 .cust .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;}
@@ -165,7 +199,6 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
   border:1px solid var(--border);background:var(--bg);color:var(--text);
   font-family:var(--font-ar);cursor:pointer;outline:none;
 }
-.save-hint{font-size:.7rem;color:var(--accent-hover);display:none;margin-top:4px;}
 .details-cell{max-width:220px;white-space:normal;color:var(--muted);font-size:.78rem;}
 
 .empty-state, .loading-state{
@@ -190,7 +223,7 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
 .cust-link:hover{text-decoration:underline;}
 .empty-state i, .loading-state i{font-size:2rem;margin-bottom:12px;color:var(--primary);}
 
-/* ===== Modal (add order) ===== */
+/* ===== Modal ===== */
 .modal-overlay{
   position:fixed;inset:0;background:rgba(15,23,42,.5);
   display:flex;align-items:center;justify-content:center;padding:20px;
@@ -224,7 +257,6 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* ===== Content grid: chart + top products ===== */
 .content-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;margin-bottom:20px;}
 
 .chart-wrap{position:relative;height:200px;}
@@ -336,6 +368,11 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
           <i class="fa-solid fa-magnifying-glass"></i>
           <input type="text" id="searchInput" placeholder="دور برقم الطلب، اسم العميل، أو المنتج...">
         </div>
+        <div class="icon-btn" id="notifBtn" title="الإشعارات">
+          <i class="fa-solid fa-bell"></i>
+          <span class="notif-dot"></span>
+        </div>
+        <button class="btn-export" id="exportBtn" title="تصدير Excel"><i class="fa-solid fa-file-excel"></i> Excel</button>
         <div class="icon-btn" id="refreshBtn" title="تحديث"><i class="fa-solid fa-arrows-rotate"></i></div>
         <button class="btn-primary" id="addOrderBtn"><i class="fa-solid fa-plus"></i> طلب جديد</button>
         <button class="btn-logout" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> خروج</button>
@@ -405,6 +442,13 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
       <div class="panel-head">
         <h3>كل الطلبات</h3>
       </div>
+      <div class="date-filter-bar">
+        <label><i class="fa-solid fa-calendar-days"></i> من:</label>
+        <input type="date" id="dateFrom">
+        <label>إلى:</label>
+        <input type="date" id="dateTo">
+        <button class="btn-clear" id="clearDateFilter"><i class="fa-solid fa-xmark"></i> مسح</button>
+      </div>
       <div class="table-wrap">
         <table id="ordersTable" style="display:none;">
           <thead>
@@ -428,11 +472,12 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
         </div>
         <div class="empty-state" id="emptyState" style="display:none;">
           <i class="fa-solid fa-inbox"></i>
-          <div>مفيش طلبات لسه</div>
+          <div>مفيش طلبات مطابقة</div>
         </div>
       </div>
     </div>
     </div>
+
     <!-- ============ Products page ============ -->
     <div class="page-view" id="page-products" style="display:none;">
       <div class="panel">
@@ -446,7 +491,7 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
         <div class="products-grid" id="productsGrid"></div>
         <div class="empty-state" id="productsEmpty" style="display:none;">
           <i class="fa-solid fa-box"></i>
-          <div>مفيش منتجات لسه، هتظهر هنا أول ما تيجي طلبات</div>
+          <div>مفيش منتجات لسه</div>
         </div>
       </div>
     </div>
@@ -477,7 +522,7 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
           </table>
           <div class="empty-state" id="customersEmpty" style="display:none;">
             <i class="fa-solid fa-users"></i>
-            <div>مفيش عملاء لسه، هيظهروا هنا أول ما تيجي طلبات</div>
+            <div>مفيش عملاء لسه</div>
           </div>
         </div>
       </div>
@@ -520,7 +565,18 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
         </div>
         <button class="btn-primary" id="saveSettingsBtn"><i class="fa-solid fa-circle-check"></i> حفظ</button>
         <div class="save-hint" id="settingsSaveHint">تم الحفظ ✓</div>
-        <p style="font-size:.75rem;color:var(--muted);margin-top:14px;">البيانات دي بتتحفظ على المتصفح ده بس، ومش بتتبعت للموقع تلقائيًا لحد ما تحدّثها هناك بنفسك.</p>
+      </div>
+
+      <div class="panel" style="max-width:560px;margin-top:20px;">
+        <div class="panel-head"><h3>الإشعارات</h3></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <input type="checkbox" id="notifSoundToggle" checked style="width:18px;height:18px;">
+          <label for="notifSoundToggle" style="font-size:.88rem;font-weight:600;">تشغيل صوت الإشعار</label>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <input type="checkbox" id="autoRefreshToggle" checked style="width:18px;height:18px;">
+          <label for="autoRefreshToggle" style="font-size:.88rem;font-weight:600;">تحديث تلقائي كل دقيقة</label>
+        </div>
       </div>
 
       <div class="panel" style="max-width:560px;margin-top:20px;">
@@ -585,9 +641,12 @@ tbody tr:hover{background:rgba(37,99,235,.03);}
 
 <div class="toast" id="toast"></div>
 
+<!-- مكتبة SheetJS لتصدير Excel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 <script>
 /* =========================================================
-   حط هنا رابط الـ Apps Script بتاعك بعد ما تعمله Deploy
+   رابط Apps Script
 ========================================================= */
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwht6HzZSKt3nIfhGU6Cu7rquxuV77FtL3sLbnAoUq-S46xUpjqsy57OSADstgeToWa/exec";
 
@@ -603,6 +662,9 @@ let currentUser = null;
 let currentPass = null;
 let allOrders = [];
 let allStatuses = ['قيد المراجعة', 'قيد التجهيز', 'تم الشحن', 'تم التسليم', 'ملغي'];
+let knownOrderIds = new Set(); // للإشعارات
+let autoRefreshTimer = null;
+let dateFilterActive = false;
 
 // ---------- Session ----------
 const SESSION_KEY = 'infinity_dash_session';
@@ -627,6 +689,36 @@ function restoreSession(){
   }catch(e){ return false; }
 }
 
+// ---------- Notifications Settings ----------
+const NOTIF_SETTINGS_KEY = 'infinity_notif_settings';
+function getNotifSettings(){
+  try{ return JSON.parse(localStorage.getItem(NOTIF_SETTINGS_KEY)) || { sound: true, autoRefresh: true }; }
+  catch(e){ return { sound: true, autoRefresh: true }; }
+}
+function saveNotifSettings(s){
+  localStorage.setItem(NOTIF_SETTINGS_KEY, JSON.stringify(s));
+}
+
+// ---------- Sound (Web Audio API) ----------
+function playNotificationSound(){
+  const settings = getNotifSettings();
+  if (!settings.sound) return;
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = 880;
+    osc.type = 'sine';
+    gain.gain.setValueAtTime(0.001, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.3, ctx.currentTime + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.5);
+  }catch(e){}
+}
+
 // ---------- Helpers ----------
 async function callApi(payload) {
   const res = await fetch(APPS_SCRIPT_URL, {
@@ -644,6 +736,7 @@ if (restoreSession()){
   setSidebarUser(currentUser);
   saveSession();
   loadOrders();
+  startAutoRefresh();
 }
 
 function setSidebarUser(username){
@@ -679,6 +772,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('dashboardWrap').style.display = 'block';
       loadOrders();
+      startAutoRefresh();
     } else {
       errBox.textContent = result.error || 'اليوزر أو الباسورد غلط';
       errBox.style.display = 'block';
@@ -694,7 +788,9 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
 function doLogout(){
   currentUser = null; currentPass = null; allOrders = [];
+  knownOrderIds.clear();
   clearSession();
+  stopAutoRefresh();
   document.getElementById('dashboardWrap').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('username').value = '';
@@ -703,7 +799,96 @@ function doLogout(){
 document.getElementById('logoutBtn').addEventListener('click', doLogout);
 document.getElementById('sideLogout').addEventListener('click', doLogout);
 
-document.getElementById('refreshBtn').addEventListener('click', loadOrders);
+document.getElementById('refreshBtn').addEventListener('click', function(){ loadOrders(false); });
+
+// ---------- Notifications Button ----------
+document.getElementById('notifBtn').addEventListener('click', function(){
+  this.classList.remove('has-notif');
+  showToast('مفيش إشعارات جديدة');
+});
+
+// ---------- Export to Excel ----------
+document.getElementById('exportBtn').addEventListener('click', function(){
+  const ordersToExport = getFilteredOrders();
+  if (!ordersToExport.length){
+    showToast('مفيش طلبات للتصدير');
+    return;
+  }
+
+  const data = ordersToExport.map(function(o){
+    return {
+      'رقم الطلب': o['Order ID'] || '',
+      'اسم العميل': o['Name'] || '',
+      'التليفون': o['Phone'] || '',
+      'المنتج': o['Product'] || '',
+      'الكمية': o['Qty'] || '',
+      'المدينة': o['City'] || '',
+      'التفاصيل': o['Details'] || '',
+      'وقت الطلب': o['وقت إنشاء الطلب'] || '',
+      'الحالة': o['Status'] || ''
+    };
+  });
+
+  const ws = XLSX.utils.json_to_sheet(data);
+  ws['!cols'] = [
+    {wch: 15}, {wch: 20}, {wch: 15}, {wch: 20}, {wch: 8},
+    {wch: 15}, {wch: 30}, {wch: 20}, {wch: 15}
+  ];
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'الطلبات');
+
+  const today = new Date().toISOString().slice(0,10);
+  XLSX.writeFile(wb, 'infinity-orders-' + today + '.xlsx');
+
+  showToast('تم تصدير ' + data.length + ' طلب');
+});
+
+// ---------- Date Filter ----------
+document.getElementById('dateFrom').addEventListener('change', applyFilters);
+document.getElementById('dateTo').addEventListener('change', applyFilters);
+document.getElementById('clearDateFilter').addEventListener('click', function(){
+  document.getElementById('dateFrom').value = '';
+  document.getElementById('dateTo').value = '';
+  dateFilterActive = false;
+  applyFilters();
+});
+
+function getFilteredOrders(){
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const from = document.getElementById('dateFrom').value;
+  const to = document.getElementById('dateTo').value;
+
+  let filtered = allOrders;
+
+  // Search
+  if (q){
+    filtered = filtered.filter(function(o){
+      return String(o['Order ID']).toLowerCase().includes(q)
+        || String(o.Name).toLowerCase().includes(q)
+        || String(o.Product).toLowerCase().includes(q)
+        || String(o.Phone).toLowerCase().includes(q);
+    });
+  }
+
+  // Date filter
+  if (from || to){
+    filtered = filtered.filter(function(o){
+      const parsed = parseOrderDate(o['وقت إنشاء الطلب']);
+      if (!parsed) return false;
+      if (from && parsed.key < from) return false;
+      if (to && parsed.key > to) return false;
+      return true;
+    });
+  }
+
+  return filtered;
+}
+
+function applyFilters(){
+  const filtered = getFilteredOrders();
+  renderTable(filtered);
+}
 
 // ---------- Sidebar nav ----------
 const PAGES = {
@@ -741,7 +926,7 @@ document.querySelectorAll('.nav-link').forEach(function(link){
 // ---------- Add Order Modal ----------
 const addOrderModal = document.getElementById('addOrderModal');
 document.getElementById('addOrderBtn').addEventListener('click', function(){
-  document.getElementById('f_orderId').value = 'INF-' + Date.now().toString().slice(-6);
+  document.getElementById('f_orderId').value = 'INF-' + genOrderId();
   addOrderModal.classList.add('active');
 });
 document.getElementById('closeModalBtn').addEventListener('click', function(){
@@ -750,6 +935,14 @@ document.getElementById('closeModalBtn').addEventListener('click', function(){
 addOrderModal.addEventListener('click', function(e){
   if (e.target === addOrderModal) addOrderModal.classList.remove('active');
 });
+
+// توليد رقم طلب 8 أحرف
+function genOrderId(){
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let s = "";
+  for (let i = 0; i < 8; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  return s;
+}
 
 document.getElementById('addOrderForm').addEventListener('submit', async function(e){
   e.preventDefault();
@@ -775,7 +968,7 @@ document.getElementById('addOrderForm').addEventListener('submit', async functio
       document.getElementById('addOrderForm').reset();
       showToast('اتضاف الطلب بنجاح');
       saveSession();
-      loadOrders();
+      loadOrders(false);
     } else {
       alert(result.error || 'مقدرش أضيف الطلب');
     }
@@ -788,32 +981,69 @@ document.getElementById('addOrderForm').addEventListener('submit', async functio
 });
 
 // ---------- Orders ----------
-async function loadOrders(){
-  document.getElementById('ordersTable').style.display = 'none';
-  document.getElementById('emptyState').style.display = 'none';
-  document.getElementById('loadingState').style.display = 'block';
+async function loadOrders(silent){
+  if (!silent){
+    document.getElementById('ordersTable').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('loadingState').style.display = 'block';
+  }
 
   try{
     const result = await callApi({ action:'getOrders', username: currentUser, password: currentPass });
-    if (!result.success) { alert(result.error || 'حصل خطأ'); return; }
+    if (!result.success) {
+      if (!silent) alert(result.error || 'حصل خطأ');
+      return;
+    }
 
-    allOrders = result.orders || [];
+    const newOrders = result.orders || [];
     if (result.statuses && result.statuses.length) allStatuses = result.statuses;
+
+    // ---- إشعارات الطلبات الجديدة ----
+    if (knownOrderIds.size > 0){
+      const freshIds = newOrders
+        .map(o => String(o['Order ID']))
+        .filter(id => !knownOrderIds.has(id));
+
+      if (freshIds.length > 0){
+        playNotificationSound();
+        const notifBtn = document.getElementById('notifBtn');
+        notifBtn.classList.add('has-notif');
+        showToast('🔔 ' + freshIds.length + ' طلب جديد وصل!');
+      }
+    }
+
+    // تحديث قائمة الـ IDs المعروفة
+    knownOrderIds = new Set(newOrders.map(o => String(o['Order ID'])));
+
+    allOrders = newOrders;
 
     saveSession();
     renderStats();
-    renderTable(allOrders);
+    applyFilters(); // يراعي البحث + التاريخ
     renderChart();
     renderTopProducts();
     renderStatusChips();
   }catch(err){
-    alert('مقدرش أجيب الطلبات دلوقتي.');
+    if (!silent) alert('مقدرش أجيب الطلبات دلوقتي.');
   }finally{
     document.getElementById('loadingState').style.display = 'none';
   }
 }
 
-// ---------- Date parsing (نسخة محسّنة) ----------
+// ---------- Auto Refresh ----------
+function startAutoRefresh(){
+  stopAutoRefresh();
+  const settings = getNotifSettings();
+  if (!settings.autoRefresh) return;
+  autoRefreshTimer = setInterval(function(){
+    if (currentUser && currentPass) loadOrders(true);
+  }, 60000); // كل دقيقة
+}
+function stopAutoRefresh(){
+  if (autoRefreshTimer){ clearInterval(autoRefreshTimer); autoRefreshTimer = null; }
+}
+
+// ---------- Date parsing ----------
 function parseOrderDate(str){
   if (!str) return null;
   const parts = String(str).trim().split(' ');
@@ -915,7 +1145,6 @@ function renderStats(){
   renderTrend('trendDone', countInWindow(allOrders.filter(o=>o.Status==='تم التسليم'), 0, 7), countInWindow(allOrders.filter(o=>o.Status==='تم التسليم'), 7, 14));
 }
 
-// ---------- Count in window (نسخة محسّنة) ----------
 function countInWindow(orders, fromDaysAgoExclusive, toDaysAgoExclusive){
   const now = new Date();
   now.setHours(0,0,0,0);
@@ -923,11 +1152,9 @@ function countInWindow(orders, fromDaysAgoExclusive, toDaysAgoExclusive){
   return orders.filter(function(o){
     const parsed = parseOrderDate(o['وقت إنشاء الطلب']);
     if (!parsed) return false;
-
     const orderDate = new Date(parsed.y, parsed.m - 1, parsed.d);
     orderDate.setHours(0,0,0,0);
     const diffDays = Math.round((now - orderDate) / 86400000);
-
     return diffDays >= fromDaysAgoExclusive && diffDays < toDaysAgoExclusive;
   }).length;
 }
@@ -1012,17 +1239,7 @@ async function updateStatus(selectEl){
 }
 
 // ---------- Search (orders) ----------
-document.getElementById('searchInput').addEventListener('input', function(e){
-  const q = e.target.value.trim().toLowerCase();
-  if (!q){ renderTable(allOrders); return; }
-  const filtered = allOrders.filter(function(o){
-    return String(o['Order ID']).toLowerCase().includes(q)
-      || String(o.Name).toLowerCase().includes(q)
-      || String(o.Product).toLowerCase().includes(q)
-      || String(o.Phone).toLowerCase().includes(q);
-  });
-  renderTable(filtered);
-});
+document.getElementById('searchInput').addEventListener('input', applyFilters);
 
 /* ============================================================
    Products page
@@ -1202,6 +1419,10 @@ function renderSettingsPage(){
   document.getElementById('set_email').value = s.email || 'info@infinitystore.com';
   document.getElementById('settingsWho').textContent = currentUser || '—';
   document.getElementById('settingsAvatar').textContent = (currentUser || 'IS').slice(0,2).toUpperCase();
+
+  const notifSettings = getNotifSettings();
+  document.getElementById('notifSoundToggle').checked = notifSettings.sound;
+  document.getElementById('autoRefreshToggle').checked = notifSettings.autoRefresh;
 }
 
 document.getElementById('saveSettingsBtn').addEventListener('click', function(){
@@ -1214,6 +1435,21 @@ document.getElementById('saveSettingsBtn').addEventListener('click', function(){
   const hint = document.getElementById('settingsSaveHint');
   hint.style.display = 'block';
   setTimeout(function(){ hint.style.display = 'none'; }, 2000);
+});
+
+document.getElementById('notifSoundToggle').addEventListener('change', function(){
+  const s = getNotifSettings();
+  s.sound = this.checked;
+  saveNotifSettings(s);
+  showToast(this.checked ? 'تم تشغيل صوت الإشعار' : 'تم إيقاف صوت الإشعار');
+});
+
+document.getElementById('autoRefreshToggle').addEventListener('change', function(){
+  const s = getNotifSettings();
+  s.autoRefresh = this.checked;
+  saveNotifSettings(s);
+  if (this.checked){ startAutoRefresh(); showToast('تم تشغيل التحديث التلقائي'); }
+  else { stopAutoRefresh(); showToast('تم إيقاف التحديث التلقائي'); }
 });
 
 document.getElementById('settingsLogoutBtn').addEventListener('click', doLogout);
