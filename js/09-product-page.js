@@ -1,27 +1,12 @@
+// ============================================
+// Navigate to product page
+// ============================================
 function openProduct(product) {
     window.location.href = `product.html?id=${product}`;
 }
 
-const PRODUCTS = {
-    mug: {
-        title: "مج سيراميك مخصص",
-        images: ["./assets/products/mug/1.jpg", "./assets/products/mug/2.jpg", "./assets/products/mug/3.jpg", "./assets/products/mug/4.jpg"],
-        price: "120 EGP",
-        description: "مج سيراميك عالي الجودة مع إمكانية الطباعة بصورة أو لوجو أو تصميم خاص."
-    },
-    stickers: {
-        title: "استيكرات مخصصة",
-        images: ["./assets/products/stickers/1.jpg", "./assets/products/stickers/2.jpg", "./assets/products/stickers/3.jpg"],
-        price: "45 EGP",
-        description: "استيكرات مقاومة للمياه مناسبة للابتوب والموبايل والزجاجات."
-    },
-    graduation: {
-        title: "استيك تخرج مخصص",
-        images: ["./assets/products/graduation/1.jpg", "./assets/products/graduation/2.jpg", "./assets/products/graduation/3.jpg"],
-        price: "25 EGP",
-        description: "استيكرات تخرج بتصميمك الخاص، جودة طباعة ممتازة وألوان ثابتة."
-    }
-};
+// ملاحظة: PRODUCTS اتنقلت لـ 01-config.js
+// عشان 05-home.js تقدر تستخدمها برضه
 
 let currentProductId = null;
 let currentProduct = null;
@@ -103,7 +88,7 @@ window.addEventListener("DOMContentLoaded", () => {
         if (nextBtn) nextBtn.onclick = () => showImage(currentIndex + 1);
     }
 
-    // Interactive Live Customizer Logic
+    // ---- Interactive Live Customizer Logic ----
     const previewOverlay = document.getElementById("previewOverlay");
     const previewImage = document.getElementById("previewImage");
     const previewText = document.getElementById("previewText");
@@ -192,6 +177,9 @@ window.addEventListener("DOMContentLoaded", () => {
     updateInteractivePreview();
 });
 
+// ============================================
+// Open order modal with current design pre-filled
+// ============================================
 function openOrderModalWithDesign() {
     openOrderModal();
 
@@ -214,5 +202,4 @@ function openOrderModalWithDesign() {
         modalFileInput.files = dataTransfer.files;
         modalFileInput.dispatchEvent(new Event("change"));
     }
-
 }

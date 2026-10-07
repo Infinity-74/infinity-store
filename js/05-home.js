@@ -1,18 +1,25 @@
+// ============================================
+// Home page initialization + interactions
+// ============================================
 document.addEventListener("DOMContentLoaded", () => {
-    calculatePrice();
 
-    document.querySelectorAll('button, .btn, a, .clickable, .thumb, .portfolio-item, .product-card, .feature-card, .payment-card, .testimonial-card, .step, .img-nav-btn').forEach(el => {
+    // ---- Initial calculator render ----
+    if (typeof calculatePrice === "function") {
+        calculatePrice();
+    }
+
+    // ---- Click sound on interactive elements ----
+    document.querySelectorAll(
+        'button, .btn, a, .clickable, .thumb, .portfolio-item, .product-card, .feature-card, .payment-card, .testimonial-card, .step, .img-nav-btn, .qty-selector button'
+    ).forEach(el => {
         el.addEventListener('click', playClickSound);
     });
-    
-    document.querySelectorAll('.qty-selector button').forEach(el => {
-        el.addEventListener('click', playClickSound);
-    });
 
+    // ---- File name preview in order modal ----
     const fileInput = document.getElementById("custFile");
     const namePreview = document.getElementById("fileNamePreview");
 
-    if (fileInput) {
+    if (fileInput && namePreview) {
         fileInput.addEventListener("change", function() {
             if (this.files && this.files.length > 0) {
                 const file = this.files[0];
@@ -24,8 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const buttons = document.querySelectorAll(".btn");
-    buttons.forEach(button => {
+    // ---- Ripple effect on buttons ----
+    document.querySelectorAll(".btn").forEach(button => {
         button.addEventListener("click", function(e) {
             const ripple = document.createElement("span");
             ripple.classList.add("ripple");
@@ -41,16 +48,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
             button.appendChild(ripple);
 
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
+            setTimeout(() => ripple.remove(), 600);
         });
     });
 
+    // ---- Product card image sliders ----
     document.querySelectorAll(".product-img-holder[data-product]").forEach(holder => {
         const key = holder.dataset.product;
-        const images = PRODUCTS[key] && PRODUCTS[key].images;
-        if (!images || images.length === 0) return;
+        const images = (typeof PRODUCTS !== "undefined" && PRODUCTS[key] && PRODUCTS[key].images) || [];
+
+        if (images.length === 0) return;
 
         holder.dataset.index = 0;
         const img = holder.querySelector(".product-slide-img");
@@ -62,14 +69,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// ============================================
+// Product card image navigation
+// ============================================
 function cardChangeImage(btn) {
     const holder = btn.closest(".product-img-holder");
-    const key = holder.dataset.product;
-    const images = PRODUCTS[key] && PRODUCTS[key].images;
-    if (!images || images.length <= 1) return;
+    if (!holder) return;
 
-    let idx = parseInt(holder.dataset.index || "0");
-    const dir = parseInt(btn.dataset.dir);
+    const key = holder.dataset.product;
+    const images = (typeof PRODUCTS !== "undefined" && PRODUCTS[key] && PRODUCTS[key].images) || [];
+    if (images.length <= 1) return;
+
+    let idx = parseInt(holder.dataset.index || "0", 10);
+    const dir = parseInt(btn.dataset.dir, 10);
     idx = (idx + dir + images.length) % images.length;
     holder.dataset.index = idx;
 
@@ -77,35 +89,85 @@ function cardChangeImage(btn) {
     if (img) img.src = images[idx];
 }
 
+// ============================================
+// Quick Order: ربط اسم المنتج بالقيمة الحقيقية في الـ select
+// (الطريقة القديمة كانت بتقارن نصوص عربية وبتفشل)
+// ============================================
+const PRODUCT_SELECT_MAPPING = {
+    "مج مخصص":         "مج سيراميك عادي",
+    "مج سيراميك":      "مج سيراميك عادي",
+    "مج سحري":         "مج سحري",
+    "استيكرات مخصصة":  "شيت استيكرات A4",
+    "استيكرات":        "شيت استيكرات A4",
+    "استيك تخرج":      "استيك تخرج مخصص",
+    "استيك تخرج مخصص": "استيك تخرج مخصص",
+    "هودي":            "هودي شتوي مطبوع",
+    "هودي مطبوع":      "هودي شتوي مطبوع"
+};
+
 function quickOrder(productName) {
     const selectElem = document.getElementById("custProduct");
-    for (let i = 0; i < selectElem.options.length; i++) {
-        if (selectElem.options[i].value.includes(productName) || productName.includes(selectElem.options[i].value)) {
-            selectElem.selectedIndex = i;
-            break;
-        }
+    if (!selectElem) return;
+
+    // 1) جرّب mapping المباشر
+    let targetValue = PRODUCT_SELECT_MAPPING[productName];
+
+    // 2) لو مفيش mapping، جرّب مطابقة مباشرة مع أي option
+    if (!targetValue) {
+        const options = Array.from(selectElem.options);
+        const match = options.find(o => o.value === productName);
+        if (match) targetValue = match.value;
     }
-    document.getElementById("custQty").value = 1;
+
+    // 3) جرّب includes كحل أخير
+    if (!targetValue) {
+        const options = Array.from(selectElem.options);
+        const match = options.find(o =>
+            o.value && (o.value.includes(productName) || productName.includes(o.value))
+        );
+        if (match) targetValue = match.value;
+    }
+
+    if (targetValue) {
+        selectElem.value = targetValue;
+    }
+
+    const qtyInput = document.getElementById("custQty");
+    if (qtyInput) qtyInput.value = 1;
+
     openOrderModal();
 }
 
+// ============================================
+// Order from calculator
+// ============================================
 function orderFromCalculator() {
-    const productKey = document.getElementById("calcProduct").value;
-    const qty = document.getElementById("calcQty").value;
+    const calcProductEl = document.getElementById("calcProduct");
+    const calcQtyEl = document.getElementById("calcQty");
+    if (!calcProductEl || !calcQtyEl) return;
+
+    const productKey = calcProductEl.value;
+    const qty = calcQtyEl.value;
 
     const productMapping = {
-        "mug-regular": "مج سيراميك عادي",
-        "mug-magic": "مج سحري",
-        "stickers-pack": "شيت استيكرات A4",
+        "mug-regular":    "مج سيراميك عادي",
+        "mug-magic":      "مج سحري",
+        "stickers-pack":  "شيت استيكرات A4",
         "sticker-single": "استيكر فردي داي-كت",
-        "hoodie": "هودي شتوي مطبوع",
-        "graduation": "استيك تخرج"
+        "hoodie":         "هودي شتوي مطبوع",
+        "graduation":     "استيك تخرج"
     };
 
     const modalProductValue = productMapping[productKey] || "";
+    const selectElem = document.getElementById("custProduct");
+    const qtyInput = document.getElementById("custQty");
 
-    document.getElementById("custProduct").value = modalProductValue;
-    document.getElementById("custQty").value = qty;
+    if (selectElem && modalProductValue) {
+        selectElem.value = modalProductValue;
+    }
+    if (qtyInput) {
+        qtyInput.value = qty;
+    }
 
     openOrderModal();
 }
